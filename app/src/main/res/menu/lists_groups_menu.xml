@@ -6,7 +6,7 @@
     <item
         android:id="@+id/search_action"
         android:icon="@android:drawable/ic_menu_search"
-        android:title="Search"
+        android:title="@string/search"
         app:actionViewClass="androidx.appcompat.widget.SearchView"
         app:showAsAction="always" />
 
@@ -14,12 +14,12 @@
     <item
         android:id="@+id/filter_action"
         android:icon="@android:drawable/ic_menu_sort_alphabetically"
-        android:title="Filter" />
+        android:title="@string/filter" />
 
     <!--  More  -->
     <item
         android:id="@+id/more_action"
         android:icon="@android:drawable/ic_menu_more"
-        android:title="More" />
+        android:title="@string/more" />
 
 </menu>

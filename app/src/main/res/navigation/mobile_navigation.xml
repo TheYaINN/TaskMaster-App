@@ -7,25 +7,33 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="de.joachimsohn.ui.app.home.HomeFragment"
+        android:name="de.taskmaster.ui.app.home.HomeFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/navigation_list"
-        android:name="de.joachimsohn.ui.app.lists.ListsFragment"
+        android:name="de.taskmaster.ui.app.list.ListFragment"
         android:label="@string/title_list"
-        tools:layout="@layout/fragment_list" />
+        tools:layout="@layout/fragment_list">
+        <action
+            android:id="@+id/action_navigation_list_to_listEditorFragment"
+            app:destination="@id/list_editor" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_group"
-        android:name="de.joachimsohn.ui.app.groups.GroupsFragment"
+        android:name="de.taskmaster.ui.app.group.GroupsFragment"
         android:label="@string/title_group"
-        tools:layout="@layout/fragment_list" />
+        tools:layout="@layout/fragment_list">
+        <action
+            android:id="@+id/action_navigation_group_to_groupEditorFragment"
+            app:destination="@id/group_editor" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_profile"
-        android:name="de.joachimsohn.ui.app.profile.ProfileFragment"
+        android:name="de.taskmaster.ui.app.profile.ProfileFragment"
         android:label="@string/title_profile"
         tools:layout="@layout/fragment_profile_private">
         <action
@@ -34,16 +42,51 @@
         <action
             android:id="@+id/action_navigation_profile_to_notificationSettings"
             app:destination="@id/notification_settings" />
+        <action
+            android:id="@+id/action_navigation_profile_to_publicProfileFragment"
+            app:destination="@id/publicProfileFragment" />
     </fragment>
     <fragment
         android:id="@+id/accountSettings"
-        android:name="de.joachimsohn.ui.app.profile.AccountSettings"
+        android:name="de.taskmaster.ui.app.profile.AccountSettingsFragment"
         android:label="AccountSettings"
-        tools:layout="@layout/fragment_account_settings" />
+        tools:layout="@layout/fragment_profile_edit" />
     <fragment
         android:id="@+id/notification_settings"
-        android:name="de.joachimsohn.ui.app.profile.NotificationSettings"
+        android:name="de.taskmaster.ui.app.profile.NotificationSettingsFragment"
         android:label="NotificationSettings"
         tools:layout="@layout/fragment_notification" />
+    <fragment
+        android:id="@+id/list_editor"
+        android:name="de.taskmaster.ui.app.list.editor.ListEditorFragment"
+        android:label="ListEditorFragment"
+        tools:layout="@layout/fragment_list_edit">
+        <action
+            android:id="@+id/action_list_editor_to_repeatingEventFragment"
+            app:destination="@id/repeatingEventFragment" />
+        <action
+            android:id="@+id/action_list_editor_to_mapsFragment"
+            app:destination="@id/mapsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/group_editor"
+        android:name="de.taskmaster.ui.app.group.editor.GroupEditorFragment"
+        android:label="GroupEditorFragment"
+        tools:layout="@layout/fragment_group_edit" />
+    <fragment
+        android:id="@+id/publicProfileFragment"
+        android:name="de.taskmaster.ui.app.profile.PublicProfileFragment"
+        android:label="PublicProfileFragment"
+        tools:layout="@layout/fragment_profile_public" />
+    <fragment
+        android:id="@+id/repeatingEventFragment"
+        android:name="de.taskmaster.ui.app.list.editor.subeditors.RepeatingEventFragment"
+        android:label="RepeatingEventFragment"
+        tools:layout="@layout/component_repeating" />
+    <fragment
+        android:id="@+id/mapsFragment"
+        android:name="de.taskmaster.ui.app.list.editor.subeditors.MapsFragment"
+        android:label="fragment_maps"
+        tools:layout="@layout/fragment_maps" />
 
 </navigation>

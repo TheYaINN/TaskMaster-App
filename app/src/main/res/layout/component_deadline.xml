@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="model"
+            type="de.taskmaster.model.data.MyList" />
+
+        <variable
+            name="presenter"
+            type="de.taskmaster.model.binding.ListEditorPresenter" />
+    </data>
+
+    <RelativeLayout
+        android:id="@+id/component_deadline"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/top"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="6dp"
+                android:src="@drawable/calendar" />
+
+            <TextView
+                android:id="@+id/deadline_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/no_deadline" />
+
+            <TextView
+                android:id="@+id/edit_deadline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{presenter::toggleView}"
+                android:text="@string/edit"
+                android:textColor="@color/link" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lower_deadline"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/top"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <DatePicker
+                android:id="@+id/deadline_picker"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:calendarViewShown="false"
+                android:datePickerMode="spinner" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/date_today"
+                    style="@style/AppTheme"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/today" />
+
+                <Button
+                    android:id="@+id/date_tomorrow"
+                    style="@style/AppTheme"
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/tomorrow" />
+
+                <Button
+                    android:id="@+id/date_next_week"
+                    style="@style/AppTheme"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/next_week" />
+
+                <Button
+                    android:id="@+id/reset"
+                    style="@style/AppTheme"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/reset" />
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+</layout>

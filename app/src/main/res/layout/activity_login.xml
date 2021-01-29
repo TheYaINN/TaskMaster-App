@@ -12,7 +12,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="32dp"
-        android:text="TaskMaster"
+        android:text="@string/application_name"
         android:textAlignment="center"
         android:textSize="@dimen/title" />
 
@@ -22,7 +22,6 @@
         android:layout_below="@id/textView"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
         android:layout_marginTop="56dp"
         app:cardCornerRadius="15dp"
         app:cardElevation="12dp"
@@ -33,26 +32,41 @@
             android:layout_height="wrap_content"
             android:layout_margin="16dp">
 
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/tabLayout"
+            <FrameLayout
+                android:id="@+id/indicator_layout"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentEnd="true"
-                app:tabGravity="fill"
-                app:tabMaxWidth="0dp"
-                app:tabMode="fixed"
-                app:tabTextColor="@color/colorPrimaryDark" />
+                android:clipToPadding="false">
+
+                <View
+                    android:id="@+id/tab_indicator"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/gradient_bg" />
+
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tabLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/tab_bg"
+                    app:tabGravity="fill"
+                    app:tabIndicatorColor="@null"
+                    app:tabMaxWidth="0dp"
+                    app:tabMode="fixed"
+                    app:tabRippleColor="@null"
+                    app:tabTextColor="@color/Secondary" />
+
+
+            </FrameLayout>
 
             <androidx.viewpager.widget.ViewPager
                 android:id="@+id/viewPager"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/tabLayout"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentBottom="true" />
+                android:layout_below="@id/indicator_layout"
+                android:layout_marginTop="16dp" />
         </RelativeLayout>
+
     </androidx.cardview.widget.CardView>
 
 
