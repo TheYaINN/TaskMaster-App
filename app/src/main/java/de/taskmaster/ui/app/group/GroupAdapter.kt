@@ -18,11 +18,11 @@ class GroupAdapter : RecyclerView.Adapter<GroupAdapter.GroupViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: GroupViewHolder, position: Int) {
-        TODO("Not yet implemented")
+       
     }
 
     override fun getItemCount(): Int {
-        TODO("Not yet implemented")
+        return 0
     }
 
     class GroupViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
