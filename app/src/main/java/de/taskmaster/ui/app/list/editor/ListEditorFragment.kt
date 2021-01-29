@@ -1,11 +1,10 @@
 package de.taskmaster.ui.app.list.editor
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
-import android.widget.Button
+import android.view.ViewGroup
 import android.widget.DatePicker
-import android.widget.LinearLayout
-import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import de.taskmaster.R
 import de.taskmaster.databinding.FragmentListEditBinding
@@ -17,51 +16,19 @@ import java.time.LocalDateTime
 
 class ListEditorFragment : SubFragment(R.layout.fragment_list_edit), ListEditorContract.View {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val fragmentBinding = DataBindingUtil.setContentView<FragmentListEditBinding>(requireActivity(), R.layout.fragment_list_edit)
         fragmentBinding.presenter = ListEditorPresenter(this, requireContext())
         fragmentBinding.model = MyList()
-        super.onCreate(savedInstanceState)
+        return super.onCreateView(inflater, container, savedInstanceState)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        //TODO: refactor
-        val picker = view.findViewById<DatePicker>(R.id.deadline_picker)
-
-        view.findViewById<Button>(R.id.date_today).setOnClickListener {
-            val current = LocalDateTime.now()
-            picker.updateDate(current.year, current.monthValue, current.dayOfMonth)
-        }
-        view.findViewById<Button>(R.id.date_tomorrow).setOnClickListener {
-            val tomorrow = LocalDateTime.now().plusDays(1L)
-            picker.updateDate(tomorrow.year, tomorrow.monthValue, tomorrow.dayOfMonth)
-        }
-        view.findViewById<Button>(R.id.date_next_week).setOnClickListener {
-            val nextWeek = LocalDateTime.now().plusDays(7L)
-            picker.updateDate(nextWeek.year, nextWeek.monthValue, nextWeek.dayOfMonth)
-        }
-
-        val test = view.findViewById<LinearLayout>(R.id.place_linearLayout)
-        test.addView(TextView(context).apply { text = "FICKEEEEN" })
+    override fun getLayoutView(): ListEditorContract.View {
+        return requireView() as ListEditorContract.View
     }
 
-    override fun toggle(caller: Int) {
-        val view = requireView()
-        val layoutID = R.id::class.java.fields.find { it.name == "lower_$caller" }?.get(this) ?: error("Could not access field")
-        val toggle = view.findViewById<TextView>(caller)
-        toggle.setOnClickListener {
-            val pickerLayout = view.findViewById<View>(layoutID as Int)
-            pickerLayout.visibility = when (pickerLayout.visibility) {
-                View.GONE -> {
-                    toggle.text = getString(R.string.select)
-                    View.VISIBLE
-                }
-                View.VISIBLE -> {
-                    toggle.text = getString(R.string.edit)
-                    View.GONE
-                }
-                else -> error("not supposed to happen")
-            }
-        }
+    override fun setDate(daysAhead: Int) {
+        val current = LocalDateTime.now().plusDays(daysAhead.toLong())
+        requireView().findViewById<DatePicker>(R.id.deadline_picker).updateDate(current.year, current.monthValue, current.dayOfMonth)
     }
 }

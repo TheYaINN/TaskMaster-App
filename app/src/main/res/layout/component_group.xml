@@ -4,6 +4,10 @@
     <data>
 
         <variable
+            name="model"
+            type="de.taskmaster.model.data.MyList" />
+
+        <variable
             name="presenter"
             type="de.taskmaster.model.binding.ListEditorPresenter" />
     </data>

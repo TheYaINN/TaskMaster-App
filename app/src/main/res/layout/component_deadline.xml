@@ -32,14 +32,16 @@
             <TextView
                 android:id="@+id/deadline_title"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:gravity="center_vertical"
                 android:text="@string/no_deadline" />
 
             <TextView
                 android:id="@+id/edit_deadline"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
                 android:onClick="@{presenter::toggleView}"
                 android:text="@string/edit"
                 android:textColor="@color/link" />
@@ -51,7 +53,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/top"
             android:orientation="vertical"
-            android:visibility="gone">
+            android:visibility="visible">
 
             <DatePicker
                 android:id="@+id/deadline_picker"
@@ -70,15 +72,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:onClick="@{() -> model.update()}"
                     android:text="@string/today" />
 
                 <Button
                     android:id="@+id/date_tomorrow"
                     style="@style/AppTheme"
-
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:onClick="@{() -> model.update()}"
                     android:text="@string/tomorrow" />
 
                 <Button
@@ -87,6 +90,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:onClick="@{() -> model.update()}"
                     android:text="@string/next_week" />
 
                 <Button

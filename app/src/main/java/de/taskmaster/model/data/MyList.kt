@@ -17,8 +17,10 @@ class MyList : ViewModel() {
 
     var place: String? = null
     var repeat: String? = null
+
     fun update() {
         println("SOUTING DU BITCH")
+        _deadline.postValue(LocalDate.now().plusDays(7))
     }
 
 }

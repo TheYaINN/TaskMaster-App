@@ -49,6 +49,7 @@
                         android:text="@{model.title}" />
 
                     <include
+                        android:id="@+id/component_deadline"
                         layout="@layout/component_deadline"
                         app:model="@{model}"
                         app:presenter="@{presenter}" />
@@ -81,15 +82,21 @@
 
                     <include
                         android:id="@+id/component_place"
-                        layout="@layout/component_place" />
+                        layout="@layout/component_place"
+                        app:model="@{model}"
+                        app:presenter="@{presenter}" />
 
                     <include
                         android:id="@+id/component_repeating"
-                        layout="@layout/component_repeating" />
+                        layout="@layout/component_repeating"
+                        app:model="@{model}"
+                        app:presenter="@{presenter}" />
 
                     <include
                         android:id="@+id/component_group"
-                        layout="@layout/component_group" />
+                        layout="@layout/component_group"
+                        app:model="@{model}"
+                        app:presenter="@{presenter}" />
 
                     <EditText
                         android:id="@+id/tags"
