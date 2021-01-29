@@ -53,7 +53,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/top"
             android:orientation="vertical"
-            android:visibility="visible">
+            android:visibility="gone">
 
             <DatePicker
                 android:id="@+id/deadline_picker"

@@ -13,7 +13,7 @@ import de.taskmaster.R
 
 abstract class SubFragment(private val resourceID: Int) : Fragment(), Savable {
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         (activity as AppActivity).supportActionBar?.apply {
             setDisplayHomeAsUpEnabled(true)
             show()

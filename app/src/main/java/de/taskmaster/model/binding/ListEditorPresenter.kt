@@ -5,9 +5,9 @@ import android.view.View
 import android.widget.TextView
 import de.taskmaster.R
 
-class ListEditorPresenter(val view: ListEditorContract.View, val context: Context) : ListEditorContract.Presenter {
+class ListEditorPresenter(val view: View, val context: Context) {
 
-    override fun toggleView(view: View) {
+    fun toggleView(view: View) {
         val edit = (view as TextView)
         val lowerLayout = ((view.parent as View).parent as View).findViewById<View>(resolveID(view.id))
         lowerLayout.visibility = when (lowerLayout.visibility) {
@@ -31,10 +31,6 @@ class ListEditorPresenter(val view: ListEditorContract.View, val context: Contex
             R.id.edit_place -> R.id.lower_place
             else -> error("ID could not be resolved")
         }
-    }
-
-    override fun setDate(view: View) {
-        this.view.setDate(0)
     }
 
 }
