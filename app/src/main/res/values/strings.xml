@@ -31,12 +31,11 @@
     <string name="edit">Edit</string>
     <string name="no_deadline">Deadline is not set</string>
     <string name="deadline_placeholders">Deadline: %1$d/%2$d/%3$d</string>
+    <string name="select">Select</string>
+    <string name="reset">Reset</string>
+    <string name="no_place">No place</string>
+    <string name="no_group">No Group</string>
     <string name="today">Today</string>
     <string name="tomorrow">Tomorrow</string>
     <string name="next_week">Next Week</string>
-    <string name="select">Select</string>
-    <string name="reset">Reset</string>
-    <string name="never">Never</string>
-    <string name="no_place">No place</string>
-    <string name="no_group">No Group</string>
 </resources>

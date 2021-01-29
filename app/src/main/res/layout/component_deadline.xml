@@ -5,7 +5,7 @@
 
         <variable
             name="model"
-            type="de.taskmaster.model.data.MyList" />
+            type="de.taskmaster.model.data.TaskList" />
 
         <variable
             name="presenter"
@@ -35,7 +35,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
-                android:text="@string/no_deadline" />
+                android:text="@{model.deadline.toString()}" />
 
             <TextView
                 android:id="@+id/edit_deadline"
@@ -72,7 +72,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:onClick="@{() -> model.update()}"
+                    android:onClick="@{() -> model.setDeadline(0)}"
                     android:text="@string/today" />
 
                 <Button
@@ -81,7 +81,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:onClick="@{() -> model.update()}"
+                    android:onClick="@{() -> model.setDeadline(1)}"
                     android:text="@string/tomorrow" />
 
                 <Button
@@ -90,7 +90,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:onClick="@{() -> model.update()}"
+                    android:onClick="@{() -> model.setDeadline(7)}"
                     android:text="@string/next_week" />
 
                 <Button

@@ -5,7 +5,7 @@
 
         <variable
             name="model"
-            type="de.taskmaster.model.data.MyList" />
+            type="de.taskmaster.model.data.TaskList" />
 
         <variable
             name="presenter"

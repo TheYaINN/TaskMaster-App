@@ -6,7 +6,7 @@
 
         <variable
             name="model"
-            type="de.taskmaster.model.data.MyList" />
+            type="de.taskmaster.model.data.TaskList" />
 
         <variable
             name="presenter"
@@ -78,7 +78,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/description"
-                        android:inputType="textMultiLine" />
+                        android:inputType="textMultiLine"
+                        android:text="@{model.description}" />
 
                     <include
                         android:id="@+id/component_place"
@@ -105,7 +106,8 @@
                         android:layout_marginTop="12dp"
                         android:ems="10"
                         android:hint="@string/tags"
-                        android:inputType="text" />
+                        android:inputType="text"
+                        android:text="@{model.tags}" />
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>

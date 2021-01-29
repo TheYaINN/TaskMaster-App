@@ -4,8 +4,12 @@
     <data>
 
         <variable
+            name="repeat"
+            type="de.taskmaster.model.data.Repeat" />
+
+        <variable
             name="model"
-            type="de.taskmaster.model.data.MyList" />
+            type="de.taskmaster.model.data.TaskList" />
 
         <variable
             name="presenter"
@@ -34,7 +38,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
-                android:text="@string/never" />
+                android:text="@{model.repeat.text}" />
 
             <TextView
                 android:id="@+id/edit_repeating"
@@ -53,48 +57,53 @@
             android:layout_height="match_parent"
             android:layout_below="@+id/top"
             android:layout_margin="24dp"
+            android:checkedButton="@id/never"
             android:visibility="gone">
 
             <RadioButton
                 android:id="@+id/never"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:checked="true"
-                android:text="@string/never"
+                android:onClick="@{() -> model.setRepeat(repeat.NEVER)}"
+                android:text="Never"
                 android:textAlignment="center"
-                android:textSize="20sp" />
+                android:textSize="@dimen/text" />
 
             <RadioButton
                 android:id="@+id/daily"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:onClick="@{() -> model.setRepeat(repeat.DAILY)}"
                 android:text="Daily"
                 android:textAlignment="center"
-                android:textSize="20dp" />
+                android:textSize="@dimen/text" />
 
             <RadioButton
                 android:id="@+id/weekly"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:onClick="@{() -> model.setRepeat(repeat.WEEKLY)}"
                 android:text="Weekly"
                 android:textAlignment="center"
-                android:textSize="20dp" />
+                android:textSize="@dimen/text" />
 
             <RadioButton
                 android:id="@+id/monthly"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:onClick="@{() -> model.setRepeat(repeat.MONTHLY)}"
                 android:text="Monthly"
                 android:textAlignment="center"
-                android:textSize="20dp" />
+                android:textSize="@dimen/text" />
 
             <RadioButton
                 android:id="@+id/yearly"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:onClick="@{() -> model.setRepeat(repeat.YEARLY)}"
                 android:text="Yearly"
                 android:textAlignment="center"
-                android:textSize="20dp" />
+                android:textSize="@dimen/text" />
 
         </RadioGroup>
     </RelativeLayout>
