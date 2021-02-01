@@ -3,9 +3,9 @@ package de.taskmaster.ui.login
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.CheckBox
 import android.widget.FrameLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
@@ -15,7 +15,7 @@ import com.google.android.material.tabs.TabLayout.Tab
 import com.google.android.material.tabs.TabLayout.TabLayoutOnPageChangeListener
 import de.taskmaster.R
 import de.taskmaster.auth.LocalAuthHelper
-import de.taskmaster.db.ServerConnector
+import de.taskmaster.model.data.User
 import de.taskmaster.ui.app.AppActivity
 
 
@@ -26,17 +26,12 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-        if (LocalAuthHelper.login(LocalAuthHelper.getLoginInformation(applicationContext), false, applicationContext)) {
+        if (LocalAuthHelper.onStartUp(applicationContext)) {
             startMainActivity()
+        } else {
+            setupUI()
         }
-        setupUI()
     }
-
-    private fun startMainActivity() {
-        startActivity(Intent(this, AppActivity::class.java))
-        finish()
-    }
-
 
     private fun setupUI() {
         //TODO: refactor the shit out of this pls!
@@ -91,17 +86,21 @@ class LoginActivity : AppCompatActivity() {
     }
 
     fun tryLogin(view: View) {
-        val username = view.findViewById<TextView>(R.id.username_email).text.toString()
-        val password = view.findViewById<TextView>(R.id.password).text.toString()
-        val rememberUser = view.findViewById<CheckBox>(R.id.remember_password).isChecked
+        val username = findViewById<TextView>(R.id.username_email)
+        val password = findViewById<TextView>(R.id.password)
+        //val rememberUser = view.findViewById<CheckBox>(R.id.remember_password).isChecked
 
-        ServerConnector.INSTANCE.postRequest(username, password)
-
-        if (LocalAuthHelper.login(username to password, rememberUser, applicationContext)) {
+        if (LocalAuthHelper.login(User(username.text.toString(), password.text.toString()), false, applicationContext)) {
             startMainActivity()
         } else {
-            //TODO: show some error on UI
+            password.text = null
+            Toast.makeText(applicationContext, getString(R.string.login_failed), Toast.LENGTH_LONG).show()
         }
+    }
+
+    private fun startMainActivity() {
+        startActivity(Intent(this, AppActivity::class.java))
+        finish()
     }
 
 }

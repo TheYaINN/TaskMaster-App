@@ -4,7 +4,7 @@
     <string name="login_button">Login</string>
     <string name="login_forgotPassword">Forgot Password</string>
     <string name="login_register">Register</string>
-    <string name="hint_username_email">Username / E-mail</string>
+    <string name="hint_username">Username</string>
     <string name="hint_password">Password</string>
     <string name="title_profile">Profile</string>
     <string name="title_group">Groups</string>
@@ -38,4 +38,7 @@
     <string name="today">Today</string>
     <string name="tomorrow">Tomorrow</string>
     <string name="next_week">Next Week</string>
+    <string name="remember_me">Remember me</string>
+    <string name="login_failed">Login failed. Username / Email or password is wrong.</string>
+    <string name="see_profile">See Profile</string>
 </resources>

@@ -4,7 +4,7 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="gap_small">10dp</dimen>
     <dimen name="title">38sp</dimen>
-    <dimen name="subTitle">26sp</dimen>
+    <dimen name="subtitle">26sp</dimen>
     <dimen name="text">17sp</dimen>
     <dimen name="profile_start_padding">4sp</dimen>
 </resources>

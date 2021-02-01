@@ -30,6 +30,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ContentDescription"
                 tools:src="@tools:sample/avatars" />
 
             <TextView
@@ -37,7 +38,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:text="MaxMuster1337"
                 android:textSize="20sp"
                 app:layout_constraintStart_toEndOf="@id/profile_picture"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -48,7 +48,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:clickable="true"
-                android:text="See Profile"
+                android:text="@string/see_profile"
                 android:textColor="@color/link"
                 android:textSize="14sp"
                 app:layout_constraintStart_toEndOf="@id/profile_picture"
