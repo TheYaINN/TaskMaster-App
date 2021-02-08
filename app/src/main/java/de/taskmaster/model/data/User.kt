@@ -8,7 +8,7 @@ class User(val username: String, val password: String) {
 
     var email: String? = null
 
-    var homeAddress: String? = null
+    var homeAddress: Address? = null
 
     var workAddress: String? = null
 }

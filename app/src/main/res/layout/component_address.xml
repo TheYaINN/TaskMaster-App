@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="model"
+            type="de.taskmaster.model.data.User" />
+
+        <variable
+            name="text"
+            type="String" />
+
+        <variable
+            name="presenter"
+            type="de.taskmaster.model.binding.RegisterPresenter" />
+    </data>
+
+
+    <RelativeLayout
+        android:id="@+id/component_address"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/top"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="6dp"
+                android:src="@drawable/place_filled" />
+
+            <TextView
+                android:id="@+id/address_title"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="@{text}" />
+
+            <TextView
+                android:id="@+id/edit_address"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:onClick="@{presenter::toggleView}"
+                android:text="@string/edit"
+                android:textColor="@color/link" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lower_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/top"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Street"
+                android:text="@{model.homeAddress.street}" />
+
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Number"
+                android:text="@{model.homeAddress.number}" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Zip code"
+                android:text="@{model.homeAddress.zipCode}" />
+
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="City"
+                android:text="@{model.homeAddress.city}" />
+
+
+        </LinearLayout>
+    </RelativeLayout>
+</layout>

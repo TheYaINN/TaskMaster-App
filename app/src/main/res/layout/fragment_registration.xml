@@ -1,78 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout
+    <data>
+
+        <variable
+            name="model"
+            type="de.taskmaster.model.data.User" />
+
+        <variable
+            name="presenter"
+            type="de.taskmaster.model.binding.RegisterPresenter" />
+    </data>
+
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="match_parent">
 
-        <EditText
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:hint="Firstname"
-            android:inputType="textPersonName"
-            android:maxLines="1" />
+            android:layout_height="match_parent">
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:hint="Lastname"
-            android:inputType="textPersonName"
-            android:maxLines="1" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintTop_toTopOf="parent">
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:hint="Username"
-            android:inputType="text"
-            android:maxLines="1" />
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:hint="Firstname"
+                    android:inputType="textPersonName"
+                    android:maxLines="1"
+                    android:text="@{model.firstname}" />
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:hint="Password"
-            android:inputType="textPassword"
-            android:maxLines="1" />
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:hint="Lastname"
+                    android:inputType="textPersonName"
+                    android:maxLines="1"
+                    android:text="@{model.lastname}" />
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:hint="E-Mail"
-            android:inputType="textEmailAddress"
-            android:maxLines="1" />
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:hint="Username"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:text="@{model.username}" />
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:hint="Home Address"
-            android:inputType="textPostalAddress"
-            android:maxLines="1" />
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:hint="Password"
+                    android:inputType="textPassword"
+                    android:maxLines="1"
+                    android:text="@{model.password}" />
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:hint="Work Address"
-            android:inputType="textPostalAddress"
-            android:maxLines="1" />
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:hint="E-Mail"
+                    android:inputType="textEmailAddress"
+                    android:maxLines="1"
+                    android:text="@{model.email}" />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginBottom="8dp"
-            android:backgroundTint="@color/Secondary"
-            android:text="@string/login_register" />
 
-    </LinearLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+                <include
+                    layout="@layout/component_address"
+                    app:model="@{model}"
+                    app:presenter="@{presenter}"
+                    app:text="@{presenter.home}" />
+
+                <include
+                    layout="@layout/component_address"
+                    app:model="@{model}"
+                    app:presenter="@{presenter}"
+                    app:text="@{presenter.work}" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="8dp"
+                    android:backgroundTint="@color/Secondary"
+                    android:text="@string/login_register" />
+
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</layout>

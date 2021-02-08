@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.View
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -13,7 +12,7 @@ import de.taskmaster.ui.app.TopLevelFragment
 
 class ListFragment : TopLevelFragment(R.layout.fragment_list) {
 
-    private val viewModel = ViewModelProvider(this).get(ListFragmentViewModel::class.java)
+//    private val viewModel = ViewModelProvider(this).get(ListFragmentViewModel::class.java)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         view.findViewById<FloatingActionButton>(R.id.add_item).setOnClickListener {
@@ -22,7 +21,7 @@ class ListFragment : TopLevelFragment(R.layout.fragment_list) {
         val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerview)
 
         val listAdapter = ListAdapter()
-        viewModel.lists.observe(requireActivity(), listAdapter::setData)
+        // viewModel.lists.observe(requireActivity(), listAdapter::setData)
         recyclerView.adapter = listAdapter
     }
 
