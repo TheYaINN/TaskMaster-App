@@ -2,10 +2,9 @@ package de.taskmaster.model.data
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import java.time.LocalDate
 
-class TaskList : ViewModel() {
+class TaskList {
 
     private val _title = MutableLiveData("")
     val title: LiveData<String> = _title

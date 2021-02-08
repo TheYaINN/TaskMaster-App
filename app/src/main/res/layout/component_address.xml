@@ -5,7 +5,7 @@
 
         <variable
             name="model"
-            type="de.taskmaster.model.data.User" />
+            type="de.taskmaster.ui.login.RegistrationViewModel" />
 
         <variable
             name="text"
@@ -64,27 +64,27 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Street"
-                android:text="@{model.homeAddress.street}" />
+                android:text="@{model.user.homeAddress.street}" />
 
 
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Number"
-                android:text="@{model.homeAddress.number}" />
+                android:text="@{model.user.homeAddress.number}" />
 
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Zip code"
-                android:text="@{model.homeAddress.zipCode}" />
+                android:text="@{model.user.homeAddress.zipCode}" />
 
 
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="City"
-                android:text="@{model.homeAddress.city}" />
+                android:text="@{model.user.homeAddress.city}" />
 
 
         </LinearLayout>
