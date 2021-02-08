@@ -6,9 +6,11 @@ import android.view.ViewGroup
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import de.taskmaster.R
+import de.taskmaster.model.data.TaskList
 
 class ListAdapter : RecyclerView.Adapter<ListAdapter.ListViewHolder>() {
 
+    private var data: MutableList<TaskList> = mutableListOf()
 
     //TODO: nothing has been done in here, just added so the code works for now
     private lateinit var listView: CardView
@@ -25,6 +27,12 @@ class ListAdapter : RecyclerView.Adapter<ListAdapter.ListViewHolder>() {
 
     override fun getItemCount(): Int {
         return 0
+    }
+
+    fun setData(newData: List<TaskList>) {
+        data.clear()
+        data.addAll(newData)
+        notifyDataSetChanged()
     }
 
     class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
