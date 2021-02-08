@@ -10,13 +10,14 @@ import de.taskmaster.R
 import de.taskmaster.databinding.FragmentRegistrationBinding
 import de.taskmaster.model.binding.RegistrationHandler
 import de.taskmaster.model.binding.ToggleEditableComponentHandler
+import de.taskmaster.ui.app.profile.UserViewModel
 
 class RegisterFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val fragmentBinding = DataBindingUtil.inflate<FragmentRegistrationBinding>(inflater, R.layout.fragment_registration, container, false)
         fragmentBinding.presenter = ToggleEditableComponentHandler(requireContext())
-        fragmentBinding.model = RegistrationViewModel()
+        fragmentBinding.model = UserViewModel()
         fragmentBinding.handler = RegistrationHandler()
         return fragmentBinding.root
     }

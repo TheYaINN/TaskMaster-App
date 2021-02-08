@@ -8,9 +8,7 @@ import androidx.fragment.app.Fragment
 
 open class TopLevelFragment(private val resourceId: Int) : Fragment() {
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         (activity as AppActivity).supportActionBar?.apply {
             setDisplayHomeAsUpEnabled(false)
         }

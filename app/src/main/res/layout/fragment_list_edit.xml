@@ -6,7 +6,7 @@
 
         <variable
             name="model"
-            type="de.taskmaster.model.data.TaskList" />
+            type="de.taskmaster.ui.app.list.editor.ListEditorViewModel" />
 
         <variable
             name="presenter"
@@ -46,7 +46,7 @@
                         android:hint="@string/title"
                         android:importantForAutofill="no"
                         android:inputType="textPersonName"
-                        android:text="@{model.title}" />
+                        android:text="@{model.taskList.title}" />
 
                     <include
                         android:id="@+id/component_deadline"
@@ -79,7 +79,7 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/description"
                         android:inputType="textMultiLine"
-                        android:text="@{model.description}" />
+                        android:text="@{model.taskList.description}" />
 
                     <include
                         android:id="@+id/component_place"
@@ -108,7 +108,7 @@
                         android:hint="@string/tags"
                         android:importantForAutofill="no"
                         android:inputType="text"
-                        android:text="@{model.tags}" />
+                        android:text="@{model.taskList.tags}" />
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>

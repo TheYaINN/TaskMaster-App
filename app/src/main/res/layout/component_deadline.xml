@@ -5,7 +5,7 @@
 
         <variable
             name="model"
-            type="de.taskmaster.model.data.TaskList" />
+            type="de.taskmaster.ui.app.list.editor.ListEditorViewModel" />
 
         <variable
             name="presenter"
@@ -35,7 +35,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
-                android:text="@{model.deadline.toString()}" />
+                android:text="@{model.taskList.deadline.toString()}" />
 
             <TextView
                 android:id="@+id/edit_deadline"

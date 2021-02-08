@@ -1,35 +1,27 @@
 package de.taskmaster.model.data
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import java.time.LocalDate
 
 class TaskList {
 
-    private val _title = MutableLiveData("")
-    val title: LiveData<String> = _title
+    val title: String = ""
 
-    private val _deadline = MutableLiveData(LocalDate.now())
-    val deadline: LiveData<LocalDate> = _deadline
+    /**
+     * is null when no deadline is set
+     */
+    var deadline: LocalDate? = null
 
-    private val _description = MutableLiveData("")
-    val description: LiveData<String> = _description
+    val description: String = ""
 
-    private val _tags = MutableLiveData("")
-    val tags: LiveData<String> = _tags
+    val tags: String = ""
 
-    private val _repeat = MutableLiveData(Repeat.DAILY)
-    val repeat: LiveData<Repeat> = _repeat
+    var repeat: Repeat = Repeat.NEVER
 
-    private val _group = MutableLiveData<List<Group>>(arrayListOf())
-    val group: LiveData<List<Group>> = _group
+    /**
+     * is null when not associated with any group
+     */
+    val group: Group? = null
 
-    fun setRepeat(value: Repeat) {
-        _repeat.postValue(value)
-    }
-
-    fun setDeadline(daysAhead: Int) {
-        _deadline.postValue(deadline.value!!.plusDays(daysAhead.toLong()))
-    }
+    val status: Status = Status.OPEN
 
 }

@@ -6,7 +6,7 @@
 
         <variable
             name="model"
-            type="de.taskmaster.ui.login.RegistrationViewModel" />
+            type="de.taskmaster.ui.app.profile.UserViewModel" />
 
         <variable
             name="presenter"
@@ -80,13 +80,13 @@
 
                 <include
                     layout="@layout/component_address"
-                    app:model="@{model}"
+                    app:model="@{model.user.homeAddress}"
                     app:presenter="@{presenter}"
                     app:text="@{presenter.home}" />
 
                 <include
                     layout="@layout/component_address"
-                    app:model="@{model}"
+                    app:model="@{model.user.workAddress}"
                     app:presenter="@{presenter}"
                     app:text="@{presenter.work}" />
 

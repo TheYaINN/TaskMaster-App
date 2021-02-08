@@ -7,7 +7,7 @@ import de.taskmaster.model.data.TaskList
 
 class ListFragmentViewModel : ViewModel() {
 
-    private val _lists = MutableLiveData<List<TaskList>>(arrayListOf(TaskList(), TaskList(), TaskList(), TaskList(), TaskList(), TaskList()))
+    private val _lists = MutableLiveData<List<TaskList>>(arrayListOf(TaskList(), TaskList()))
     val lists: LiveData<List<TaskList>> = _lists
 
 }

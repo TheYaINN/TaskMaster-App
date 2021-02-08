@@ -15,9 +15,6 @@ import de.taskmaster.ui.login.LoginActivity
 
 class ProfileFragment : TopLevelFragment(R.layout.fragment_profile_private) {
 
-    private lateinit var profileViewModel: ProfileViewModel
-    //TODO: implment this somehow profileViewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         view.findViewById<Button>(R.id.account_settings).setOnClickListener {
             findNavController().navigate(R.id.action_navigation_profile_to_accountSettings)
@@ -34,8 +31,7 @@ class ProfileFragment : TopLevelFragment(R.layout.fragment_profile_private) {
             findNavController().navigate(R.id.action_navigation_profile_to_publicProfileFragment)
         }
 
-        view.findViewById<TextView>(R.id.version).text =
-            "VERSION ${BuildConfig.VERSION_CODE} (${BuildConfig.VERSION_NAME})"
+        view.findViewById<TextView>(R.id.version).text = "VERSION ${BuildConfig.VERSION_CODE} (${BuildConfig.VERSION_NAME})"
 
     }
 
