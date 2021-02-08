@@ -13,10 +13,10 @@ class LocalAuthHelper {
         private const val passwordKey = "password"
 
         fun login(user: User, rememberUser: Boolean, context: Context): Boolean {
-            //FIXME
+            //TODO before sending anything to the server, the password should be hashed
             //val response = ServerConnector.INSTANCE.postRequest("login", userData.first, userData.second)
-            if (!user.username.isBlank()) {
-                if (rememberUser) {
+            if (user.username != null) {
+                if (rememberUser) { //TODO: this is not changed in the model when changed in the UI
                     saveLoginInformation(context, user)
                 }
                 return true
@@ -24,26 +24,24 @@ class LocalAuthHelper {
             return false
         }
 
-        //TODO: at this point only the hashed password should be saved
-        fun saveLoginInformation(context: Context, user: User) {
+
+        private fun saveLoginInformation(context: Context, user: User) {
             val sp = context.getSharedPreferences(preferencesKey, MODE_PRIVATE)
             val editor: SharedPreferences.Editor = sp.edit()
-            editor.putString("username", user.username)
-            editor.putString("password", user.password)
+            editor.putString(usernameKey, user.username)
+            editor.putString(passwordKey, user.password)
             editor.apply()
         }
 
-        fun getLoginInformation(context: Context): User {
+        private fun getLoginInformation(context: Context): User {
             val loginInformation = context.getSharedPreferences(preferencesKey, MODE_PRIVATE)
-            val username = loginInformation.getString(usernameKey, "")
-            val password = loginInformation.getString(passwordKey, "")
-            requireNotNull(username)
-            requireNotNull(password)
-            return User(username, password)
+            val user = User()
+            user.username = loginInformation.getString(usernameKey, null)
+            user.password = loginInformation.getString(passwordKey, null)
+            return user
         }
 
         fun onStartUp(context: Context): Boolean {
-            return false //TODO: remove this line only for testing purpose rn
             return login(getLoginInformation(context), false, context)
         }
 

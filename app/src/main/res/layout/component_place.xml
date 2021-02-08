@@ -9,7 +9,7 @@
 
         <variable
             name="presenter"
-            type="de.taskmaster.model.binding.ListEditorPresenter" />
+            type="de.taskmaster.model.binding.ToggleEditableComponentHandler" />
     </data>
 
     <RelativeLayout
@@ -49,8 +49,10 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/editable_component_lower"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
         </LinearLayout>
 

@@ -1,11 +1,8 @@
 package de.taskmaster.ui.login
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.FrameLayout
-import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
@@ -15,8 +12,7 @@ import com.google.android.material.tabs.TabLayout.Tab
 import com.google.android.material.tabs.TabLayout.TabLayoutOnPageChangeListener
 import de.taskmaster.R
 import de.taskmaster.auth.LocalAuthHelper
-import de.taskmaster.model.data.User
-import de.taskmaster.ui.app.AppActivity
+import de.taskmaster.ui.util.ActivityHelper
 
 
 class LoginActivity : AppCompatActivity() {
@@ -27,7 +23,7 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
         if (LocalAuthHelper.onStartUp(applicationContext)) {
-            startMainActivity()
+            ActivityHelper.startAppActivity(this)
         } else {
             setupUI()
         }
@@ -83,24 +79,6 @@ class LoginActivity : AppCompatActivity() {
             override fun onPageScrollStateChanged(state: Int) {}
 
         })
-    }
-
-    fun tryLogin(view: View) {
-        val username = findViewById<TextView>(R.id.username_email)
-        val password = findViewById<TextView>(R.id.password)
-        //val rememberUser = view.findViewById<CheckBox>(R.id.remember_password).isChecked
-
-        if (LocalAuthHelper.login(User(username.text.toString(), password.text.toString()), false, applicationContext)) {
-            startMainActivity()
-        } else {
-            password.text = null
-            Toast.makeText(applicationContext, getString(R.string.login_failed), Toast.LENGTH_LONG).show()
-        }
-    }
-
-    private fun startMainActivity() {
-        startActivity(Intent(this, AppActivity::class.java))
-        finish()
     }
 
 }

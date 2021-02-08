@@ -7,16 +7,16 @@ import java.time.LocalDate
 
 class TaskList : ViewModel() {
 
-    private val _title = MutableLiveData("Hier ist ein Titel")
+    private val _title = MutableLiveData("")
     val title: LiveData<String> = _title
 
     private val _deadline = MutableLiveData(LocalDate.now())
     val deadline: LiveData<LocalDate> = _deadline
 
-    private val _description = MutableLiveData("Eine Beschreibung")
+    private val _description = MutableLiveData("")
     val description: LiveData<String> = _description
 
-    private val _tags = MutableLiveData("Tag1, Tag2, Tag3")
+    private val _tags = MutableLiveData("")
     val tags: LiveData<String> = _tags
 
     private val _repeat = MutableLiveData(Repeat.DAILY)
@@ -25,13 +25,12 @@ class TaskList : ViewModel() {
     private val _group = MutableLiveData<List<Group>>(arrayListOf())
     val group: LiveData<List<Group>> = _group
 
-
     fun setRepeat(value: Repeat) {
         _repeat.postValue(value)
     }
 
-    fun setDeadline(days: Int) {
-        _deadline.postValue(LocalDate.now().plusDays(days.toLong()))
+    fun setDeadline(daysAhead: Int) {
+        _deadline.postValue(deadline.value!!.plusDays(daysAhead.toLong()))
     }
 
 }

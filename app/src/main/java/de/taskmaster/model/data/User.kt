@@ -1,6 +1,10 @@
 package de.taskmaster.model.data
 
-class User(val username: String, val password: String) {
+class User {
+
+    var username: String? = null
+
+    var password: String? = null
 
     var firstname: String? = null
 
@@ -10,5 +14,5 @@ class User(val username: String, val password: String) {
 
     var homeAddress: Address? = null
 
-    var workAddress: String? = null
+    var workAddress: Address? = null
 }

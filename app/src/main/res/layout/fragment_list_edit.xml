@@ -10,7 +10,7 @@
 
         <variable
             name="presenter"
-            type="de.taskmaster.model.binding.ListEditorPresenter" />
+            type="de.taskmaster.model.binding.ToggleEditableComponentHandler" />
     </data>
 
     <ScrollView

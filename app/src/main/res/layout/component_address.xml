@@ -13,7 +13,7 @@
 
         <variable
             name="presenter"
-            type="de.taskmaster.model.binding.RegisterPresenter" />
+            type="de.taskmaster.model.binding.ToggleEditableComponentHandler" />
     </data>
 
 
@@ -53,7 +53,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/lower_address"
+            android:id="@+id/editable_component_lower"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/top"
