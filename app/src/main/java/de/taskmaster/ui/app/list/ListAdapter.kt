@@ -26,6 +26,9 @@ class ListAdapter(private val context: Context) : RecyclerView.Adapter<ListAdapt
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
         holder.bind(data[position], context)
+        listView.setOnClickListener {
+            //TODO: findNavController().navigate(R.id.action_navigation_list_to_listEditorFragment)
+        }
     }
 
     override fun getItemCount(): Int {
