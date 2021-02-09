@@ -20,11 +20,10 @@ open class ToggleEditableComponentHandler(
                 edit.text = visibleText
                 View.VISIBLE
             }
-            View.VISIBLE -> {
+            else -> {
                 edit.text = hiddenText
                 View.GONE
             }
-            else -> error("not supposed to happen")
         }
     }
 

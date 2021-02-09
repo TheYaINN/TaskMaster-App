@@ -5,10 +5,6 @@
     <data>
 
         <variable
-            name="presenter"
-            type="de.taskmaster.model.binding.ToggleEditableComponentHandler" />
-
-        <variable
             name="addHandler"
             type="de.taskmaster.model.binding.AddressEditorHandler" />
 
@@ -45,7 +41,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
-                android:onClick="@{presenter::toggleView}"
+                android:onClick="@{addHandler::toggleView}"
                 android:text="@string/show"
                 android:textColor="@color/link" />
         </LinearLayout>
@@ -56,7 +52,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/top"
             android:orientation="vertical"
-            android:visibility="visible">
+            android:visibility="gone">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/items"
@@ -82,7 +78,7 @@
                         android:id="@+id/item_add_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:onClick="@{addHandler::toggleShit}"
+                        android:onClick="@{() -> addHandler.toggleAdd()}"
                         android:text="Add place"
                         android:textColor="@color/link" />
 
@@ -90,37 +86,42 @@
                         android:id="@+id/item_add_icon"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:onClick="@{addHandler::toggleShit}"
+                        android:onClick="@{() -> addHandler.toggleAdd()}"
                         android:src="@drawable/location_add"
                         tools:ignore="ContentDescription" />
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/item_editor"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:visibility="gone">
 
                     <EditText
+                        android:id="@+id/item_place_street"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Street"
                         android:inputType="textPostalAddress" />
 
                     <EditText
+                        android:id="@+id/item_place_number"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Number"
                         android:inputType="number" />
 
                     <EditText
+                        android:id="@+id/item_place_zip"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Zip code"
-                        android:inputType="textPostalAddress" />
+                        android:inputType="number" />
 
 
                     <EditText
+                        android:id="@+id/item_place_city"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="City"
@@ -131,6 +132,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="end"
                         android:layout_margin="8dp"
+                        android:onClick="@{() -> addHandler.save()}"
                         android:text="Save"
                         android:textColor="@color/link" />
 

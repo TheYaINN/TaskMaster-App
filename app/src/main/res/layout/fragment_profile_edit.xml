@@ -10,11 +10,6 @@
             type="de.taskmaster.ui.app.profile.UserViewModel" />
 
         <variable
-            name="presenter"
-            type="de.taskmaster.model.binding.ToggleEditableComponentHandler" />
-
-
-        <variable
             name="addHandler"
             type="de.taskmaster.model.binding.AddressEditorHandler" />
     </data>
@@ -55,8 +50,7 @@
 
         <include
             layout="@layout/component_address_editor"
-            app:addHandler="@{addHandler}"
-            app:presenter="@{presenter}" />
+            app:addHandler="@{addHandler}" />
 
 
         <Button

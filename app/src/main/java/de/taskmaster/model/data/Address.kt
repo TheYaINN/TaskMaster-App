@@ -2,13 +2,13 @@ package de.taskmaster.model.data
 
 class Address {
 
-    val street: String? = null
+    var street: String? = null
 
-    val number: String? = null
+    var number: String? = null
 
-    val zipCode: String? = null
+    var zipCode: String? = null
 
-    val city: String? = null
+    var city: String? = null
 
     val notifiable: Boolean = false
 

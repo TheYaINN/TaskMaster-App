@@ -12,5 +12,5 @@ class User {
 
     var email: String? = null
 
-    val places: List<Address> = mutableListOf()
+    val places: MutableList<Address> = mutableListOf()
 }

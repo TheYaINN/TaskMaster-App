@@ -9,10 +9,6 @@
             type="de.taskmaster.ui.app.profile.UserViewModel" />
 
         <variable
-            name="presenter"
-            type="de.taskmaster.model.binding.ToggleEditableComponentHandler" />
-
-        <variable
             name="handler"
             type="de.taskmaster.model.binding.RegistrationHandler" />
 
@@ -87,8 +83,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
-                    app:addHandler="@{addHandler}"
-                    app:presenter="@{presenter}" />
+                    app:addHandler="@{addHandler}" />
 
                 <Button
                     android:layout_width="wrap_content"
