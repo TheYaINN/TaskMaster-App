@@ -8,18 +8,19 @@
         android:icon="@android:drawable/ic_menu_search"
         android:title="@string/search"
         app:actionViewClass="androidx.appcompat.widget.SearchView"
-        app:showAsAction="always" />
+        app:showAsAction="ifRoom" />
 
     <!--  Sort  -->
     <item
-        android:id="@+id/filter_action"
-        android:icon="@android:drawable/ic_menu_sort_alphabetically"
-        android:title="@string/filter" />
-
-    <!--  More  -->
-    <item
-        android:id="@+id/more_action"
-        android:icon="@android:drawable/ic_menu_more"
-        android:title="@string/more" />
+        android:id="@+id/sort"
+        android:icon="@drawable/sort"
+        android:title="@string/sort"
+        app:showAsAction="ifRoom">
+        <menu>
+            <item android:title="Name" />
+            <item android:title="Name" />
+            <item android:title="Name" />
+        </menu>
+    </item>
 
 </menu>

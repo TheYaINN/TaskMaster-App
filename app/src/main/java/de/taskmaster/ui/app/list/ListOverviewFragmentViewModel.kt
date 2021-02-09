@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import de.taskmaster.model.data.TaskList
 
-class ListFragmentViewModel : ViewModel() {
+class ListOverviewFragmentViewModel : ViewModel() {
 
     private val _lists = MutableLiveData<List<TaskList>>(arrayListOf(TaskList(), TaskList()))
     val lists: LiveData<List<TaskList>> = _lists

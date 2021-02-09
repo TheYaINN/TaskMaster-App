@@ -1,10 +1,10 @@
 package de.taskmaster.ui.app.list
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.PopupMenu
 import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.cardview.widget.CardView
@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import de.taskmaster.R
 import de.taskmaster.model.data.TaskList
 
-class ListAdapter(private val fragment: Fragment) : RecyclerView.Adapter<ListAdapter.ListViewHolder>() {
+class ListOverviewAdapter(private val fragment: Fragment) : RecyclerView.Adapter<ListOverviewAdapter.ListViewHolder>() {
 
     private var data: MutableList<TaskList> = mutableListOf()
 
@@ -27,10 +27,7 @@ class ListAdapter(private val fragment: Fragment) : RecyclerView.Adapter<ListAda
     }
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
-        holder.bind(data[position], fragment.requireContext())
-        listView.setOnClickListener {
-            fragment.findNavController().navigate(R.id.action_navigation_list_to_listEditorFragment)
-        }
+        holder.bind(data[position], fragment)
     }
 
     override fun getItemCount(): Int {
@@ -45,14 +42,32 @@ class ListAdapter(private val fragment: Fragment) : RecyclerView.Adapter<ListAda
 
     class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        fun bind(taskList: TaskList, context: Context) {
+        fun bind(taskList: TaskList, fragment: Fragment) {
             val title = itemView.findViewById<TextView>(R.id.item_title)
             val subTitle = itemView.findViewById<TextView>(R.id.item_subtitle)
             val status = itemView.findViewById<ImageView>(R.id.item_status)
-
             title.text = taskList.title
             subTitle.text = taskList.description
-            status.setImageDrawable(AppCompatResources.getDrawable(context, taskList.status.resID))
+            status.setImageDrawable(AppCompatResources.getDrawable(fragment.requireContext(), taskList.status.resID))
+            addListeners(taskList, fragment)
+        }
+
+        private fun addListeners(taskList: TaskList, fragment: Fragment) {
+            val actions = itemView.findViewById<ImageView>(R.id.item_actions)
+            actions.setOnClickListener {
+                val popupMenu = PopupMenu(fragment.requireContext(), actions)
+                popupMenu.inflate(R.menu.item_actions)
+                popupMenu.setOnMenuItemClickListener {
+                    when (it.itemId) {
+                        R.id.item_actions -> println("")
+                    }
+                    true
+                }
+                popupMenu.show()
+            }
+            itemView.setOnClickListener {
+                fragment.findNavController().navigate(R.id.action_navigation_list_to_listEditorFragment) //TODO: should be detailed list view
+            }
         }
 
     }
