@@ -3,6 +3,7 @@ package de.taskmaster.ui.app.profile.settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import de.taskmaster.R
@@ -16,7 +17,7 @@ class PlaceAdapter : RecyclerView.Adapter<PlaceAdapter.PlaceViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlaceViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        listView = inflater.inflate(R.layout.item_list, parent, false) as CardView
+        listView = inflater.inflate(R.layout.item_place, parent, false) as CardView
         return PlaceViewHolder(listView)
     }
 
@@ -37,9 +38,8 @@ class PlaceAdapter : RecyclerView.Adapter<PlaceAdapter.PlaceViewHolder>() {
     class PlaceViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         fun bind(address: Address) {
-
+            itemView.findViewById<TextView>(R.id.item_place_title).text = address.toString()
         }
-
     }
 
 }
