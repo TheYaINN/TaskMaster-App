@@ -32,6 +32,7 @@ class RegisterFragment : Fragment(), PlaceEditor {
         val recyclerView = view.findViewById<RecyclerView>(R.id.items)
         val placeAdapter = PlaceAdapter()
         //TODO: observe places in userViewModel
+        placeAdapter.setData(userViewModel.user.places)
         recyclerView.adapter = placeAdapter
     }
 

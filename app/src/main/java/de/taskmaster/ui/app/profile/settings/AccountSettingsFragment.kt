@@ -29,6 +29,7 @@ class AccountSettingsFragment : SubFragment(R.layout.fragment_profile_edit), Pla
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val recyclerView = view.findViewById<RecyclerView>(R.id.items)
         val placeAdapter = PlaceAdapter()
+        placeAdapter.setData(userViewModel.user.places)
         //TODO: observe places in userViewModel
         recyclerView.adapter = placeAdapter
     }
