@@ -24,7 +24,7 @@ class ServerConnector : APIConnector {
     override fun postRequest(
         specifiedPath: String,
         body: String,
-        parameters: Map<String, String>
+        parameters: Map<String, String>,
     ): String {
         val client = OkHttpClient()
 

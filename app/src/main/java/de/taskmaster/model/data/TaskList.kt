@@ -4,14 +4,14 @@ import java.time.LocalDate
 
 class TaskList {
 
-    val title: String = "some title"
+    val title: String = ""
 
     /**
      * is null when no deadline is set
      */
     var deadline: LocalDate? = null
 
-    val description: String = "Some long description that does not fit the screen"
+    val description: String = ""
 
     val tags: String = ""
 

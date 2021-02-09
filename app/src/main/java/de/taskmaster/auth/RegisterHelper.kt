@@ -2,13 +2,7 @@ package de.taskmaster.auth
 
 import de.taskmaster.db.ServerConnector
 
-class RegisterHelper(
-    val firstname: String,
-    val lastname: String,
-    val username: String,
-    val mail: String
-) {
-
+class RegisterHelper(val firstname: String, val lastname: String, val username: String, val mail: String) {
 
     fun register(): Boolean {
         if (!checkForExisting()) {

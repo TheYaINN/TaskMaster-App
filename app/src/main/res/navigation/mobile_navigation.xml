@@ -19,6 +19,9 @@
         <action
             android:id="@+id/action_navigation_list_to_listEditorFragment"
             app:destination="@id/list_editor" />
+        <action
+            android:id="@+id/action_navigation_list_to_listDetailsFragment"
+            app:destination="@id/listDetailsFragment" />
     </fragment>
 
     <fragment
@@ -46,47 +49,51 @@
             android:id="@+id/action_navigation_profile_to_publicProfileFragment"
             app:destination="@id/publicProfileFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/accountSettings"
         android:name="de.taskmaster.ui.app.profile.AccountSettingsFragment"
         android:label="AccountSettings"
         tools:layout="@layout/fragment_profile_edit" />
+
     <fragment
         android:id="@+id/notification_settings"
         android:name="de.taskmaster.ui.app.profile.NotificationSettingsFragment"
         android:label="NotificationSettings"
         tools:layout="@layout/fragment_notification" />
+
     <fragment
         android:id="@+id/list_editor"
-        android:name="de.taskmaster.ui.app.list.editor.ListEditorFragment"
+        android:name="de.taskmaster.ui.app.list.edit.ListEditorFragment"
         android:label="ListEditorFragment"
         tools:layout="@layout/fragment_list_edit">
-        <action
-            android:id="@+id/action_list_editor_to_repeatingEventFragment"
-            app:destination="@id/repeatingEventFragment" />
         <action
             android:id="@+id/action_list_editor_to_mapsFragment"
             app:destination="@id/mapsFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/group_editor"
         android:name="de.taskmaster.ui.app.group.editor.GroupEditorFragment"
         android:label="GroupEditorFragment"
         tools:layout="@layout/fragment_group_edit" />
+
     <fragment
         android:id="@+id/publicProfileFragment"
         android:name="de.taskmaster.ui.app.profile.PublicProfileFragment"
         android:label="PublicProfileFragment"
         tools:layout="@layout/fragment_profile_public" />
-    <fragment
-        android:id="@+id/repeatingEventFragment"
-        android:name="de.taskmaster.ui.app.list.editor.subeditors.RepeatingEventFragment"
-        android:label="RepeatingEventFragment"
-        tools:layout="@layout/component_repeating" />
+
     <fragment
         android:id="@+id/mapsFragment"
-        android:name="de.taskmaster.ui.app.list.editor.subeditors.MapsFragment"
+        android:name="de.taskmaster.ui.app.list.edit.subeditors.MapsFragment"
         android:label="fragment_maps"
         tools:layout="@layout/fragment_maps" />
+
+    <fragment
+        android:id="@+id/listDetailsFragment"
+        android:name="de.taskmaster.ui.app.list.details.ListDetailsFragment"
+        android:label="ListDetailsFragment"
+        tools:layout="@layout/fragment_list_details" />
 
 </navigation>

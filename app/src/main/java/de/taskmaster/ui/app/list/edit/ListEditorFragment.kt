@@ -1,4 +1,4 @@
-package de.taskmaster.ui.app.list.editor
+package de.taskmaster.ui.app.list.edit
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,11 +12,13 @@ import de.taskmaster.ui.app.SubFragment
 
 class ListEditorFragment : SubFragment(R.layout.fragment_list_edit) {
 
+    private val listEditorViewModel = ListEditorViewModel()
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         super.onCreateView(inflater, container, savedInstanceState)
         val fragmentBinding = DataBindingUtil.inflate<FragmentListEditBinding>(inflater, R.layout.fragment_list_edit, container, false)
         fragmentBinding.presenter = ToggleEditableComponentHandler(requireContext())
-        fragmentBinding.model = ListEditorViewModel()
+        fragmentBinding.model = listEditorViewModel
         return fragmentBinding.root
     }
 

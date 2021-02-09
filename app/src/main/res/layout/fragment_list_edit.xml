@@ -6,7 +6,7 @@
 
         <variable
             name="model"
-            type="de.taskmaster.ui.app.list.editor.ListEditorViewModel" />
+            type="de.taskmaster.ui.app.list.edit.ListEditorViewModel" />
 
         <variable
             name="presenter"

@@ -13,7 +13,7 @@ import de.taskmaster.ui.app.TopLevelFragment
 import de.taskmaster.ui.login.LoginActivity
 
 
-class ProfileFragment : TopLevelFragment(R.layout.fragment_profile_private) {
+class ProfileFragment : TopLevelFragment(R.layout.fragment_profile_private, null) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         view.findViewById<Button>(R.id.account_settings).setOnClickListener {
@@ -32,7 +32,6 @@ class ProfileFragment : TopLevelFragment(R.layout.fragment_profile_private) {
         }
 
         view.findViewById<TextView>(R.id.version).text = "VERSION ${BuildConfig.VERSION_CODE} (${BuildConfig.VERSION_NAME})"
-
     }
 
 }

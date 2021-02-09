@@ -10,5 +10,4 @@ class Address {
 
     val city: String? = null
 
-
 }

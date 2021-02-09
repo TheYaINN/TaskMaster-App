@@ -1,4 +1,4 @@
-package de.taskmaster.ui.app.list.editor
+package de.taskmaster.ui.app.list.edit
 
 import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable

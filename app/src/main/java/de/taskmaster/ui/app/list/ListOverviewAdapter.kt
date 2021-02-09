@@ -59,14 +59,15 @@ class ListOverviewAdapter(private val fragment: Fragment) : RecyclerView.Adapter
                 popupMenu.inflate(R.menu.item_actions)
                 popupMenu.setOnMenuItemClickListener {
                     when (it.itemId) {
-                        R.id.item_actions -> println("")
+                        R.id.item_edit -> fragment.findNavController().navigate(R.id.action_navigation_list_to_listEditorFragment)
+                        R.id.item_delete -> println("DELETING")
                     }
                     true
                 }
                 popupMenu.show()
             }
             itemView.setOnClickListener {
-                fragment.findNavController().navigate(R.id.action_navigation_list_to_listEditorFragment) //TODO: should be detailed list view
+                fragment.findNavController().navigate(R.id.action_navigation_list_to_listDetailsFragment)
             }
         }
 

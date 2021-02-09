@@ -1,4 +1,4 @@
-package de.taskmaster.ui.app.list.editor.subeditors
+package de.taskmaster.ui.app.list.edit.subeditors
 
 import android.os.Bundle
 import android.view.View

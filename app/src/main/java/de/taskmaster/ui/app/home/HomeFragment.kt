@@ -7,7 +7,7 @@ import de.taskmaster.R
 import de.taskmaster.ui.app.TopLevelFragment
 import de.taskmaster.ui.elements.calendar.DateTextView
 
-class HomeFragment : TopLevelFragment(R.layout.fragment_home) {
+class HomeFragment : TopLevelFragment(R.layout.fragment_home, null) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
