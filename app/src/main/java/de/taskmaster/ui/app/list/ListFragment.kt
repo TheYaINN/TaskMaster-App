@@ -22,7 +22,7 @@ class ListFragment : TopLevelFragment(R.layout.fragment_list) {
         }
         val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerview)
 
-        val listAdapter = ListAdapter(requireContext())
+        val listAdapter = ListAdapter(this)
         viewModel.lists.observe(requireActivity(), listAdapter::setData)
         recyclerView.adapter = listAdapter
     }

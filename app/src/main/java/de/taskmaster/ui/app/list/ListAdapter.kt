@@ -8,11 +8,13 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.cardview.widget.CardView
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import de.taskmaster.R
 import de.taskmaster.model.data.TaskList
 
-class ListAdapter(private val context: Context) : RecyclerView.Adapter<ListAdapter.ListViewHolder>() {
+class ListAdapter(private val fragment: Fragment) : RecyclerView.Adapter<ListAdapter.ListViewHolder>() {
 
     private var data: MutableList<TaskList> = mutableListOf()
 
@@ -25,9 +27,9 @@ class ListAdapter(private val context: Context) : RecyclerView.Adapter<ListAdapt
     }
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
-        holder.bind(data[position], context)
+        holder.bind(data[position], fragment.requireContext())
         listView.setOnClickListener {
-            //TODO: findNavController().navigate(R.id.action_navigation_list_to_listEditorFragment)
+            fragment.findNavController().navigate(R.id.action_navigation_list_to_listEditorFragment)
         }
     }
 

@@ -22,7 +22,7 @@ class GroupsFragment : TopLevelFragment(R.layout.fragment_group) {
             findNavController().navigate(R.id.action_navigation_group_to_groupEditorFragment)
         }
         val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerview)
-        recyclerView.adapter = GroupAdapter()
+        recyclerView.adapter = GroupAdapter(this)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

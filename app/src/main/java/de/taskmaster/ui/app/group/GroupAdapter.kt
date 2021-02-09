@@ -6,11 +6,13 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import de.taskmaster.R
 import de.taskmaster.model.data.Group
 
-class GroupAdapter : RecyclerView.Adapter<GroupAdapter.GroupViewHolder>() {
+class GroupAdapter(private val fragment: Fragment) : RecyclerView.Adapter<GroupAdapter.GroupViewHolder>() {
 
     private lateinit var listView: CardView
 
@@ -25,7 +27,8 @@ class GroupAdapter : RecyclerView.Adapter<GroupAdapter.GroupViewHolder>() {
     override fun onBindViewHolder(holder: GroupViewHolder, position: Int) {
         holder.bind(data[position])
         listView.setOnClickListener {
-            //TODO:   findNavController().navigate(R.id.action_navigation_group_to_groupEditorFragment)
+            //TODO: somehow remember which id i pressed on to edit it here
+            fragment.findNavController().navigate(R.id.action_navigation_group_to_groupEditorFragment)
         }
     }
 
