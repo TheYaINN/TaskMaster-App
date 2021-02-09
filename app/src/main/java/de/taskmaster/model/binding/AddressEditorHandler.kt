@@ -23,8 +23,8 @@ class AddressEditorHandler(val view: PlaceEditor, context: Context) : ToggleEdit
 
         //TODO: refactor I guess
         address.street = (view.getView(R.id.item_place_street) as TextView).text.toString()
-        address.number = (view.getView(R.id.item_place_number) as TextView).text.toString().toInt()
-        address.zipCode = (view.getView(R.id.item_place_zip) as TextView).text.toString().toInt()
+        //address.number = (view.getView(R.id.item_place_number) as TextView).text.toString().toInt()
+        //address.zipCode = (view.getView(R.id.item_place_zip) as TextView).text.toString().toInt()
         address.city = (view.getView(R.id.item_place_city) as TextView).text.toString()
 
         view.add(address)

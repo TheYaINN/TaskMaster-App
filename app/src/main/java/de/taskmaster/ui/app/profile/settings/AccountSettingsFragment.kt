@@ -17,21 +17,21 @@ import de.taskmaster.ui.app.profile.UserViewModel
 class AccountSettingsFragment : SubFragment(R.layout.fragment_profile_edit), PlaceEditor {
 
     private val userViewModel = UserViewModel()
+    private val placeAdapter = PlaceAdapter()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         super.onCreateView(inflater, container, savedInstanceState)
         val fragmentBinding = DataBindingUtil.inflate<FragmentProfileEditBinding>(inflater, R.layout.fragment_profile_edit, container, false)
         fragmentBinding.model = userViewModel
         fragmentBinding.addHandler = AddressEditorHandler(this, requireContext())
+        val recyclerView = fragmentBinding.root.findViewById<RecyclerView>(R.id.items)
+        recyclerView.adapter = placeAdapter
         return fragmentBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val recyclerView = view.findViewById<RecyclerView>(R.id.items)
-        val placeAdapter = PlaceAdapter()
-        placeAdapter.setData(userViewModel.user.places)
         //TODO: observe places in userViewModel
-        recyclerView.adapter = placeAdapter
+        placeAdapter.setData(userViewModel.user.places)
     }
 
     override fun add(address: Address) {
