@@ -2,13 +2,13 @@ package de.taskmaster.model.data
 
 class Address {
 
-    var street: String? = null
+    var street: String? = "Am Ende"
 
-    var number: String? = null
+    var number: Int? = 6
 
-    var zipCode: String? = null
+    var zipCode: Int? = 12345
 
-    var city: String? = null
+    var city: String? = "Köllefornia"
 
     val notifiable: Boolean = false
 
