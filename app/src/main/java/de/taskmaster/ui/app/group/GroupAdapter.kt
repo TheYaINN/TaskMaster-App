@@ -20,7 +20,7 @@ class GroupAdapter(private val fragment: Fragment) : RecyclerView.Adapter<GroupA
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GroupViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        listView = inflater.inflate(R.layout.group_item, parent, false) as CardView
+        listView = inflater.inflate(R.layout.item_group, parent, false) as CardView
         return GroupViewHolder(listView)
     }
 

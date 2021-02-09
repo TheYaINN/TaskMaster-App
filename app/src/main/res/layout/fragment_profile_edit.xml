@@ -12,6 +12,11 @@
         <variable
             name="presenter"
             type="de.taskmaster.model.binding.ToggleEditableComponentHandler" />
+
+
+        <variable
+            name="addHandler"
+            type="de.taskmaster.model.binding.AddressEditorHandler" />
     </data>
 
     <LinearLayout
@@ -49,9 +54,10 @@
             android:text="@{model.user.email}" />
 
         <include
-            layout="@layout/component_address"
-            app:model="@{model.user.homeAddress}"
+            layout="@layout/component_address_editor"
+            app:addHandler="@{addHandler}"
             app:presenter="@{presenter}" />
+
 
         <Button
             android:id="@+id/delete_account"

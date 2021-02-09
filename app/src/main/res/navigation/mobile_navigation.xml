@@ -52,13 +52,13 @@
 
     <fragment
         android:id="@+id/accountSettings"
-        android:name="de.taskmaster.ui.app.profile.AccountSettingsFragment"
+        android:name="de.taskmaster.ui.app.profile.settings.AccountSettingsFragment"
         android:label="AccountSettings"
         tools:layout="@layout/fragment_profile_edit" />
 
     <fragment
         android:id="@+id/notification_settings"
-        android:name="de.taskmaster.ui.app.profile.NotificationSettingsFragment"
+        android:name="de.taskmaster.ui.app.profile.notification.AccountNotificationSettings"
         android:label="NotificationSettings"
         tools:layout="@layout/fragment_notification" />
 

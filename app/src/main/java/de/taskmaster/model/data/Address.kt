@@ -10,4 +10,6 @@ class Address {
 
     val city: String? = null
 
+    val notifiable: Boolean = false
+
 }

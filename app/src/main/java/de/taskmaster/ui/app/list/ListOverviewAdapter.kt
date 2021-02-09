@@ -22,7 +22,7 @@ class ListOverviewAdapter(private val fragment: Fragment) : RecyclerView.Adapter
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        listView = inflater.inflate(R.layout.list_item, parent, false) as CardView
+        listView = inflater.inflate(R.layout.item_list, parent, false) as CardView
         return ListViewHolder(listView)
     }
 

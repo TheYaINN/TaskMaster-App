@@ -15,6 +15,11 @@
         <variable
             name="handler"
             type="de.taskmaster.model.binding.RegistrationHandler" />
+
+
+        <variable
+            name="addHandler"
+            type="de.taskmaster.model.binding.AddressEditorHandler" />
     </data>
 
 
@@ -77,18 +82,13 @@
                     android:maxLines="1"
                     android:text="@={model.user.email}" />
 
-
                 <include
-                    layout="@layout/component_address"
-                    app:model="@{model.user.homeAddress}"
-                    app:presenter="@{presenter}"
-                    app:text="@{presenter.home}" />
-
-                <include
-                    layout="@layout/component_address"
-                    app:model="@{model.user.workAddress}"
-                    app:presenter="@{presenter}"
-                    app:text="@{presenter.work}" />
+                    layout="@layout/component_address_editor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    app:addHandler="@{addHandler}"
+                    app:presenter="@{presenter}" />
 
                 <Button
                     android:layout_width="wrap_content"
