@@ -5,7 +5,7 @@
 
         <variable
             name="model"
-            type="de.taskmaster.ui.app.profile.UserViewModel" />
+            type="de.taskmaster.model.model.UserViewModel" />
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"

@@ -12,4 +12,7 @@ class Address {
 
     val notifiable: Boolean = false
 
+    override fun toString(): String {
+        return "$street $number, $city $zipCode"
+    }
 }

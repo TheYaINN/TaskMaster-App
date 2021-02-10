@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
+        <variable
+            name="placeEditorHandler"
+            type="de.taskmaster.model.binding.PlaceEditor" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -21,13 +25,14 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Hier steht ein Ort"
-                android:textSize="@dimen/subtitle" />
+                android:textSize="18dp" />
 
             <ImageView
+                android:id="@+id/item_place_delete"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:src="@drawable/delete" />
+                android:layout_height="wrap_content"
+                android:src="@drawable/delete"
+                tools:ignore="ContentDescription" />
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>

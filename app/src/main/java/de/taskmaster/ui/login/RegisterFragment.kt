@@ -13,35 +13,39 @@ import de.taskmaster.model.binding.AddressEditorHandler
 import de.taskmaster.model.binding.PlaceEditor
 import de.taskmaster.model.binding.RegistrationHandler
 import de.taskmaster.model.data.Address
-import de.taskmaster.ui.app.profile.UserViewModel
+import de.taskmaster.model.model.UserViewModel
 import de.taskmaster.ui.app.profile.settings.PlaceAdapter
 
 class RegisterFragment : Fragment(), PlaceEditor {
 
     private val userViewModel = UserViewModel()
+    private val placeAdapter = PlaceAdapter(this)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val fragmentBinding = DataBindingUtil.inflate<FragmentRegistrationBinding>(inflater, R.layout.fragment_registration, container, false)
         fragmentBinding.model = userViewModel
         fragmentBinding.handler = RegistrationHandler()
         fragmentBinding.addHandler = AddressEditorHandler(this, requireContext())
+
+        val recyclerView = fragmentBinding.root.findViewById<RecyclerView>(R.id.items)
+        recyclerView.adapter = placeAdapter
+
         return fragmentBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val recyclerView = view.findViewById<RecyclerView>(R.id.items)
-        val placeAdapter = PlaceAdapter()
-        //TODO: observe places in userViewModel
-        placeAdapter.setData(userViewModel.user.places)
-        recyclerView.adapter = placeAdapter
+        userViewModel.user.observe(viewLifecycleOwner, { placeAdapter.setData(it.places) })
     }
 
     override fun add(address: Address) {
-        //FIXME: should not be accessed this way
-        userViewModel.user.places.add(address)
+        userViewModel.addPlace(address)
     }
 
-    override fun getView(id: Int): RecyclerView {
+    override fun remove(address: Address) {
+        userViewModel.removePlace(address)
+    }
+
+    override fun getView(id: Int): View {
         return requireView().findViewById(id)
     }
 

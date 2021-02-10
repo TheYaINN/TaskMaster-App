@@ -6,7 +6,7 @@
 
         <variable
             name="model"
-            type="de.taskmaster.ui.app.profile.UserViewModel" />
+            type="de.taskmaster.model.model.UserViewModel" />
 
         <variable
             name="handler"

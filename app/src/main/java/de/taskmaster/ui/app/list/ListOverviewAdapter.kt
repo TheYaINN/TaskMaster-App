@@ -60,7 +60,7 @@ class ListOverviewAdapter(private val fragment: Fragment) : RecyclerView.Adapter
                 popupMenu.setOnMenuItemClickListener {
                     when (it.itemId) {
                         R.id.item_edit -> fragment.findNavController().navigate(R.id.action_navigation_list_to_listEditorFragment)
-                        R.id.item_delete -> println("DELETING")
+                        R.id.item_delete -> println("DELETING: $taskList")
                     }
                     true
                 }

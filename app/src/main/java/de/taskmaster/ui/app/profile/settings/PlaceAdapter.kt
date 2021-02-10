@@ -3,13 +3,16 @@ package de.taskmaster.ui.app.profile.settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import de.taskmaster.R
+import de.taskmaster.model.binding.PlaceEditor
+import de.taskmaster.model.binding.PlaceRemover
 import de.taskmaster.model.data.Address
 
-class PlaceAdapter : RecyclerView.Adapter<PlaceAdapter.PlaceViewHolder>() {
+class PlaceAdapter(private val editor: PlaceEditor) : RecyclerView.Adapter<PlaceAdapter.PlaceViewHolder>() {
 
     private var data: MutableList<Address> = mutableListOf()
 
@@ -22,7 +25,7 @@ class PlaceAdapter : RecyclerView.Adapter<PlaceAdapter.PlaceViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: PlaceViewHolder, position: Int) {
-        holder.bind(data[position])
+        holder.bind(data[position], editor)
     }
 
     override fun getItemCount(): Int {
@@ -37,8 +40,11 @@ class PlaceAdapter : RecyclerView.Adapter<PlaceAdapter.PlaceViewHolder>() {
 
     class PlaceViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        fun bind(address: Address) {
+        fun bind(address: Address, handler: PlaceRemover) {
             itemView.findViewById<TextView>(R.id.item_place_title).text = address.toString()
+            itemView.findViewById<ImageView>(R.id.item_place_delete).setOnClickListener {
+                handler.remove(address)
+            }
         }
     }
 
