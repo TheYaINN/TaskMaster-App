@@ -11,7 +11,7 @@
 
         <variable
             name="addHandler"
-            type="de.taskmaster.model.binding.AddressEditorHandler" />
+            type="de.taskmaster.model.handler.AddressEditorHandler" />
     </data>
 
     <LinearLayout
@@ -28,7 +28,7 @@
             android:hint="@string/first_name"
             android:importantForAutofill="no"
             android:inputType="textPersonName"
-            android:text="@{model.user.firstname}" />
+            android:text="@{model.user.firstName}" />
 
         <EditText
             android:id="@+id/last_name_field"
@@ -37,7 +37,7 @@
             android:hint="@string/last_name"
             android:importantForAutofill="no"
             android:inputType="textPersonName"
-            android:text="@{model.user.lastname}" />
+            android:text="@{model.user.lastName}" />
 
         <EditText
             android:id="@+id/email_field"

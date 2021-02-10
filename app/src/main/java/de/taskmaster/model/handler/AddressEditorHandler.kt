@@ -1,4 +1,4 @@
-package de.taskmaster.model.binding
+package de.taskmaster.model.handler
 
 import android.content.Context
 import android.view.View
@@ -35,8 +35,10 @@ class AddressEditorHandler(val view: PlaceEditor, context: Context) : ToggleEdit
         if (!address.isValid()) {
             Toast.makeText(context, "Please enter valid Address", Toast.LENGTH_LONG).show()
         } else {
+
             toggleAdd()
 
+            name.text = null
             street.text = null
             number.text = null
             zipCode.text = null

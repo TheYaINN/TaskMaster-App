@@ -1,7 +1,5 @@
 package de.taskmaster.model.data
 
-import java.time.LocalDate
-
 class TaskList {
 
     val title: String = ""
@@ -9,7 +7,9 @@ class TaskList {
     /**
      * is null when no deadline is set
      */
-    var deadline: LocalDate? = null
+    var deadline: DeadLine? = DeadLine()
+
+    var place: Address? = null
 
     val description: String = ""
 
@@ -20,7 +20,7 @@ class TaskList {
     /**
      * is null when not associated with any group
      */
-    val group: Group? = null
+    var group: Group? = null
 
     val status: Status = Status.OPEN
 

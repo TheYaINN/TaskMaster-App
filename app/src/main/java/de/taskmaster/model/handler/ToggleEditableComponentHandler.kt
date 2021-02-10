@@ -1,4 +1,4 @@
-package de.taskmaster.model.binding
+package de.taskmaster.model.handler
 
 import android.content.Context
 import android.view.View
@@ -7,8 +7,8 @@ import de.taskmaster.R
 
 open class ToggleEditableComponentHandler(
     val context: Context,
-    private val hiddenText: String = context.getString(R.string.select),
-    private val visibleText: String = context.getString(R.string.edit),
+    private val hiddenText: String = context.getString(R.string.edit),
+    private val visibleText: String = context.getString(R.string.select),
 ) {
 
 

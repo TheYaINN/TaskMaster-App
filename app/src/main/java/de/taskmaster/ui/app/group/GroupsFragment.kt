@@ -20,7 +20,7 @@ class GroupsFragment : TopLevelFragment(R.layout.fragment_group, R.menu.lists_gr
             findNavController().navigate(R.id.action_navigation_group_to_groupEditorFragment)
         }
         val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerview)
-        recyclerView.adapter = GroupAdapter(this)
+        recyclerView.adapter = BigGroupAdapter(this)
     }
 
 }

@@ -10,7 +10,7 @@
 
         <variable
             name="presenter"
-            type="de.taskmaster.model.binding.ToggleEditableComponentHandler" />
+            type="de.taskmaster.model.handler.ToggleEditableComponentHandler" />
     </data>
 
     <RelativeLayout
@@ -31,7 +31,7 @@
                 android:drawablePadding="16dp"
                 android:ellipsize="end"
                 android:gravity="center_vertical"
-                android:text="@string/no_group"
+                android:text="@{model.taskList.group.title ?? @string/no_group}"
                 app:drawableStartCompat="@drawable/group" />
 
             <TextView
@@ -50,8 +50,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/top"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:visibility="gone">
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/group_items"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
         </LinearLayout>
     </RelativeLayout>

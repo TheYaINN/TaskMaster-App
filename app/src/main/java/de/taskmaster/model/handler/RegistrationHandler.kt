@@ -1,4 +1,4 @@
-package de.taskmaster.model.binding
+package de.taskmaster.model.handler
 
 import android.view.View
 import de.taskmaster.model.model.UserViewModel

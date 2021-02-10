@@ -7,7 +7,7 @@
 
         <variable
             name="addHandler"
-            type="de.taskmaster.model.binding.AddressEditorHandler" />
+            type="de.taskmaster.model.handler.AddressEditorHandler" />
 
     </data>
 

@@ -1,4 +1,4 @@
-package de.taskmaster.model.binding
+package de.taskmaster.model.handler
 
 import android.app.Activity
 import android.content.Context

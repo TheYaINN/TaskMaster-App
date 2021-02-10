@@ -8,6 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import de.taskmaster.R
 import de.taskmaster.databinding.FragmentNotificationBinding
+import de.taskmaster.model.data.Address
 import de.taskmaster.model.model.UserViewModel
 import de.taskmaster.ui.app.SubFragment
 
@@ -26,7 +27,7 @@ class AccountNotificationSettings : SubFragment(R.layout.fragment_notification, 
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        userViewModel.user.observe(viewLifecycleOwner, { notificationAdapter.setData(it.places) })
+        userViewModel.user.observe(viewLifecycleOwner, { notificationAdapter.setData(it.places as List<Address>) })
     }
 
 }

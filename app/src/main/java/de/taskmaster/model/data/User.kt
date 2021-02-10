@@ -1,14 +1,14 @@
 package de.taskmaster.model.data
 
-class User {
+open class User {
 
     var username: String? = null
 
     var password: String? = null
 
-    var firstname: String? = null
+    var firstName: String? = null
 
-    var lastname: String? = null
+    var lastName: String? = null
 
     var email: String? = null
 

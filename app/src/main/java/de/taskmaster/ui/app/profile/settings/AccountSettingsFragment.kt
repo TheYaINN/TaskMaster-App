@@ -8,9 +8,9 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import de.taskmaster.R
 import de.taskmaster.databinding.FragmentProfileEditBinding
-import de.taskmaster.model.binding.AddressEditorHandler
-import de.taskmaster.model.binding.PlaceEditor
 import de.taskmaster.model.data.Address
+import de.taskmaster.model.handler.AddressEditorHandler
+import de.taskmaster.model.handler.PlaceEditor
 import de.taskmaster.model.model.UserViewModel
 import de.taskmaster.ui.app.SubFragment
 
@@ -30,15 +30,15 @@ class AccountSettingsFragment : SubFragment(R.layout.fragment_profile_edit), Pla
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        userViewModel.user.observe(viewLifecycleOwner, { placeAdapter.setData(it.places) })
+        userViewModel.user.observe(viewLifecycleOwner, { placeAdapter.setData(it.places as List<Address>) })
     }
 
     override fun add(address: Address) {
-        userViewModel.addPlace(address)
+        userViewModel.user.addPlace(address)
     }
 
     override fun remove(address: Address) {
-        userViewModel.removePlace(address)
+        userViewModel.user.removePlace(address)
     }
 
     override fun getView(id: Int): View {

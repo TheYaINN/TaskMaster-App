@@ -5,7 +5,7 @@ class Group {
 
     val icon: Any? = null
 
-    val title: String? = null
+    var title: String? = null
 
     val description: String? = null
 }

@@ -9,10 +9,10 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import de.taskmaster.R
 import de.taskmaster.databinding.FragmentRegistrationBinding
-import de.taskmaster.model.binding.AddressEditorHandler
-import de.taskmaster.model.binding.PlaceEditor
-import de.taskmaster.model.binding.RegistrationHandler
 import de.taskmaster.model.data.Address
+import de.taskmaster.model.handler.AddressEditorHandler
+import de.taskmaster.model.handler.PlaceEditor
+import de.taskmaster.model.handler.RegistrationHandler
 import de.taskmaster.model.model.UserViewModel
 import de.taskmaster.ui.app.profile.settings.PlaceAdapter
 
@@ -34,15 +34,15 @@ class RegisterFragment : Fragment(), PlaceEditor {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        userViewModel.user.observe(viewLifecycleOwner, { placeAdapter.setData(it.places) })
+        userViewModel.user.places.observe(viewLifecycleOwner, { placeAdapter.setData(it as List<Address>) })
     }
 
     override fun add(address: Address) {
-        userViewModel.addPlace(address)
+        userViewModel.user.addPlace(address)
     }
 
     override fun remove(address: Address) {
-        userViewModel.removePlace(address)
+        userViewModel.user.removePlace(address)
     }
 
     override fun getView(id: Int): View {

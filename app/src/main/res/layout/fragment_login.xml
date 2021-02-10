@@ -10,7 +10,7 @@
 
         <variable
             name="handler"
-            type="de.taskmaster.model.binding.LoginHandler" />
+            type="de.taskmaster.model.handler.LoginHandler" />
 
     </data>
 

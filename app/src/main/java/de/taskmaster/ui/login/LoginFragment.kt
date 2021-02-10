@@ -8,7 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import de.taskmaster.R
 import de.taskmaster.databinding.FragmentLoginBinding
-import de.taskmaster.model.binding.LoginHandler
+import de.taskmaster.model.handler.LoginHandler
 
 class LoginFragment : Fragment() {
 

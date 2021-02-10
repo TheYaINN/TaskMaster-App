@@ -10,7 +10,7 @@
 
         <variable
             name="presenter"
-            type="de.taskmaster.model.binding.ToggleEditableComponentHandler" />
+            type="de.taskmaster.model.handler.ToggleEditableComponentHandler" />
     </data>
 
     <RelativeLayout
@@ -31,7 +31,7 @@
                 android:drawablePadding="16dp"
                 android:ellipsize="end"
                 android:gravity="center_vertical"
-                android:text="@string/no_place"
+                android:text="@{model.taskList.place.name ?? @string/no_place}"
                 app:drawableStartCompat="@drawable/place" />
 
             <TextView
@@ -45,28 +45,13 @@
 
         </LinearLayout>
 
-        <LinearLayout
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/editable_component_lower"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-
-        </LinearLayout>
-
-        <ScrollView
-            android:id="@+id/lower_place"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/top"
-            android:visibility="gone">
-
-            <LinearLayout
-                android:id="@+id/place_linearLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical" />
-
-        </ScrollView>
+            android:orientation="horizontal"
+            android:visibility="gone"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
     </RelativeLayout>
 </layout>

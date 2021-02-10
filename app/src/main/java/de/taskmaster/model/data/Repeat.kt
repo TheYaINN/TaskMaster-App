@@ -5,5 +5,6 @@ enum class Repeat(val text: String) {
     DAILY("Daily"),
     WEEKLY("Weekly"),
     MONTHLY("Monthly"),
-    YEARLY("Yearly")
+    YEARLY("Yearly");
+
 }

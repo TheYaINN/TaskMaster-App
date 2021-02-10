@@ -8,11 +8,10 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import de.taskmaster.R
-import de.taskmaster.model.binding.PlaceEditor
-import de.taskmaster.model.binding.PlaceRemover
 import de.taskmaster.model.data.Address
+import de.taskmaster.model.handler.PlaceRemover
 
-class PlaceAdapter(private val editor: PlaceEditor) : RecyclerView.Adapter<PlaceAdapter.PlaceViewHolder>() {
+class PlaceAdapter(private val handler: PlaceRemover) : RecyclerView.Adapter<PlaceAdapter.PlaceViewHolder>() {
 
     private var data: MutableList<Address> = mutableListOf()
 
@@ -25,7 +24,7 @@ class PlaceAdapter(private val editor: PlaceEditor) : RecyclerView.Adapter<Place
     }
 
     override fun onBindViewHolder(holder: PlaceViewHolder, position: Int) {
-        holder.bind(data[position], editor)
+        holder.bind(data[position], handler)
     }
 
     override fun getItemCount(): Int {

@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import de.taskmaster.R
 import de.taskmaster.model.data.Group
 
-class GroupAdapter(private val fragment: Fragment) : RecyclerView.Adapter<GroupAdapter.GroupViewHolder>() {
+class BigGroupAdapter(private val fragment: Fragment) : RecyclerView.Adapter<BigGroupAdapter.GroupViewHolder>() {
 
     private lateinit var listView: CardView
 
@@ -20,7 +20,7 @@ class GroupAdapter(private val fragment: Fragment) : RecyclerView.Adapter<GroupA
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GroupViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        listView = inflater.inflate(R.layout.item_group, parent, false) as CardView
+        listView = inflater.inflate(R.layout.item_group_big, parent, false) as CardView
         return GroupViewHolder(listView)
     }
 

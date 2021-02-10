@@ -10,7 +10,7 @@
 
         <variable
             name="presenter"
-            type="de.taskmaster.model.binding.ToggleEditableComponentHandler" />
+            type="de.taskmaster.model.handler.ToggleEditableComponentHandler" />
     </data>
 
     <RelativeLayout
@@ -37,7 +37,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
-                android:text="@{model.taskList.deadline.toString()}" />
+                android:text="@{model.taskList.deadline ?? @string/no_deadline}" />
 
             <TextView
                 android:id="@+id/edit_deadline"
