@@ -44,4 +44,18 @@
     <string name="delete">Delete</string>
     <string name="show">Show</string>
     <string name="enable_disable_notifications">Enable / Disable Notifications</string>
+    <string name="daily">Daily</string>
+    <string name="weekly">Weekly</string>
+    <string name="monthly">Monthly</string>
+    <string name="yearly">Yearly</string>
+    <string name="never">Never</string>
+    <string name="account_settings">Account Settings</string>
+    <string name="account_details">Account details</string>
+    <string name="notifications">Notifications</string>
+    <string name="sign_out">Sign out</string>
+    <string name="firstname">Firstname</string>
+    <string name="lastname">Lastname</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="e_mail">E-Mail</string>
 </resources>

@@ -19,7 +19,6 @@
                 android:layout_width="54dp"
                 android:layout_height="54dp"
                 android:layout_gravity="center_vertical"
-                android:src="@drawable/abc_vector_test"
                 tools:ignore="ContentDescription" />
 
             <LinearLayout
@@ -33,7 +32,6 @@
                     android:id="@+id/item_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Some title"
                     android:textSize="@dimen/title" />
 
                 <TextView
@@ -42,8 +40,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:ellipsize="end"
-                    android:lines="1"
-                    android:text="Some Description" />
+                    android:lines="1" />
             </LinearLayout>
 
             <ImageView

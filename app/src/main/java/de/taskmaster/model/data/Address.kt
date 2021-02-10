@@ -1,18 +1,24 @@
 package de.taskmaster.model.data
 
-class Address {
+class Address : Validator {
 
-    var street: String? = "Am Ende"
+    var name: String? = null
 
-    var number: Int? = 6
+    var street: String? = null
 
-    var zipCode: Int? = 12345
+    var number: Int? = null
 
-    var city: String? = "Köllefornia"
+    var zipCode: Int? = null
 
-    val notifiable: Boolean = false
+    var city: String? = null
+
+    var notifiable: Boolean = false
+
+    override fun isValid(): Boolean {
+        return name != null && street != null && number != null && zipCode != null && city != null
+    }
 
     override fun toString(): String {
-        return "$street $number, $city $zipCode"
+        return "$name: $street $number, $city $zipCode"
     }
 }

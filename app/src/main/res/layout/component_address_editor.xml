@@ -77,20 +77,13 @@
                     android:gravity="end">
 
                     <TextView
-                        android:id="@+id/item_add_text"
+                        android:id="@+id/item_add"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:onClick="@{() -> addHandler.toggleAdd()}"
                         android:text="Add place"
-                        android:textColor="@color/link" />
-
-                    <ImageView
-                        android:id="@+id/item_add_icon"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:onClick="@{() -> addHandler.toggleAdd()}"
-                        android:src="@drawable/location_add"
-                        tools:ignore="ContentDescription" />
+                        android:textColor="@color/link"
+                        app:drawableEndCompat="@drawable/location_add" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -99,6 +92,13 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:visibility="gone">
+
+                    <EditText
+                        android:id="@+id/item_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Name"
+                        android:inputType="text" />
 
                     <EditText
                         android:id="@+id/item_place_street"

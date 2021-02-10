@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -27,18 +28,14 @@
             android:layout_height="wrap_content"
             android:gravity="center_vertical">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="6dp"
-                android:src="@drawable/repeat" />
-
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:drawablePadding="16dp"
                 android:gravity="center_vertical"
-                android:text="@{model.taskList.repeat.text}" />
+                android:text="@{model.taskList.repeat.text}"
+                app:drawableStartCompat="@drawable/repeat" />
 
             <TextView
                 android:id="@+id/edit_repeating"
@@ -65,45 +62,40 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:onClick="@{() -> model.setRepeat(repeat.NEVER)}"
-                android:text="Never"
-                android:textAlignment="center"
-                android:textSize="@dimen/text" />
+                android:text="@string/never"
+                android:textAlignment="center" />
 
             <RadioButton
                 android:id="@+id/daily"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:onClick="@{() -> model.setRepeat(repeat.DAILY)}"
-                android:text="Daily"
-                android:textAlignment="center"
-                android:textSize="@dimen/text" />
+                android:text="@string/daily"
+                android:textAlignment="center" />
 
             <RadioButton
                 android:id="@+id/weekly"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:onClick="@{() -> model.setRepeat(repeat.WEEKLY)}"
-                android:text="Weekly"
-                android:textAlignment="center"
-                android:textSize="@dimen/text" />
+                android:text="@string/weekly"
+                android:textAlignment="center" />
 
             <RadioButton
                 android:id="@+id/monthly"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:onClick="@{() -> model.setRepeat(repeat.MONTHLY)}"
-                android:text="Monthly"
-                android:textAlignment="center"
-                android:textSize="@dimen/text" />
+                android:text="@string/monthly"
+                android:textAlignment="center" />
 
             <RadioButton
                 android:id="@+id/yearly"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:onClick="@{() -> model.setRepeat(repeat.YEARLY)}"
-                android:text="Yearly"
-                android:textAlignment="center"
-                android:textSize="@dimen/text" />
+                android:text="@string/yearly"
+                android:textAlignment="center" />
 
         </RadioGroup>
     </RelativeLayout>

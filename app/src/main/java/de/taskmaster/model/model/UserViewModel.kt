@@ -23,5 +23,4 @@ class UserViewModel : ViewModel() {
     private val _user = MutableLiveData(User())
     val user: LiveData<User> = _user
 
-
 }
