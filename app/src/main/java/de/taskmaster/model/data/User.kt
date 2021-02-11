@@ -16,7 +16,11 @@ class User : ObservableViewModel() {
 
     var groups: List<Group> = arrayListOf(Group().apply { title = "Group 1" }, Group().apply { title = "Group 2" })
 
-    var lists: List<TaskList> = arrayListOf(TaskList().apply { tasks = arrayListOf(Task(), Task()) }, TaskList())
+    var lists: List<TaskList> =
+        arrayListOf(TaskList().apply {
+            tasks = arrayListOf(Task(), Task())
+            title = "Test titel"
+        }, TaskList().apply { title = "Test titel" })
 
     val places: MutableList<Address> = arrayListOf(Address(), Address(), Address(), Address())
 }
