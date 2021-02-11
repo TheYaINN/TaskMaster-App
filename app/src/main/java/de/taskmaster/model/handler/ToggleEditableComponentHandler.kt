@@ -11,7 +11,6 @@ open class ToggleEditableComponentHandler(
     private val visibleText: String = context.getString(R.string.select),
 ) {
 
-
     fun toggleView(view: View) {
         val edit = (view as TextView)
         val lowerLayout = ((view.parent as View).parent as View).findViewById<View>(R.id.editable_component_lower)

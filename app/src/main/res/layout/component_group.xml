@@ -6,7 +6,7 @@
 
         <variable
             name="model"
-            type="de.taskmaster.ui.app.list.edit.ListEditorViewModel" />
+            type="de.taskmaster.model.data.TaskList" />
 
         <variable
             name="presenter"
@@ -31,7 +31,7 @@
                 android:drawablePadding="16dp"
                 android:ellipsize="end"
                 android:gravity="center_vertical"
-                android:text="@{model.taskList.group.title ?? @string/no_group}"
+                android:text="@{model.group.title ?? @string/no_group}"
                 app:drawableStartCompat="@drawable/group" />
 
             <TextView
@@ -42,7 +42,6 @@
                 android:onClick="@{presenter::toggleView}"
                 android:text="@string/edit"
                 android:textColor="@color/link" />
-
         </LinearLayout>
 
         <LinearLayout

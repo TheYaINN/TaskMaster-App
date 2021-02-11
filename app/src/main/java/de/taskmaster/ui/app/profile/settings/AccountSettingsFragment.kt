@@ -1,48 +1,54 @@
 package de.taskmaster.ui.app.profile.settings
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import de.taskmaster.R
 import de.taskmaster.databinding.FragmentProfileEditBinding
 import de.taskmaster.model.data.Address
+import de.taskmaster.model.data.User
 import de.taskmaster.model.handler.AddressEditorHandler
 import de.taskmaster.model.handler.PlaceEditor
-import de.taskmaster.model.model.UserViewModel
 import de.taskmaster.ui.app.SubFragment
 
-class AccountSettingsFragment : SubFragment(R.layout.fragment_profile_edit), PlaceEditor {
+class AccountSettingsFragment : SubFragment<FragmentProfileEditBinding>(R.layout.fragment_profile_edit), PlaceEditor {
 
-    private val userViewModel = UserViewModel()
-    private val placeAdapter = PlaceAdapter(this)
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        super.onCreateView(inflater, container, savedInstanceState)
-        val fragmentBinding = DataBindingUtil.inflate<FragmentProfileEditBinding>(inflater, R.layout.fragment_profile_edit, container, false)
-        fragmentBinding.model = userViewModel
-        fragmentBinding.addHandler = AddressEditorHandler(this, requireContext())
-        val recyclerView = fragmentBinding.root.findViewById<RecyclerView>(R.id.items)
-        recyclerView.adapter = placeAdapter
-        return fragmentBinding.root
-    }
+    private lateinit var userViewModel: User
+    private lateinit var observablePlaces: MutableLiveData<List<Address>>
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        userViewModel.user.observe(viewLifecycleOwner, { placeAdapter.setData(it.places as List<Address>) })
+        userViewModel = ViewModelProvider(requireActivity()).get(User::class.java)
+        observablePlaces = MutableLiveData(userViewModel.places)
+
+        binder.model = userViewModel
+        binder.addHandler = AddressEditorHandler(this, requireContext())
+
+        val recyclerView = binder.root.findViewById<RecyclerView>(R.id.items)
+        val placeAdapter = PlaceAdapter(this)
+        recyclerView.adapter = placeAdapter
+        observablePlaces.observe(viewLifecycleOwner, { placeAdapter.setData(it as List<Address>) })
     }
 
     override fun add(address: Address) {
-        userViewModel.user.addPlace(address)
+        userViewModel.places.add(address)
+        observablePlaces.value = userViewModel.places
     }
 
     override fun remove(address: Address) {
-        userViewModel.user.removePlace(address)
+        userViewModel.places.remove(address)
+        observablePlaces.value = userViewModel.places
     }
 
     override fun getView(id: Int): View {
         return requireView().findViewById(id)
+    }
+
+    override fun save(): Boolean {
+        //TODO
+        println("SAVING User: $userViewModel")
+        return super.save()
     }
 
 }

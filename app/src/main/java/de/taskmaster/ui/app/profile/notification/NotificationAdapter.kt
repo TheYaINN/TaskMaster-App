@@ -42,7 +42,7 @@ class NotificationAdapter : RecyclerView.Adapter<NotificationAdapter.ListViewHol
             notify.isChecked = address.notifiable
 
             notify.setOnCheckedChangeListener { _, isChecked ->
-                address.notifiable = isChecked
+                //TODO: update here
             }
         }
     }

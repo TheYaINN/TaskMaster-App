@@ -8,13 +8,13 @@ import android.widget.PopupMenu
 import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.cardview.widget.CardView
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import de.taskmaster.R
+import de.taskmaster.model.data.Status
 import de.taskmaster.model.data.TaskList
 
-class ListOverviewAdapter(private val fragment: Fragment) : RecyclerView.Adapter<ListOverviewAdapter.ListViewHolder>() {
+class ListOverviewAdapter(private val fragment: ListOverviewFragment) : RecyclerView.Adapter<ListOverviewAdapter.ListViewHolder>() {
 
     private var data: MutableList<TaskList> = mutableListOf()
 
@@ -42,17 +42,24 @@ class ListOverviewAdapter(private val fragment: Fragment) : RecyclerView.Adapter
 
     class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        fun bind(taskList: TaskList, fragment: Fragment) {
+        fun bind(taskList: TaskList, fragment: ListOverviewFragment) {
             val title = itemView.findViewById<TextView>(R.id.item_title)
             val subTitle = itemView.findViewById<TextView>(R.id.item_subtitle)
             val status = itemView.findViewById<ImageView>(R.id.item_status)
             title.text = taskList.title
             subTitle.text = taskList.description
-            status.setImageDrawable(AppCompatResources.getDrawable(fragment.requireContext(), taskList.status.resID))
+            status.setImageDrawable(AppCompatResources.getDrawable(fragment.requireContext(), getIcon(taskList)))
             addListeners(taskList, fragment)
         }
 
-        private fun addListeners(taskList: TaskList, fragment: Fragment) {
+        private fun getIcon(taskList: TaskList): Int {
+            return when (taskList.tasks?.any { it.status == Status.OPEN }) {
+                true -> R.drawable.clear
+                else -> R.drawable.check
+            }
+        }
+
+        private fun addListeners(taskList: TaskList, fragment: ListOverviewFragment) {
             val actions = itemView.findViewById<ImageView>(R.id.item_actions)
             actions.setOnClickListener {
                 val popupMenu = PopupMenu(fragment.requireContext(), actions)
@@ -60,7 +67,7 @@ class ListOverviewAdapter(private val fragment: Fragment) : RecyclerView.Adapter
                 popupMenu.setOnMenuItemClickListener {
                     when (it.itemId) {
                         R.id.item_edit -> fragment.findNavController().navigate(R.id.action_navigation_list_to_listEditorFragment)
-                        R.id.item_delete -> println("DELETING: $taskList")
+                        R.id.item_delete -> println("DELETING: $taskList") //TODO: remove item from DB here
                     }
                     true
                 }

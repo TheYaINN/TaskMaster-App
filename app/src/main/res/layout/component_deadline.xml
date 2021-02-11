@@ -6,7 +6,7 @@
 
         <variable
             name="model"
-            type="de.taskmaster.ui.app.list.edit.ListEditorViewModel" />
+            type="de.taskmaster.model.data.TaskList" />
 
         <variable
             name="presenter"
@@ -37,7 +37,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
-                android:text="@{model.taskList.deadline ?? @string/no_deadline}" />
+                android:text="@{model.deadline.date.toString() ?? @string/no_deadline}" />
 
             <TextView
                 android:id="@+id/edit_deadline"
@@ -62,7 +62,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:calendarViewShown="false"
-                android:datePickerMode="spinner" />
+                android:datePickerMode="spinner"
+                android:onDateChanged="@{model::dateChanged}"
+                android:startYear="2021" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -74,7 +76,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:onClick="@{() -> model.setDeadline(0)}"
+                    android:onClick="@{() -> model.setDeadline(model.today)}"
                     android:text="@string/today" />
 
                 <Button
@@ -83,7 +85,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:onClick="@{() -> model.setDeadline(1)}"
+                    android:onClick="@{() -> model.setDeadline(model.tomorrow)}"
                     android:text="@string/tomorrow" />
 
                 <Button
@@ -92,7 +94,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:onClick="@{() -> model.setDeadline(7)}"
+                    android:onClick="@{() -> model.setDeadline(model.nextWeek)}"
                     android:text="@string/next_week" />
 
                 <Button
@@ -101,6 +103,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:onClick="@{() -> model.setDeadline(model.reset)}"
                     android:text="@string/reset" />
             </LinearLayout>
         </LinearLayout>

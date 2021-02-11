@@ -7,14 +7,15 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import de.taskmaster.R
+import de.taskmaster.model.model.viewmodel.ListViewModel
 import de.taskmaster.ui.app.TopLevelFragment
 
 class ListOverviewFragment : TopLevelFragment(R.layout.fragment_list) {
 
-    private lateinit var viewModelOverview: ListOverviewFragmentViewModel
+    private lateinit var viewModelOverview: ListViewModel
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        viewModelOverview = ViewModelProvider(this).get(ListOverviewFragmentViewModel::class.java)
+        viewModelOverview = ViewModelProvider(this).get(ListViewModel::class.java)
         view.findViewById<FloatingActionButton>(R.id.add_item).setOnClickListener {
             findNavController().navigate(R.id.action_navigation_list_to_listEditorFragment)
         }

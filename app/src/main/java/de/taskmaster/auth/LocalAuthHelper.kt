@@ -12,11 +12,11 @@ class LocalAuthHelper {
         private const val usernameKey = "username"
         private const val passwordKey = "password"
 
-        fun login(user: User, rememberUser: Boolean, context: Context): Boolean {
+        fun login(user: User, context: Context): Boolean {
             //TODO before sending anything to the server, the password should be hashed
             //val response = ServerConnector.INSTANCE.postRequest("login", userData.first, userData.second)
             if (user.username != null) {
-                if (rememberUser) { //TODO: this is not changed in the model when changed in the UI
+                if (user.rememberMe) {
                     saveLoginInformation(context, user)
                 }
                 return true
@@ -42,7 +42,7 @@ class LocalAuthHelper {
         }
 
         fun onStartUp(context: Context): Boolean {
-            return login(getLoginInformation(context), false, context)
+            return login(getLoginInformation(context), context)
         }
 
         fun removeLoginInformation(context: Context) {

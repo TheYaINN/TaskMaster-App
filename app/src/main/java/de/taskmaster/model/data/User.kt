@@ -1,6 +1,6 @@
 package de.taskmaster.model.data
 
-open class User {
+class User : ObservableViewModel() {
 
     var username: String? = null
 
@@ -11,6 +11,10 @@ open class User {
     var lastName: String? = null
 
     var email: String? = null
+
+    var rememberMe: Boolean = false
+
+    var groups: List<Group> = arrayListOf()
 
     val places: MutableList<Address> = arrayListOf()
 }

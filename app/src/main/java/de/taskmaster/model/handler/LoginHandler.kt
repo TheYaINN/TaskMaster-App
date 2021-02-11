@@ -8,13 +8,13 @@ import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import de.taskmaster.R
 import de.taskmaster.auth.LocalAuthHelper
-import de.taskmaster.ui.login.LoginViewModel
+import de.taskmaster.model.data.User
 import de.taskmaster.ui.util.ActivityHelper
 
 class LoginHandler(private val context: Context, private val activity: Activity) {
 
-    fun tryLogin(view: View, model: LoginViewModel) {
-        if (LocalAuthHelper.login(model.user, model.rememberMe, context)) {
+    fun tryLogin(view: View, model: User) {
+        if (LocalAuthHelper.login(model, context)) {
             ActivityHelper.startAppActivity(activity)
         } else {
             (view.parent as ConstraintLayout).findViewById<EditText>(R.id.password).text = null

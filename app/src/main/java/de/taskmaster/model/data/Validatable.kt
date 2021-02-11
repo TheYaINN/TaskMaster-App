@@ -1,6 +1,6 @@
 package de.taskmaster.model.data
 
-interface Validator {
+interface Validatable {
 
     fun isValid(): Boolean
 

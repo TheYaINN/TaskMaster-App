@@ -4,15 +4,13 @@
 
     <data>
 
-        <import type="de.taskmaster.model.data.Converter" />
-
         <variable
             name="repeat"
             type="de.taskmaster.model.data.Repeat" />
 
         <variable
             name="model"
-            type="de.taskmaster.ui.app.list.edit.ListEditorViewModel" />
+            type="de.taskmaster.model.data.TaskList" />
 
         <variable
             name="presenter"
@@ -36,7 +34,7 @@
                 android:layout_weight="1"
                 android:drawablePadding="16dp"
                 android:gravity="center_vertical"
-                android:text="@={Converter.repeatToString(model.taskList.repeat)}"
+                android:text="@{model.repeat.text}"
                 app:drawableStartCompat="@drawable/repeat" />
 
             <TextView

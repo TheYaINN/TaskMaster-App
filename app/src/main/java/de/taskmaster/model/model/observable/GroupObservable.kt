@@ -1,10 +1,10 @@
-package de.taskmaster.ui.app.group.editor
+package de.taskmaster.model.model.observable
 
+import androidx.databinding.BaseObservable
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 
-class GroupsEditorViewModel : ViewModel() {
+class GroupObservable : BaseObservable() {
 
     private val _name = MutableLiveData<String>().apply {
         value = "Gruppen"

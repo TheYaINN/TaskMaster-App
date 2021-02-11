@@ -1,6 +1,6 @@
 package de.taskmaster.model.data
 
-class Address : Validator {
+class Address : Validatable {
 
     var name: String? = null
 

@@ -58,4 +58,5 @@
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="e_mail">E-Mail</string>
+    <string name="tasks_done">{0} / {1} tasks done</string>
 </resources>

@@ -1,27 +1,51 @@
 package de.taskmaster.model.data
 
-class TaskList {
+import android.widget.DatePicker
+import androidx.databinding.Bindable
+import de.taskmaster.BR
+import java.time.LocalDate
 
-    val title: String = ""
+class TaskList : ObservableViewModel() {
 
-    /**
-     * is null when no deadline is set
-     */
-    var deadline: DeadLine? = DeadLine()
+    val today = Deadline(LocalDate.now())
+    val tomorrow = Deadline(LocalDate.now().plusDays(1))
+    val nextWeek = Deadline(LocalDate.now().plusDays(7))
+    val reset = Deadline(null)
+
+    var title: String? = null
+
+    @get:Bindable
+    @set:Bindable
+    var deadline: Deadline = Deadline(null)
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.deadline)
+        }
+
+    fun dateChanged(view: DatePicker?, year: Int, monthOfYear: Int, dayOfMonth: Int) {
+        deadline = Deadline(LocalDate.of(year, monthOfYear + 1, dayOfMonth))
+    }
 
     var place: Address? = null
 
-    val description: String = ""
+    var description: String = ""
 
-    val tags: String = ""
+    var tags: String = ""
 
+    @get:Bindable
+    @set:Bindable
     var repeat: Repeat = Repeat.NEVER
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.repeat)
+        }
 
-    /**
-     * is null when not associated with any group
-     */
+
     var group: Group? = null
 
-    val status: Status = Status.OPEN
+    var status: Status = Status.OPEN
+
+    val tasks: List<Task>? = null
+
 
 }

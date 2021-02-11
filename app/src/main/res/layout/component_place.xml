@@ -6,7 +6,7 @@
 
         <variable
             name="model"
-            type="de.taskmaster.ui.app.list.edit.ListEditorViewModel" />
+            type="de.taskmaster.model.data.TaskList" />
 
         <variable
             name="presenter"
@@ -31,7 +31,7 @@
                 android:drawablePadding="16dp"
                 android:ellipsize="end"
                 android:gravity="center_vertical"
-                android:text="@{model.taskList.place.name ?? @string/no_place}"
+                android:text="@{model.place.name ?? @string/no_place}"
                 app:drawableStartCompat="@drawable/place" />
 
             <TextView
