@@ -44,11 +44,13 @@ class ListOverviewAdapter(private val fragment: ListOverviewFragment) : Recycler
 
         fun bind(taskList: TaskList, fragment: ListOverviewFragment) {
             val title = itemView.findViewById<TextView>(R.id.item_title)
-            val subTitle = itemView.findViewById<TextView>(R.id.item_subtitle)
+            val description = itemView.findViewById<TextView>(R.id.description)
             val status = itemView.findViewById<ImageView>(R.id.item_status)
+
             title.text = taskList.title
-            subTitle.text = taskList.description
+            description.text = taskList.description
             status.setImageDrawable(AppCompatResources.getDrawable(fragment.requireContext(), getIcon(taskList)))
+
             addListeners(taskList, fragment)
         }
 

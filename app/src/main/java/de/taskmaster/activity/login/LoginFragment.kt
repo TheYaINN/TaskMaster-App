@@ -10,16 +10,15 @@ import androidx.lifecycle.ViewModelProvider
 import de.taskmaster.R
 import de.taskmaster.databinding.FragmentLoginBinding
 import de.taskmaster.model.data.User
-import de.taskmaster.model.handler.LoginHandler
+import de.taskmaster.model.handler.NavigationHandler
 
 class LoginFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val fragmentBinding = DataBindingUtil.inflate<FragmentLoginBinding>(inflater, R.layout.fragment_login, container, false)
         fragmentBinding.model = ViewModelProvider(requireActivity()).get(User::class.java)
-        fragmentBinding.handler = LoginHandler(requireContext(), requireActivity())
+        fragmentBinding.handler = NavigationHandler(this)
         return fragmentBinding.root
     }
-
 
 }

@@ -2,7 +2,9 @@ package de.taskmaster.model.data
 
 class Task {
 
-    val title: String = ""
+    var title: String = ""
+
+    var description = ""
 
     var status: Status = Status.OPEN
 

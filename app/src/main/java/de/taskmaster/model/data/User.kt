@@ -2,19 +2,21 @@ package de.taskmaster.model.data
 
 class User : ObservableViewModel() {
 
-    var username: String? = null
+    var username: String? = "TheYaINN"
 
     var password: String? = null
 
-    var firstName: String? = null
+    var firstName: String? = "Bengt"
 
-    var lastName: String? = null
+    var lastName: String? = "Joachimsohn"
 
-    var email: String? = null
+    var email: String? = "bengt@joachimsohn.de"
 
     var rememberMe: Boolean = false
 
-    var groups: List<Group> = arrayListOf()
+    var groups: List<Group> = arrayListOf(Group().apply { title = "Group 1" }, Group().apply { title = "Group 2" })
 
-    val places: MutableList<Address> = arrayListOf()
+    var lists: List<TaskList> = arrayListOf(TaskList().apply { tasks = arrayListOf(Task(), Task()) }, TaskList())
+
+    val places: MutableList<Address> = arrayListOf(Address(), Address(), Address(), Address())
 }

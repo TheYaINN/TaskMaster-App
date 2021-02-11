@@ -45,7 +45,7 @@ class TaskList : ObservableViewModel() {
 
     var status: Status = Status.OPEN
 
-    val tasks: List<Task>? = null
+    var tasks: List<Task>? = null
 
 
 }

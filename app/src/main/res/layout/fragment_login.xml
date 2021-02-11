@@ -10,7 +10,7 @@
 
         <variable
             name="handler"
-            type="de.taskmaster.model.handler.LoginHandler" />
+            type="de.taskmaster.model.handler.NavigationHandler" />
 
     </data>
 
@@ -67,7 +67,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="8dp"
             android:backgroundTint="@color/Secondary"
-            android:onClick="@{(v)-> handler.tryLogin(v,model)}"
+            android:onClick="@{(v)-> handler.login(v,model)}"
             android:text="@string/login_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

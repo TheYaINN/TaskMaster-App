@@ -8,21 +8,22 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import de.taskmaster.R
 import de.taskmaster.activity.util.TopLevelFragment
-import de.taskmaster.model.model.viewmodel.ListViewModel
+import de.taskmaster.model.data.User
 
 class ListOverviewFragment : TopLevelFragment(R.layout.fragment_list) {
 
-    private lateinit var viewModelOverview: ListViewModel
+    private lateinit var viewModel: User
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        viewModelOverview = ViewModelProvider(this).get(ListViewModel::class.java)
         view.findViewById<FloatingActionButton>(R.id.add_item).setOnClickListener {
             findNavController().navigate(R.id.action_navigation_list_to_listEditorFragment)
         }
-        val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerview)
 
-        val listAdapter = ListOverviewAdapter(this)
-        viewModelOverview.lists.observe(requireActivity(), listAdapter::setData)
-        recyclerView.adapter = listAdapter
+        viewModel = ViewModelProvider(this).get(User::class.java)
+
+        val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerview)
+        val adapter = ListOverviewAdapter(this)
+        adapter.setData(viewModel.lists)
+        recyclerView.adapter = adapter
     }
 }
