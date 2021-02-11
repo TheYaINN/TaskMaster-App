@@ -3,6 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <import type="de.taskmaster.BuildConfig" />
+
+        <variable
+            name="handler"
+            type="de.taskmaster.model.handler.NavigationHandler" />
+    </data>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -50,6 +59,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:clickable="true"
+                    android:onClick="@{() -> handler.toPublicProfile()}"
                     android:text="@string/see_profile"
                     android:textColor="@color/link"
                     android:textSize="14sp"
@@ -87,6 +97,7 @@
                     android:background="@drawable/profile_button"
                     android:drawableEnd="@drawable/person"
                     android:drawableTint="@color/Secondary"
+                    android:onClick="@{() -> handler.toAccountSetting()}"
                     android:padding="12dp"
                     android:text="@string/account_details"
                     android:textAlignment="textStart"
@@ -101,6 +112,7 @@
                     android:drawableEnd="@drawable/notification"
                     android:drawablePadding="16dp"
                     android:drawableTint="@color/Secondary"
+                    android:onClick="@{() -> handler.toNotifications()}"
                     android:padding="12dp"
                     android:text="@string/notifications"
                     android:textAlignment="textStart"
@@ -112,6 +124,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/profile_button"
+                    android:onClick="@{() -> handler.logout()}"
                     android:padding="12dp"
                     android:text="@string/sign_out"
                     android:textAlignment="textStart"
@@ -123,6 +136,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
+                    android:text="@{@string/version}"
                     android:textAlignment="center" />
             </LinearLayout>
         </ScrollView>

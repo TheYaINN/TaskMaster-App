@@ -30,6 +30,7 @@
     <string name="delete_account">Delete Account</string>
     <string name="edit">Edit</string>
     <string name="no_deadline">Deadline is not set</string>
+    <string name="version">VERSION: {0} ({1})</string>
     <string name="deadline_placeholders">Deadline: %1$d/%2$d/%3$d</string>
     <string name="select">Select</string>
     <string name="reset">Reset</string>
