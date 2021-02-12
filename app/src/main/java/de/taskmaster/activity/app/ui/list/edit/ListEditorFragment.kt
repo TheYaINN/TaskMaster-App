@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import de.taskmaster.R
-import de.taskmaster.activity.util.SubFragment
+import de.taskmaster.activity.util.fragment.SubFragment
 import de.taskmaster.databinding.FragmentListEditBinding
 import de.taskmaster.model.data.Group
 import de.taskmaster.model.data.TaskList

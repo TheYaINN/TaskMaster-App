@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import de.taskmaster.R
-import de.taskmaster.activity.util.SubFragment
+import de.taskmaster.activity.util.fragment.SubFragment
 import de.taskmaster.databinding.FragmentProfileEditBinding
 import de.taskmaster.model.data.Address
 import de.taskmaster.model.data.User

@@ -30,7 +30,6 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun setupUI() {
-        //TODO: refactor the shit out of this pls!
         val tabLayout = findViewById<TabLayout>(R.id.tabLayout)
         val viewPager = findViewById<ViewPager>(R.id.viewPager)
         val indicator = findViewById<View>(R.id.tab_indicator)
@@ -79,5 +78,4 @@ class LoginActivity : AppCompatActivity() {
 
         })
     }
-
 }

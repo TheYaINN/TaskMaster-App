@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import de.taskmaster.R
-import de.taskmaster.activity.util.SubFragment
+import de.taskmaster.activity.util.fragment.SubFragment
 import de.taskmaster.databinding.FragmentProfilePublicBinding
 import de.taskmaster.model.data.User
 

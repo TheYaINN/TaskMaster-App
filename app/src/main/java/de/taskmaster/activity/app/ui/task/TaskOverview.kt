@@ -1,4 +1,4 @@
-package de.taskmaster.activity.app.ui.list.details
+package de.taskmaster.activity.app.ui.task
 
 import android.os.Bundle
 import android.view.View
@@ -6,16 +6,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import de.taskmaster.R
-import de.taskmaster.activity.util.SubFragment
-import de.taskmaster.databinding.FragmentListDetailsBinding
+import de.taskmaster.activity.util.fragment.SubFragment
+import de.taskmaster.databinding.FragmentTasksOverviewBinding
 import de.taskmaster.model.data.Task
 import de.taskmaster.model.data.User
 
-class ListFragment : SubFragment<FragmentListDetailsBinding>(R.layout.fragment_list_details, null) {
+class TaskOverview : SubFragment<FragmentTasksOverviewBinding>(R.layout.fragment_tasks_overview, null) {
 
     private lateinit var viewModel: User
-
-    //FIXME
     private lateinit var observableLists: MutableLiveData<List<Task>>
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

@@ -8,7 +8,7 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import de.taskmaster.R
-import de.taskmaster.activity.util.SubFragment
+import de.taskmaster.activity.util.fragment.SubFragment
 import de.taskmaster.databinding.FragmentMapsBinding
 
 class MapsFragment : SubFragment<FragmentMapsBinding>(R.layout.fragment_maps) {

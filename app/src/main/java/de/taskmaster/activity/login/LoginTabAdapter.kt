@@ -12,7 +12,7 @@ class LoginTabAdapter(private val totalTabs: Int, private val context: Context, 
         return totalTabs
     }
 
-    override fun getPageTitle(position: Int): CharSequence? {
+    override fun getPageTitle(position: Int): CharSequence {
         return when (position) {
             0 -> "Login"
             1 -> "Register"

@@ -15,20 +15,20 @@
         android:id="@+id/navigation_list"
         android:name="de.taskmaster.activity.app.ui.list.ListOverviewFragment"
         android:label="@string/title_list"
-        tools:layout="@layout/fragment_list">
+        tools:layout="@layout/fragment_lists_overview">
         <action
             android:id="@+id/action_navigation_list_to_listEditorFragment"
             app:destination="@id/list_editor" />
         <action
             android:id="@+id/action_navigation_list_to_listDetailsFragment"
-            app:destination="@id/listDetailsFragment" />
+            app:destination="@id/taskOverview" />
     </fragment>
 
     <fragment
         android:id="@+id/navigation_group"
         android:name="de.taskmaster.activity.app.ui.group.GroupsFragment"
         android:label="@string/title_group"
-        tools:layout="@layout/fragment_list">
+        tools:layout="@layout/fragment_lists_overview">
         <action
             android:id="@+id/action_navigation_group_to_groupEditorFragment"
             app:destination="@id/group_editor" />
@@ -91,9 +91,18 @@
         tools:layout="@layout/fragment_maps" />
 
     <fragment
-        android:id="@+id/listDetailsFragment"
-        android:name="de.taskmaster.activity.app.ui.list.details.ListFragment"
+        android:id="@+id/taskOverview"
+        android:name="de.taskmaster.activity.app.ui.task.TaskOverview"
         android:label="ListDetailsFragment"
-        tools:layout="@layout/fragment_list_details" />
+        tools:layout="@layout/fragment_tasks_overview">
+        <action
+            android:id="@+id/action_taskOverview_to_taskEditorFragment"
+            app:destination="@id/taskEditorFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/taskEditorFragment"
+        android:name="de.taskmaster.activity.app.ui.task.editor.TaskEditorFragment"
+        android:label="TaskEditorFragment"
+        tools:layout="@layout/fragment_task_editor" />
 
 </navigation>

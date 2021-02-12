@@ -5,7 +5,7 @@ import android.view.View
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 import de.taskmaster.R
-import de.taskmaster.activity.util.SubFragment
+import de.taskmaster.activity.util.fragment.SubFragment
 import de.taskmaster.databinding.FragmentGroupEditBinding
 
 class GroupEditorFragment : SubFragment<FragmentGroupEditBinding>(R.layout.fragment_group_edit) {

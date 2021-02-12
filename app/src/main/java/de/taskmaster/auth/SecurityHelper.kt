@@ -6,7 +6,6 @@ import javax.crypto.SecretKeyFactory
 import javax.crypto.spec.PBEKeySpec
 import kotlin.experimental.xor
 
-//TODO: refactor (if not working)
 class SecurityHelper {
 
     fun generateHashedPassword(password: String): String {

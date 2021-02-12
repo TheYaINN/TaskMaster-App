@@ -8,4 +8,6 @@ class Task {
 
     var status: Status = Status.OPEN
 
+    var responsiblePerson: User? = null
+
 }

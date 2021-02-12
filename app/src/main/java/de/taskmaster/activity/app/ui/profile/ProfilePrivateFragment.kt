@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import de.taskmaster.R
-import de.taskmaster.activity.util.TopLevelFragment
+import de.taskmaster.activity.util.fragment.TopLevelFragment
 import de.taskmaster.databinding.FragmentProfilePrivateBinding
 import de.taskmaster.model.handler.NavigationHandler
 

@@ -1,4 +1,4 @@
-package de.taskmaster.activity.util
+package de.taskmaster.activity.util.fragment
 
 interface Searchable {
 

@@ -7,7 +7,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import de.taskmaster.R
-import de.taskmaster.activity.util.TopLevelFragment
+import de.taskmaster.activity.util.fragment.TopLevelFragment
 import de.taskmaster.model.data.User
 
 class GroupsFragment : TopLevelFragment(R.layout.fragment_group, R.menu.lists_groups_menu) {

@@ -1,5 +1,4 @@
 <resources>
-    <!-- TODO: rework when the design has come closer to a finish -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="gap_small">10dp</dimen>

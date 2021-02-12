@@ -34,7 +34,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_margin="12dp"
-                    android:divider="@drawable/divider"
+                    android:divider="@drawable/divider_vertical"
                     android:orientation="vertical"
                     android:showDividers="middle">
 
@@ -50,7 +50,7 @@
 
                     <include
                         android:id="@+id/component_deadline"
-                        layout="@layout/component_deadline"
+                        layout="@layout/component_deadline_editor"
                         app:model="@{model}"
                         app:presenter="@{presenter}" />
 
@@ -69,7 +69,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_margin="12dp"
-                    android:divider="@drawable/divider"
+                    android:divider="@drawable/divider_vertical"
                     android:orientation="vertical"
                     android:showDividers="middle">
 
@@ -84,19 +84,19 @@
 
                     <include
                         android:id="@+id/component_place"
-                        layout="@layout/component_place"
+                        layout="@layout/component_place_editor"
                         app:model="@{model}"
                         app:presenter="@{presenter}" />
 
                     <include
                         android:id="@+id/component_repeating"
-                        layout="@layout/component_repeating"
+                        layout="@layout/component_repeating_editor"
                         app:model="@{model}"
                         app:presenter="@{presenter}" />
 
                     <include
                         android:id="@+id/component_group"
-                        layout="@layout/component_group"
+                        layout="@layout/component_group_editor"
                         app:model="@{model}"
                         app:presenter="@{presenter}" />
 

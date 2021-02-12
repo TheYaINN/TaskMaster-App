@@ -11,33 +11,18 @@ import androidx.cardview.widget.CardView
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import de.taskmaster.R
+import de.taskmaster.activity.util.BasicAdapter
 import de.taskmaster.model.data.Status
 import de.taskmaster.model.data.TaskList
 
-class ListOverviewAdapter(private val fragment: ListOverviewFragment) : RecyclerView.Adapter<ListOverviewAdapter.ListViewHolder>() {
-
-    private var data: MutableList<TaskList> = mutableListOf()
-
-    private lateinit var listView: CardView
+class ListOverviewAdapter(private val fragment: ListOverviewFragment) : BasicAdapter<TaskList, ListOverviewAdapter.ListViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
-        val inflater = LayoutInflater.from(parent.context)
-        listView = inflater.inflate(R.layout.item_list, parent, false) as CardView
-        return ListViewHolder(listView)
+        return ListViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_list, parent, false) as CardView)
     }
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
         holder.bind(data[position], fragment)
-    }
-
-    override fun getItemCount(): Int {
-        return data.size
-    }
-
-    fun setData(newData: List<TaskList>) {
-        data.clear()
-        data.addAll(newData)
-        notifyDataSetChanged()
     }
 
     class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
