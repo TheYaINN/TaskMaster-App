@@ -2,19 +2,17 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+
     <data>
 
         <variable
-            name="repeat"
-            type="de.taskmaster.model.data.Repeat" />
-
-        <variable
             name="model"
-            type="de.taskmaster.model.data.TaskList" />
+            type="de.taskmaster.model.data.Task" />
 
         <variable
             name="presenter"
             type="de.taskmaster.model.handler.ToggleEditableComponentHandler" />
+
     </data>
 
     <RelativeLayout
@@ -34,7 +32,8 @@
                 android:layout_weight="1"
                 android:drawablePadding="16dp"
                 android:gravity="center_vertical"
-                android:text="@{model.repeat.text}"
+                android:hint="Responsible Person"
+                android:text="@{model.responsiblePerson.username}"
                 app:drawableStartCompat="@drawable/person" />
 
             <TextView
@@ -52,7 +51,8 @@
             android:id="@+id/editable_component_lower"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:visibility="gone">
 
         </LinearLayout>
 

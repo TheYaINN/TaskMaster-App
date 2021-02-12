@@ -1,6 +1,10 @@
 package de.taskmaster.model.data
 
-class User : ObservableViewModel() {
+import android.graphics.drawable.Drawable
+
+class User : ObservableViewModel(), Test {
+
+    var img: Drawable? = null
 
     var username: String? = "TheYaINN"
 
@@ -23,4 +27,8 @@ class User : ObservableViewModel() {
         }, TaskList().apply { title = "Test titel" })
 
     val places: MutableList<Address> = arrayListOf(Address(), Address(), Address(), Address())
+
+    override fun getImage(): Drawable? {
+        return img
+    }
 }

@@ -103,6 +103,6 @@
         android:id="@+id/taskEditorFragment"
         android:name="de.taskmaster.activity.app.ui.task.editor.TaskEditorFragment"
         android:label="TaskEditorFragment"
-        tools:layout="@layout/fragment_task_editor" />
+        tools:layout="@layout/items_task" />
 
 </navigation>

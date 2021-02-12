@@ -21,6 +21,10 @@
         android:orientation="vertical"
         tools:ignore="RtlSymmetry">
 
+        <include
+            layout="@layout/component_image_editor"
+            app:model="@{model}" />
+
         <EditText
             android:id="@+id/first_name_field"
             android:layout_width="match_parent"

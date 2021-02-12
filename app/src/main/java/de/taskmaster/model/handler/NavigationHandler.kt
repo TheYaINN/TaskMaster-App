@@ -42,4 +42,8 @@ class NavigationHandler(val fragment: Fragment) {
         }
     }
 
+    fun toTaskEditor() {
+        fragment.findNavController().navigate(R.id.action_taskOverview_to_taskEditorFragment)
+    }
+
 }

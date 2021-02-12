@@ -40,7 +40,6 @@ class TaskList : ObservableViewModel() {
             notifyPropertyChanged(BR.repeat)
         }
 
-
     var group: Group? = null
 
     var status: Status = Status.OPEN

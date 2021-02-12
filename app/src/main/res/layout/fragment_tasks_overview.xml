@@ -4,6 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".activity.app.ui.list.detailed_list">
 
+    <data>
+
+        <variable
+            name="handler"
+            type="de.taskmaster.model.handler.NavigationHandler" />
+
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -15,10 +23,11 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/list_status"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                android:text="@string/tasks_done" />
+                android:textSize="@dimen/subtitle" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/items"
@@ -34,7 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="24dp"
             android:layout_marginBottom="24dp"
-            android:clickable="true"
+            android:onClick="@{() -> handler.toTaskEditor()}"
             android:src="@drawable/task_add"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
