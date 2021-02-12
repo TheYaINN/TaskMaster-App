@@ -1,5 +1,7 @@
 package de.taskmaster.model.handler
 
+import android.content.Intent
+import android.provider.MediaStore
 import android.view.View
 import android.widget.EditText
 import android.widget.Toast
@@ -10,8 +12,10 @@ import de.taskmaster.R
 import de.taskmaster.activity.app.AppActivity
 import de.taskmaster.activity.login.LoginActivity
 import de.taskmaster.activity.util.ActivityHelper
+import de.taskmaster.activity.util.StorageHelper
 import de.taskmaster.auth.LocalAuthHelper
 import de.taskmaster.model.data.User
+
 
 class NavigationHandler(val fragment: Fragment) {
 
@@ -44,6 +48,12 @@ class NavigationHandler(val fragment: Fragment) {
 
     fun toTaskEditor() {
         fragment.findNavController().navigate(R.id.action_taskOverview_to_taskEditorFragment)
+    }
+
+    fun takePicture() {
+        StorageHelper.verifyStoragePermissions(fragment.requireActivity())
+        val i = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+        fragment.startActivityForResult(i, 1)
     }
 
 }

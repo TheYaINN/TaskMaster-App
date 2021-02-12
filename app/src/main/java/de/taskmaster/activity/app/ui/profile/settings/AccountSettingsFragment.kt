@@ -2,6 +2,7 @@ package de.taskmaster.activity.app.ui.profile.settings
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Button
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
@@ -11,6 +12,7 @@ import de.taskmaster.databinding.FragmentProfileEditBinding
 import de.taskmaster.model.data.Address
 import de.taskmaster.model.data.User
 import de.taskmaster.model.handler.AddressEditorHandler
+import de.taskmaster.model.handler.NavigationHandler
 import de.taskmaster.model.handler.PlaceEditor
 
 class AccountSettingsFragment : SubFragment<FragmentProfileEditBinding>(R.layout.fragment_profile_edit), PlaceEditor {
@@ -24,6 +26,12 @@ class AccountSettingsFragment : SubFragment<FragmentProfileEditBinding>(R.layout
 
         binder.model = userViewModel
         binder.addHandler = AddressEditorHandler(this, requireContext())
+        binder.handler = NavigationHandler(this)
+
+        binder.root.findViewById<Button>(R.id.delete_account).setOnClickListener {
+            //TODO: delete user from DB
+            NavigationHandler(this).logout()
+        }
 
         val recyclerView = binder.root.findViewById<RecyclerView>(R.id.items)
         val placeAdapter = PlaceAdapter(this)

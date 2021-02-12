@@ -6,6 +6,7 @@ import de.taskmaster.R
 import de.taskmaster.activity.util.fragment.SubFragment
 import de.taskmaster.databinding.FragmentTasksEditorBinding
 import de.taskmaster.model.data.Task
+import de.taskmaster.model.handler.NavigationHandler
 import de.taskmaster.model.handler.ToggleEditableComponentHandler
 
 class TaskEditorFragment : SubFragment<FragmentTasksEditorBinding>(R.layout.fragment_tasks_editor) {
@@ -13,6 +14,7 @@ class TaskEditorFragment : SubFragment<FragmentTasksEditorBinding>(R.layout.frag
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binder.model = Task()
         binder.presenter = ToggleEditableComponentHandler(requireContext())
+        binder.handler = NavigationHandler(this)
     }
 
 }

@@ -1,10 +1,10 @@
 package de.taskmaster.model.data
 
-import android.graphics.drawable.Drawable
+import android.graphics.Bitmap
 
 class Task : Test {
 
-    var img: Drawable? = null
+    var img: Bitmap = Bitmap.createBitmap(100, 100, Bitmap.Config.RGBA_F16)
 
     var title: String = ""
 
@@ -15,7 +15,7 @@ class Task : Test {
     var responsiblePerson: User? = null
 
 
-    override fun getImage(): Drawable? {
+    override fun getImage(): Bitmap {
         return img
     }
 

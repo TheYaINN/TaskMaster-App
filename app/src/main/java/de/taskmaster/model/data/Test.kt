@@ -1,9 +1,9 @@
 package de.taskmaster.model.data
 
-import android.graphics.drawable.Drawable
+import android.graphics.Bitmap
 
 interface Test {
 
-    fun getImage(): Drawable?
+    fun getImage(): Bitmap
 
 }

@@ -1,10 +1,10 @@
 package de.taskmaster.model.data
 
-import android.graphics.drawable.Drawable
+import android.graphics.Bitmap
 
 class User : ObservableViewModel(), Test {
 
-    var img: Drawable? = null
+    var img: Bitmap = Bitmap.createBitmap(100, 100, Bitmap.Config.ALPHA_8)
 
     var username: String? = "TheYaINN"
 
@@ -28,7 +28,7 @@ class User : ObservableViewModel(), Test {
 
     val places: MutableList<Address> = arrayListOf(Address(), Address(), Address(), Address())
 
-    override fun getImage(): Drawable? {
+    override fun getImage(): Bitmap {
         return img
     }
 }

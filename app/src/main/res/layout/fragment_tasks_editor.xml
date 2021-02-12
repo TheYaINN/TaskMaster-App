@@ -14,6 +14,10 @@
             name="presenter"
             type="de.taskmaster.model.handler.ToggleEditableComponentHandler" />
 
+        <variable
+            name="handler"
+            type="de.taskmaster.model.handler.NavigationHandler" />
+
     </data>
 
     <LinearLayout
@@ -23,6 +27,7 @@
 
         <include
             layout="@layout/component_image_editor"
+            app:handler="@{handler}"
             app:model="@{model}" />
 
 

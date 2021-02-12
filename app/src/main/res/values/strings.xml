@@ -61,4 +61,5 @@
     <string name="e_mail">E-Mail</string>
     <string name="tasks_done">%d / %d tasks done</string>
     <string name="done">Done</string>
+    <string name="add_edit">Add / Edit</string>
 </resources>
