@@ -1,18 +1,27 @@
 package de.taskmaster.activity.app.ui.group
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.cardview.widget.CardView
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import de.taskmaster.R
+import de.taskmaster.activity.util.BasicAdapter
 import de.taskmaster.activity.util.fragment.TopLevelFragment
+import de.taskmaster.model.data.Group
 import de.taskmaster.model.data.User
 
 class GroupsFragment : TopLevelFragment(R.layout.fragment_group, R.menu.lists_groups_menu) {
 
     private lateinit var viewModel: User
+    //TODO: there should be a shared viewModel between this and GroupEditor
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         view.findViewById<FloatingActionButton>(R.id.add_item).setOnClickListener {
@@ -28,3 +37,35 @@ class GroupsFragment : TopLevelFragment(R.layout.fragment_group, R.menu.lists_gr
     }
 
 }
+
+class BigGroupAdapter(private val fragment: Fragment) : BasicAdapter<Group, BigGroupAdapter.GroupViewHolder>() {
+
+    private lateinit var listView: CardView
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GroupViewHolder {
+        listView =  LayoutInflater.from(parent.context).inflate(R.layout.item_group_big, parent, false) as CardView
+        return GroupViewHolder(listView)
+    }
+
+    override fun onBindViewHolder(holder: GroupViewHolder, position: Int) {
+        holder.bind(data[position])
+        listView.setOnClickListener {
+            //TODO: somehow remember which id i pressed on to edit it here
+            fragment.findNavController().navigate(R.id.action_navigation_group_to_groupEditorFragment)
+        }
+    }
+
+    class GroupViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+        fun bind(group: Group) {
+            val icon = itemView.findViewById<ImageView>(R.id.item_icon)
+            val name = itemView.findViewById<TextView>(R.id.item_name)
+            val description = itemView.findViewById<TextView>(R.id.item_description)
+
+            //TODO: icon.setImageDrawable()
+            name.text = group.title
+            description.text = group.description
+        }
+    }
+}
+

@@ -2,21 +2,58 @@ package de.taskmaster.activity.app.ui.group.editor
 
 import android.os.Bundle
 import android.view.View
+import android.widget.FrameLayout
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentPagerAdapter
 import androidx.viewpager.widget.ViewPager
+import androidx.viewpager.widget.ViewPager.OnPageChangeListener
 import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import de.taskmaster.R
+import de.taskmaster.activity.app.ui.group.editor.tabs.GroupListsFragment
+import de.taskmaster.activity.app.ui.group.editor.tabs.GroupMembersFragment
 import de.taskmaster.activity.util.fragment.SubFragment
 import de.taskmaster.databinding.FragmentGroupEditBinding
 
 class GroupEditorFragment : SubFragment<FragmentGroupEditBinding>(R.layout.fragment_group_edit) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        //TODO: refactor
         val tabLayout = view.findViewById<TabLayout>(R.id.tabLayout)
         val viewPager = view.findViewById<ViewPager>(R.id.viewPager)
-        viewPager.adapter = GroupTabAdapter(2, requireActivity().supportFragmentManager)
-        tabLayout.setupWithViewPager(viewPager)
-        super.onViewCreated(view, savedInstanceState)
+
+        viewPager.adapter = GroupTabAdapter(requireActivity().supportFragmentManager)
+        viewPager.addOnPageChangeListener(object : OnPageChangeListener {
+            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+                tabLayout.setScrollPosition(position, positionOffset, false)
+            }
+
+            override fun onPageSelected(position: Int) {}
+            override fun onPageScrollStateChanged(state: Int) {}
+        })
+        tabLayout.addOnTabSelectedListener(object : OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab) {
+                viewPager.currentItem = tab.position
+                tabLayout.setScrollPosition(tab.position, 0f, false)
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab) {}
+            override fun onTabReselected(tab: TabLayout.Tab) {}
+        })
+    }
+
+}
+
+class GroupTabAdapter(fragmentManager: FragmentManager) : FragmentPagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
+
+    private val tabs = listOf(GroupListsFragment(), GroupMembersFragment())
+
+    override fun getCount(): Int {
+        return tabs.size
+    }
+
+    override fun getItem(position: Int): Fragment {
+        return tabs[position]
     }
 
 }

@@ -35,7 +35,6 @@ class ListOverviewAdapter(private val fragment: ListOverviewFragment) : BasicAda
             title.text = taskList.title
             description.text = taskList.description
             status.setImageDrawable(AppCompatResources.getDrawable(fragment.requireContext(), getIcon(taskList)))
-
             addListeners(taskList, fragment)
         }
 
@@ -64,7 +63,5 @@ class ListOverviewAdapter(private val fragment: ListOverviewFragment) : BasicAda
                 fragment.findNavController().navigate(R.id.action_navigation_list_to_listDetailsFragment)
             }
         }
-
     }
-
 }

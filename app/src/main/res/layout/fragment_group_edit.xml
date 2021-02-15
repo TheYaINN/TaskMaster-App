@@ -33,42 +33,33 @@
                 android:inputType="text" />
         </LinearLayout>
 
-        <FrameLayout
-            android:id="@+id/indicator_layout"
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:clipToPadding="false">
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            app:tabGravity="fill"
+            app:tabMode="fixed">
 
-            <androidx.viewpager.widget.ViewPager
-                android:id="@+id/viewPager"
+            <com.google.android.material.tabs.TabItem
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent"
+                android:icon="@drawable/list_filled"
+                android:text="@string/title_list">
 
-                <com.google.android.material.tabs.TabLayout
-                    android:id="@+id/tabLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="top"
-                    app:tabGravity="fill"
-                    app:tabMode="fixed">
+            </com.google.android.material.tabs.TabItem>
 
-                    <com.google.android.material.tabs.TabItem
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:icon="@drawable/list_filled"
-                        android:text="@string/title_list">
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:icon="@drawable/person_filled"
+                android:text="@string/members" />
 
-<!--                        <include layout="@layout/fragment_list" />-->
-                    </com.google.android.material.tabs.TabItem>
+        </com.google.android.material.tabs.TabLayout>
 
-                    <com.google.android.material.tabs.TabItem
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:icon="@drawable/person_filled"
-                        android:text="@string/members" />
-                </com.google.android.material.tabs.TabLayout>
-
-            </androidx.viewpager.widget.ViewPager>
-        </FrameLayout>
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
     </LinearLayout>
 </layout>
