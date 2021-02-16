@@ -4,6 +4,7 @@
     <color name="PrimaryDark">#5E5E5E</color>
     <color name="Secondary">#7B1FA2</color>
     <color name="background">#FDFDFD</color>
+    <color name="background_60p">#99FDFDFD</color>
     <color name="backgroundDark">#EFEFEF</color>
 
     <!-- Icon colors -->

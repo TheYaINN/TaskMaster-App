@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.View
 import android.widget.TextView
 import de.taskmaster.R
+import de.taskmaster.model.toggleVisibility
 
 open class ToggleEditableComponentHandler(
     val context: Context,

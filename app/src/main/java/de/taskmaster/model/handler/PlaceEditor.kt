@@ -19,7 +19,5 @@ interface GroupSelector {
 }
 
 interface ViewHandler {
-
     fun getView(id: Int): View
-
 }

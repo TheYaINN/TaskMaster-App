@@ -16,12 +16,10 @@ import de.taskmaster.model.handler.NavigationHandler
 
 class TaskOverview : SubFragment<FragmentTasksOverviewBinding>(R.layout.fragment_tasks_overview, null) {
 
-    private lateinit var viewModel: User
     private lateinit var observableViewModel: MutableLiveData<List<Task>>
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        viewModel = ViewModelProvider(this).get(User::class.java)
-        observableViewModel = MutableLiveData(viewModel.lists[0].tasks)
+        observableViewModel = MutableLiveData(userViewModel.lists[0].tasks)
 
         binder.handler = NavigationHandler(this)
 

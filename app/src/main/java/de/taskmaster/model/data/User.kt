@@ -1,10 +1,11 @@
 package de.taskmaster.model.data
 
 import android.graphics.Bitmap
+import de.taskmaster.model.rotate
 
-class User : ObservableViewModel(), Test {
+class User : ObservableViewModel(), Displayable {
 
-    var img: Bitmap = Bitmap.createBitmap(100, 100, Bitmap.Config.ALPHA_8)
+    var img: Bitmap? = null
 
     var username: String? = "TheYaINN"
 
@@ -28,7 +29,11 @@ class User : ObservableViewModel(), Test {
 
     val places: MutableList<Address> = arrayListOf(Address(), Address(), Address(), Address())
 
-    override fun getImage(): Bitmap {
+    override fun getImage(): Bitmap? {
         return img
+    }
+
+    override fun rotate() {
+        img?.rotate(90f)
     }
 }

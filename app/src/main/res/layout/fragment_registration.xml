@@ -93,7 +93,7 @@
                     android:layout_marginBottom="8dp"
                     android:backgroundTint="@color/Secondary"
                     android:onClick="@{(v) -> handler.register(v, model)}"
-                    android:text="@string/login_register" />
+                    android:text="@string/register" />
 
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>

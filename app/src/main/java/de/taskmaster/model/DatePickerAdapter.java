@@ -41,8 +41,7 @@ public class DatePickerAdapter {
     }
 
     @BindingAdapter({"android:month", "android:day", "android:onDateChanged"})
-    public static void setMonthDay(DatePicker view, int month, int day,
-                                   DatePicker.OnDateChangedListener listener) {
+    public static void setMonthDay(DatePicker view, int month, int day, DatePicker.OnDateChangedListener listener) {
         setDate(view, view.getYear(), month, day, listener);
     }
 

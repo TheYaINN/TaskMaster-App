@@ -43,7 +43,7 @@ class BigGroupAdapter(private val fragment: Fragment) : BasicAdapter<Group, BigG
     private lateinit var listView: CardView
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GroupViewHolder {
-        listView =  LayoutInflater.from(parent.context).inflate(R.layout.item_group_big, parent, false) as CardView
+        listView = LayoutInflater.from(parent.context).inflate(R.layout.item_group_big, parent, false) as CardView
         return GroupViewHolder(listView)
     }
 

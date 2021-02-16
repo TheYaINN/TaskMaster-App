@@ -68,7 +68,7 @@
             android:layout_marginTop="8dp"
             android:backgroundTint="@color/Secondary"
             android:onClick="@{(v)-> handler.login(v,model)}"
-            android:text="@string/login_button"
+            android:text="@string/login"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/remember_password" />

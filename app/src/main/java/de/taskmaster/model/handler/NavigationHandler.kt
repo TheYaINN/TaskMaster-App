@@ -13,6 +13,7 @@ import de.taskmaster.activity.app.AppActivity
 import de.taskmaster.activity.login.LoginActivity
 import de.taskmaster.activity.util.ActivityHelper
 import de.taskmaster.activity.util.StorageHelper
+import de.taskmaster.activity.util.fragment.SubFragment
 import de.taskmaster.auth.LocalAuthHelper
 import de.taskmaster.model.data.User
 
@@ -52,8 +53,8 @@ class NavigationHandler(val fragment: Fragment) {
 
     fun takePicture() {
         StorageHelper.verifyStoragePermissions(fragment.requireActivity())
-        val i = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-        fragment.startActivityForResult(i, 1)
+        val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+        fragment.startActivityForResult(intent, 101)
     }
 
 }

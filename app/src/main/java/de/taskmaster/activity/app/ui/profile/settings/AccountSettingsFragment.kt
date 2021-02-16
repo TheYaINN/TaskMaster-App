@@ -1,8 +1,13 @@
 package de.taskmaster.activity.app.ui.profile.settings
 
+import android.content.Intent
+import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.View
 import android.widget.Button
+import android.widget.ImageView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
@@ -14,14 +19,13 @@ import de.taskmaster.model.data.User
 import de.taskmaster.model.handler.AddressEditorHandler
 import de.taskmaster.model.handler.NavigationHandler
 import de.taskmaster.model.handler.PlaceEditor
+import de.taskmaster.model.rotate
 
 class AccountSettingsFragment : SubFragment<FragmentProfileEditBinding>(R.layout.fragment_profile_edit), PlaceEditor {
 
-    private lateinit var userViewModel: User
     private lateinit var observablePlaces: MutableLiveData<List<Address>>
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        userViewModel = ViewModelProvider(requireActivity()).get(User::class.java)
         observablePlaces = MutableLiveData(userViewModel.places)
 
         binder.model = userViewModel

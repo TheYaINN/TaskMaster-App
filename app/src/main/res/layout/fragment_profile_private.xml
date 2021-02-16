@@ -8,6 +8,10 @@
         <import type="de.taskmaster.BuildConfig" />
 
         <variable
+            name="model"
+            type="de.taskmaster.model.data.Displayable" />
+
+        <variable
             name="handler"
             type="de.taskmaster.model.handler.NavigationHandler" />
     </data>

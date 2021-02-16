@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import de.taskmaster.R
 import de.taskmaster.databinding.FragmentLoginBinding
+import de.taskmaster.model.UserViewModel
 import de.taskmaster.model.data.User
 import de.taskmaster.model.handler.NavigationHandler
 

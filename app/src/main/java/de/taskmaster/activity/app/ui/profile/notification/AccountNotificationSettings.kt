@@ -11,14 +11,12 @@ import de.taskmaster.model.data.User
 
 class AccountNotificationSettings : SubFragment<FragmentNotificationBinding>(R.layout.fragment_notification, null) {
 
-    private lateinit var userViewModel: User
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        userViewModel = ViewModelProvider(requireActivity()).get(User::class.java)
-
         val recyclerView = binder.root.findViewById<RecyclerView>(R.id.items)
+
         val notificationAdapter = NotificationAdapter()
         recyclerView.adapter = notificationAdapter
+
         notificationAdapter.setData(userViewModel.places)
     }
 

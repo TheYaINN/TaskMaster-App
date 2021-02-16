@@ -2,8 +2,10 @@ package de.taskmaster.model.data
 
 import android.graphics.Bitmap
 
-interface Test {
+interface Displayable {
 
-    fun getImage(): Bitmap
+    fun getImage(): Bitmap?
+
+    fun rotate()
 
 }

@@ -13,12 +13,18 @@ import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import androidx.lifecycle.ViewModelProvider
 import de.taskmaster.R
 import de.taskmaster.activity.app.AppActivity
+import de.taskmaster.model.data.User
+import de.taskmaster.model.rotate
+
 
 open class SubFragment<T : ViewDataBinding>(private val layoutResourceId: Int, private val menuId: Int? = R.menu.save) : SavableFragment() {
 
-    private val RESULT_LOAD_IMAGE = 1
+    val REQUEST_CODE_SELECT_AVATAR = 101
+
+    val userViewModel = User() //ViewModelProvider(requireActivity()).get(User::class.java)
 
     lateinit var binder: T
 
@@ -41,8 +47,7 @@ open class SubFragment<T : ViewDataBinding>(private val layoutResourceId: Int, p
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == RESULT_LOAD_IMAGE && resultCode == AppCompatActivity.RESULT_OK && null != data) {
+        if (requestCode == REQUEST_CODE_SELECT_AVATAR && resultCode == AppCompatActivity.RESULT_OK && null != data) {
             val selectedImage = data.data
             val filePathColumn = arrayOf(MediaStore.Images.Media.DATA)
             val cursor = requireActivity().contentResolver.query(selectedImage!!, filePathColumn, null, null, null)
@@ -50,7 +55,10 @@ open class SubFragment<T : ViewDataBinding>(private val layoutResourceId: Int, p
             val columnIndex = cursor.getColumnIndex(filePathColumn[0])
             val picturePath = cursor.getString(columnIndex)
             cursor.close()
-            binder.root.findViewById<ImageView>(R.id.image).setImageBitmap(BitmapFactory.decodeFile(picturePath))
+            //Has to be rotated by 90 degrees CW at this point, due to importing it this way causes it to be rotated 90 degrees CCW
+            val result = BitmapFactory.decodeFile(picturePath).rotate(90f)
+            binder.root.findViewById<ImageView>(R.id.profile_picture).setImageBitmap(result)
+            userViewModel.img = result
         }
     }
 
