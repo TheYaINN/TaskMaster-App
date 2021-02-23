@@ -53,7 +53,7 @@ class ListOverviewAdapter(private val fragment: ListOverviewFragment) : BasicAda
                 popupMenu.setOnMenuItemClickListener {
                     when (it.itemId) {
                         R.id.item_edit -> fragment.findNavController().navigate(R.id.action_navigation_list_to_listEditorFragment)
-                        R.id.item_delete -> println("DELETING: $taskList") //TODO: remove item from DB here
+                        R.id.item_delete -> fragment.delete(taskList)
                     }
                     true
                 }

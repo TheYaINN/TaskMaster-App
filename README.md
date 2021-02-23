@@ -1,4 +1,6 @@
 # TaskMaster
 
-- Rework data model (especially ViewModels!!) and its handling
-- refactor adaptors(Recyclerview, Task, List especially) even more if possible (Or abstracting them to avoid duplicate code in the viewholders)
+Sollte das gleiche Viewmodel in der ganzen App verwendet werden?
+Also es gibt ein Viewmodel User in dem alles gespeichert ist und das immer wieder verwendet wird oder sollte jede View ihr eigenes Viewmodel dann haben,das jedes mal neu geladedn wird?
+
+EditorFragment -> #Name#EditViewModel

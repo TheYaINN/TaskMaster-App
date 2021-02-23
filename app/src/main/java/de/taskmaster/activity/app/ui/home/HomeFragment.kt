@@ -6,20 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.appcompat.content.res.AppCompatResources
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import de.taskmaster.R
-import de.taskmaster.activity.app.ui.task.TaskAdapter
 import de.taskmaster.activity.util.BasicAdapter
 import de.taskmaster.activity.util.fragment.TopLevelFragment
-import de.taskmaster.model.data.Group
-import de.taskmaster.model.data.Task
 import de.taskmaster.model.data.TaskList
 import de.taskmaster.model.data.User
-import de.taskmaster.model.handler.GroupSelector
 import de.taskmaster.model.toggleVisibility
 
 class HomeFragment : TopLevelFragment(R.layout.fragment_home, null) {
@@ -60,7 +55,19 @@ class HomeAdapter(val fragment: Fragment) : BasicAdapter<TaskList, HomeAdapter.H
                 linearLayout.toggleVisibility()
             }
 
-            taskList.tasks?.forEach { linearLayout.addView(TextView(fragment.requireContext()).apply { text = it.title }) }
+            addTasks(linearLayout, taskList)
+        }
+
+        private fun addTasks(linearLayout: LinearLayout, taskList: TaskList) {
+            if (taskList.tasks == null || taskList.tasks?.size == 0) {
+                linearLayout.addView(createTextView("Ne tasks added"))
+            } else {
+                taskList.tasks?.forEach { linearLayout.addView(createTextView(it.title)) }
+            }
+        }
+
+        private fun createTextView(text: String): TextView {
+            return TextView(fragment.requireContext()).apply { this.text = text }
         }
     }
 }

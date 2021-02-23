@@ -76,7 +76,14 @@
         android:id="@+id/group_editor"
         android:name="de.taskmaster.activity.app.ui.group.editor.GroupEditorFragment"
         android:label="GroupEditorFragment"
-        tools:layout="@layout/fragment_group_edit" />
+        tools:layout="@layout/fragment_group_edit">
+        <action
+            android:id="@+id/action_group_editor_to_taskOverview"
+            app:destination="@id/taskOverview" />
+        <action
+            android:id="@+id/action_group_editor_to_list_editor"
+            app:destination="@id/list_editor" />
+    </fragment>
 
     <fragment
         android:id="@+id/publicProfileFragment"

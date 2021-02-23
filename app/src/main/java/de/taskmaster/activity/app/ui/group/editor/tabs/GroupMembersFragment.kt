@@ -9,12 +9,12 @@ import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import de.taskmaster.R
-import de.taskmaster.activity.app.ui.list.ListOverviewAdapter
 import de.taskmaster.activity.util.BasicAdapter
-import de.taskmaster.model.data.Group
 import de.taskmaster.model.data.User
 
 class GroupMembersFragment : Fragment(R.layout.fragment_lists_members) {
+
+    //TODO: add viewmodel
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerview)
