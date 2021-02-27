@@ -35,7 +35,12 @@ android {
     }
 }
 
+repositories {
+    mavenLocal()
+}
+
 dependencies {
+    implementation "de.taskmaster:taskmaster-datamodel:1.0-SNAPSHOT"
     implementation "com.squareup.okhttp3:okhttp:4.9.0"
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
