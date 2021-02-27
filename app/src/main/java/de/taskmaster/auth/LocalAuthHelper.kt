@@ -8,7 +8,7 @@ import de.taskmaster.model.data.User
 class LocalAuthHelper {
 
     companion object {
-        private const val preferencesKey = "Taskmaster-Login"
+        private const val preferencesKey = "de.taskmaster"
         private const val usernameKey = "username"
         private const val passwordKey = "password"
 
