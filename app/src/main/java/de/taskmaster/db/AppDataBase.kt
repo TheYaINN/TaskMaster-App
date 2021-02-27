@@ -1,12 +1,14 @@
 package de.taskmaster.db
 
 import android.content.Context
+import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import model.User
 
 //TODO: add entities
-//@Database(entities = [User::class], version = 1)
+@Database(entities = [User::class], version = 1)
 @TypeConverters(DBConverter::class)
 abstract class AppDataBase : RoomDatabase() {
 

@@ -43,6 +43,7 @@ dependencies {
     //versioning
     def room_version = "2.2.6"
     def navigation_version = "2.3.3"
+    def google_version = "18.0.0"
 
     implementation "de.taskmaster:taskmaster-datamodel:1.0-SNAPSHOT"
 
@@ -65,9 +66,9 @@ dependencies {
     implementation "androidx.navigation:navigation-ui-ktx:$navigation_version"
 
     //Google services
-    implementation "com.google.android.gms:play-services-gcm:17.0.0"
-    implementation 'com.google.android.gms:play-services-location:18.0.0'
-    implementation 'com.google.android.gms:play-services-maps:17.0.0'
+    implementation "com.google.android.gms:play-services-gcm:$google_version"
+    implementation "com.google.android.gms:play-services-location:$google_version"
+    implementation "com.google.android.gms:play-services-maps:$google_version"
 
     //Testing
     testImplementation 'junit:junit:4.13.2'
