@@ -1,11 +1,10 @@
 package de.taskmaster.activity.login
 
-import android.content.Context
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 
-class LoginTabAdapter(private val totalTabs: Int, private val context: Context, fragmentManager: FragmentManager) :
+class LoginTabAdapter(private val totalTabs: Int, fragmentManager: FragmentManager) :
     FragmentPagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
     override fun getCount(): Int {

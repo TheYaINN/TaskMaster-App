@@ -30,7 +30,7 @@ class LoginActivity : AppCompatActivity() {
         val viewPager = findViewById<ViewPager>(R.id.viewPager)
         val indicator = findViewById<View>(R.id.tab_indicator)
 
-        viewPager.adapter = LoginTabAdapter(2, this, supportFragmentManager)
+        viewPager.adapter = LoginTabAdapter(2, supportFragmentManager)
         viewPager.addOnPageChangeListener(TabLayoutOnPageChangeListener(tabLayout))
         tabLayout.addOnTabSelectedListener(object : OnTabSelectedListener {
             override fun onTabSelected(tab: Tab) {

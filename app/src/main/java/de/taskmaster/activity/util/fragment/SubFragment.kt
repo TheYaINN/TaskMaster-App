@@ -13,18 +13,14 @@ import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import androidx.lifecycle.ViewModelProvider
 import de.taskmaster.R
 import de.taskmaster.activity.app.AppActivity
-import de.taskmaster.model.data.User
 import de.taskmaster.model.rotate
 
 
 open class SubFragment<T : ViewDataBinding>(private val layoutResourceId: Int, private val menuId: Int? = R.menu.save) : SavableFragment() {
 
     val REQUEST_CODE_SELECT_AVATAR = 101
-
-    val userViewModel = User() //ViewModelProvider(requireActivity()).get(User::class.java)
 
     lateinit var binder: T
 
@@ -58,7 +54,6 @@ open class SubFragment<T : ViewDataBinding>(private val layoutResourceId: Int, p
             //Has to be rotated by 90 degrees CW at this point, due to importing it this way causes it to be rotated 90 degrees CCW
             val result = BitmapFactory.decodeFile(picturePath).rotate(90f)
             binder.root.findViewById<ImageView>(R.id.profile_picture).setImageBitmap(result)
-            userViewModel.img = result
         }
     }
 

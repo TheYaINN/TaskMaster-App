@@ -12,8 +12,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import de.taskmaster.R
 import de.taskmaster.activity.util.BasicAdapter
-import de.taskmaster.model.data.Status
-import de.taskmaster.model.data.Task
+import de.taskmaster.model.data.impl.Status
+import de.taskmaster.model.data.impl.Task
 
 
 class TaskAdapter(private val fragment: TaskOverview) : BasicAdapter<Task, TaskAdapter.TaskViewHolder>() {

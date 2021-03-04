@@ -8,30 +8,35 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import de.taskmaster.R
 import de.taskmaster.activity.util.BasicAdapter
 import de.taskmaster.activity.util.fragment.TopLevelFragment
-import de.taskmaster.model.data.TaskList
-import de.taskmaster.model.data.User
+import de.taskmaster.model.data.impl.TodoListWithAssociations
 import de.taskmaster.model.toggleVisibility
 
 class HomeFragment : TopLevelFragment(R.layout.fragment_home, null) {
 
-    private lateinit var viewModel: User
+    private lateinit var viewModel: HomeViewModel
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        viewModel = ViewModelProvider(this).get(User::class.java)
+        viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
         val recyclerview = view.findViewById<RecyclerView>(R.id.calendar_events)
         val adapter = HomeAdapter(this)
         recyclerview.adapter = adapter
-        adapter.setData(viewModel.lists)
+        viewModel.lists.observe(viewLifecycleOwner, { adapter.setData(it) })
     }
-
 }
 
-class HomeAdapter(val fragment: Fragment) : BasicAdapter<TaskList, HomeAdapter.HomeViewHolder>() {
+class HomeViewModel : ViewModel() {
+    val lists: LiveData<List<TodoListWithAssociations>> = MutableLiveData()
+}
+
+class HomeAdapter(val fragment: Fragment) : BasicAdapter<TodoListWithAssociations, HomeAdapter.HomeViewHolder>() {
 
     private lateinit var listView: CardView
 
@@ -46,11 +51,11 @@ class HomeAdapter(val fragment: Fragment) : BasicAdapter<TaskList, HomeAdapter.H
 
     inner class HomeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        fun bind(taskList: TaskList) {
+        fun bind(taskList: TodoListWithAssociations) {
             val title = itemView.findViewById<TextView>(R.id.title)
             val linearLayout = itemView.findViewById<LinearLayout>(R.id.items)
 
-            title.text = taskList.title
+            title.text = taskList.list.title
             title.setOnClickListener {
                 linearLayout.toggleVisibility()
             }
@@ -58,11 +63,11 @@ class HomeAdapter(val fragment: Fragment) : BasicAdapter<TaskList, HomeAdapter.H
             addTasks(linearLayout, taskList)
         }
 
-        private fun addTasks(linearLayout: LinearLayout, taskList: TaskList) {
-            if (taskList.tasks == null || taskList.tasks?.size == 0) {
+        private fun addTasks(linearLayout: LinearLayout, taskList: TodoListWithAssociations) {
+            if (taskList.tasks.isEmpty()) {
                 linearLayout.addView(createTextView("Ne tasks added"))
             } else {
-                taskList.tasks?.forEach { linearLayout.addView(createTextView(it.title)) }
+                taskList.tasks.forEach { linearLayout.addView(createTextView(it.title)) }
             }
         }
 

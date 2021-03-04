@@ -41,11 +41,11 @@ repositories {
 
 dependencies {
     //versioning
-    def room_version = "2.2.6"
+    def room_version = "2.3.0-beta02"
     def navigation_version = "2.3.3"
     def google_version = "18.0.0"
 
-    implementation "de.taskmaster:taskmaster-datamodel:1.0-SNAPSHOT"
+   // implementation "de.taskmaster:taskmaster-datamodel:1.0-SNAPSHOT"
 
     implementation 'com.squareup.okhttp3:okhttp:5.0.0-alpha.2'
     implementation fileTree(dir: "libs", include: ["*.jar"])
@@ -66,9 +66,8 @@ dependencies {
     implementation "androidx.navigation:navigation-ui-ktx:$navigation_version"
 
     //Google services
-    implementation "com.google.android.gms:play-services-gcm:$google_version"
+   // implementation "com.google.android.gms:play-services-gcm:$google_version"
     implementation "com.google.android.gms:play-services-location:$google_version"
-    implementation "com.google.android.gms:play-services-maps:$google_version"
 
     //Testing
     testImplementation 'junit:junit:4.13.2'

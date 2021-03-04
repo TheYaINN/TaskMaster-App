@@ -3,7 +3,8 @@ package de.taskmaster.auth
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity.MODE_PRIVATE
-import de.taskmaster.model.data.User
+import de.taskmaster.activity.login.LoginViewModel
+import de.taskmaster.model.data.impl.User
 
 class LocalAuthHelper {
 
@@ -12,13 +13,11 @@ class LocalAuthHelper {
         private const val usernameKey = "username"
         private const val passwordKey = "password"
 
-        fun login(user: User, context: Context): Boolean {
+        fun login(viewModel: LoginViewModel, context: Context): Boolean {
             //TODO before sending anything to the server, the password should be hashed
             //val response = ServerConnector.INSTANCE.postRequest("login", userData.first, userData.second)
-            if (user.username != null) {
-                if (user.rememberMe) {
-                    saveLoginInformation(context, user)
-                }
+            if (viewModel.rememberMe) {
+                saveLoginInformation(context, viewModel.user)
                 return true
             }
             return false
@@ -33,12 +32,12 @@ class LocalAuthHelper {
             editor.apply()
         }
 
-        private fun getLoginInformation(context: Context): User {
+        private fun getLoginInformation(context: Context): LoginViewModel {
             val loginInformation = context.getSharedPreferences(preferencesKey, MODE_PRIVATE)
-            val user = User()
-            user.username = loginInformation.getString(usernameKey, null)
-            user.password = loginInformation.getString(passwordKey, null)
-            return user
+            val viewModel = LoginViewModel()
+            viewModel.user.username = loginInformation.getString(usernameKey, "") ?: ""
+            viewModel.user.password = loginInformation.getString(passwordKey, "") ?: ""
+            return viewModel
         }
 
         fun onStartUp(context: Context): Boolean {

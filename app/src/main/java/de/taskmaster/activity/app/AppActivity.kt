@@ -38,7 +38,7 @@ class AppActivity : AppCompatActivity() {
 
         PushNotificationManager(this)
 
-        mAccount = createSyncAccount()
+        //TODO: mAccount = createSyncAccount()
     }
 
 

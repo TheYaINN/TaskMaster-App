@@ -7,7 +7,7 @@
 
         <variable
             name="model"
-            type="de.taskmaster.model.data.User" />
+            type="de.taskmaster.activity.app.ui.profile.ProfilePrivateViewModel" />
 
     </data>
 
@@ -34,7 +34,7 @@
             android:layout_marginStart="@dimen/gap_small"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="24dp"
-            android:text="@{model.username}"
+            android:text="@{model.user.username}"
             android:textAlignment="center"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -48,7 +48,7 @@
             android:layout_marginStart="@dimen/gap_small"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="24dp"
-            android:text="@{model.firstName + model.lastName}"
+            android:text="@{model.getDisplayableName()}"
             android:textAlignment="center"
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"

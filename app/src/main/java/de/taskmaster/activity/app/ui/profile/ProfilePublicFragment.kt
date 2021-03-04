@@ -6,11 +6,10 @@ import androidx.lifecycle.ViewModelProvider
 import de.taskmaster.R
 import de.taskmaster.activity.util.fragment.SubFragment
 import de.taskmaster.databinding.FragmentProfilePublicBinding
-import de.taskmaster.model.data.User
 
-class ProfilePublicFragment : SubFragment<FragmentProfilePublicBinding>(R.layout.fragment_profile_public) {
+class ProfilePublicFragment : SubFragment<FragmentProfilePublicBinding>(R.layout.fragment_profile_public, null) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binder.model = userViewModel
+        binder.model = ViewModelProvider(this).get(ProfilePrivateViewModel::class.java)
     }
 }

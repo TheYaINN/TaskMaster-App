@@ -1,4 +1,4 @@
-package de.taskmaster.model.data
+package de.taskmaster.model.data.impl
 
 enum class Repeat(val text: String) {
     NEVER("Never"),
@@ -6,5 +6,4 @@ enum class Repeat(val text: String) {
     WEEKLY("Weekly"),
     MONTHLY("Monthly"),
     YEARLY("Yearly");
-
 }

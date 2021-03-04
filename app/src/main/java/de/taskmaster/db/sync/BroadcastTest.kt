@@ -1,12 +1,5 @@
 package de.taskmaster.db.sync
 
-import android.accounts.Account
-import android.content.BroadcastReceiver
-import android.content.ContentResolver
-import android.content.Context
-import android.content.Intent
-import com.google.android.gms.gcm.GoogleCloudMessaging
-
 // Constants
 // Content provider authority
 const val AUTHORITY = "com.example.android.datasync.provider"
@@ -19,7 +12,7 @@ const val ACCOUNT = "default_account"
 
 // Incoming Intent key for extended data
 const val KEY_SYNC_REQUEST = "com.example.android.datasync.KEY_SYNC_REQUEST"
-
+/* TODO: FIX
 class GcmBroadcastReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
         // Get a GCM object instance
@@ -44,4 +37,4 @@ class GcmBroadcastReceiver : BroadcastReceiver() {
             ContentResolver.requestSync(Account("test", "test"), AUTHORITY, null)
         }
     }
-}
+}*/

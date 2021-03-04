@@ -9,7 +9,7 @@
 
         <variable
             name="model"
-            type="de.taskmaster.model.data.Displayable" />
+            type="de.taskmaster.model.data.impl.Displayable" />
 
         <variable
             name="handler"

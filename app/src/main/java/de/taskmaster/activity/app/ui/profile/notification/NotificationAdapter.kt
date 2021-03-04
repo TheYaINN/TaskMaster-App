@@ -8,7 +8,7 @@ import androidx.appcompat.widget.SwitchCompat
 import androidx.recyclerview.widget.RecyclerView
 import de.taskmaster.R
 import de.taskmaster.activity.util.BasicAdapter
-import de.taskmaster.model.data.Address
+import de.taskmaster.model.data.impl.Address
 
 
 class NotificationAdapter : BasicAdapter<Address, NotificationAdapter.ListViewHolder>() {

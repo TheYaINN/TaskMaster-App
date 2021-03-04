@@ -9,7 +9,7 @@
 
         <variable
             name="model"
-            type="de.taskmaster.model.data.Displayable" />
+            type="de.taskmaster.activity.app.ui.profile.ProfilePrivateViewModel" />
 
         <variable
             name="handler"

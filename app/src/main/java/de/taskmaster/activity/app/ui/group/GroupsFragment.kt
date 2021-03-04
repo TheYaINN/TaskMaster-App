@@ -8,6 +8,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -15,27 +18,27 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import de.taskmaster.R
 import de.taskmaster.activity.util.BasicAdapter
 import de.taskmaster.activity.util.fragment.TopLevelFragment
-import de.taskmaster.model.data.Group
-import de.taskmaster.model.data.User
+import de.taskmaster.model.data.impl.Group
 
 class GroupsFragment : TopLevelFragment(R.layout.fragment_group, R.menu.lists_groups_menu) {
-
-    private lateinit var viewModel: User
-    //TODO: there should be a shared viewModel between this and GroupEditor
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         view.findViewById<FloatingActionButton>(R.id.add_item).setOnClickListener {
             findNavController().navigate(R.id.action_navigation_group_to_groupEditorFragment)
         }
 
-        viewModel = ViewModelProvider(this).get(User::class.java)
+        val viewModel = ViewModelProvider(this).get(GroupViewModel::class.java)
 
         val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerview)
         val adapter = BigGroupAdapter(this)
         recyclerView.adapter = adapter
-        adapter.setData(viewModel.groups)
+        viewModel.groups.observe(viewLifecycleOwner, { adapter.setData(it) })
     }
 
+}
+
+class GroupViewModel : ViewModel() {
+    val groups: LiveData<List<Group>> = MutableLiveData()
 }
 
 class BigGroupAdapter(private val fragment: Fragment) : BasicAdapter<Group, BigGroupAdapter.GroupViewHolder>() {

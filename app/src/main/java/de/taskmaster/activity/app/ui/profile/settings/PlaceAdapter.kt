@@ -9,7 +9,7 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import de.taskmaster.R
 import de.taskmaster.activity.util.BasicAdapter
-import de.taskmaster.model.data.Address
+import de.taskmaster.model.data.impl.Address
 import de.taskmaster.model.handler.PlaceRemover
 
 class PlaceAdapter(private val handler: PlaceRemover) : BasicAdapter<Address, PlaceAdapter.PlaceViewHolder>() {

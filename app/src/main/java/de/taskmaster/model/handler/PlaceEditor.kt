@@ -1,8 +1,8 @@
 package de.taskmaster.model.handler
 
 import android.view.View
-import de.taskmaster.model.data.Address
-import de.taskmaster.model.data.Group
+import de.taskmaster.model.data.impl.Address
+import de.taskmaster.model.data.impl.Group
 
 interface PlaceEditor : ViewHandler, PlaceCreator, PlaceRemover
 

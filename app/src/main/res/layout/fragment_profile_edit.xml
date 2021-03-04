@@ -7,7 +7,7 @@
 
         <variable
             name="model"
-            type="de.taskmaster.model.data.User" />
+            type="de.taskmaster.activity.app.ui.profile.settings.AccountSettingsViewModel" />
 
         <variable
             name="addHandler"

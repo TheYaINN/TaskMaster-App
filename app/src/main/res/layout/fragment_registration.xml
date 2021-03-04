@@ -6,7 +6,7 @@
 
         <variable
             name="model"
-            type="de.taskmaster.model.data.User" />
+            type="de.taskmaster.activity.login.RegisterViewModel" />
 
         <variable
             name="handler"
@@ -59,7 +59,7 @@
                     android:hint="@string/username"
                     android:inputType="text"
                     android:maxLines="1"
-                    android:text="@={model.username}" />
+                    android:text="@={model.userName}" />
 
                 <EditText
                     android:layout_width="match_parent"

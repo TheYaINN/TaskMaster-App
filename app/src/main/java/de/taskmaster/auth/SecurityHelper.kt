@@ -8,6 +8,15 @@ import kotlin.experimental.xor
 
 class SecurityHelper {
 
+    companion object {
+        val instance by lazy { SecurityHelper() }
+    }
+
+    /**
+     * Hashed and salts password a random amount of iterations
+     *
+     * @Returns 0 - Iteration, 1 - Salt, 2 - Hashed Password
+     */
     fun generateHashedPassword(password: String): String {
         val iterations = (Math.random() * 500).toInt() + 1000
         val chars = password.toCharArray()

@@ -1,4 +1,4 @@
-package de.taskmaster.model.data
+package de.taskmaster.model.data.impl
 
 import android.graphics.Bitmap
 

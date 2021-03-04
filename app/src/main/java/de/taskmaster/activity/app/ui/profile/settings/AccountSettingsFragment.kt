@@ -1,66 +1,72 @@
 package de.taskmaster.activity.app.ui.profile.settings
 
-import android.content.Intent
-import android.graphics.BitmapFactory
+import android.graphics.Bitmap
 import android.os.Bundle
-import android.provider.MediaStore
 import android.view.View
 import android.widget.Button
-import android.widget.ImageView
-import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import de.taskmaster.R
 import de.taskmaster.activity.util.fragment.SubFragment
 import de.taskmaster.databinding.FragmentProfileEditBinding
-import de.taskmaster.model.data.Address
-import de.taskmaster.model.data.User
+import de.taskmaster.model.data.impl.Address
+import de.taskmaster.model.data.impl.Displayable
+import de.taskmaster.model.data.impl.ObservableViewModel
 import de.taskmaster.model.handler.AddressEditorHandler
 import de.taskmaster.model.handler.NavigationHandler
 import de.taskmaster.model.handler.PlaceEditor
-import de.taskmaster.model.rotate
 
 class AccountSettingsFragment : SubFragment<FragmentProfileEditBinding>(R.layout.fragment_profile_edit), PlaceEditor {
 
-    private lateinit var observablePlaces: MutableLiveData<List<Address>>
+    private lateinit var viewModel: AccountSettingsViewModel
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        observablePlaces = MutableLiveData(userViewModel.places)
-
-        binder.model = userViewModel
+        viewModel = ViewModelProvider(this).get(AccountSettingsViewModel::class.java)
+        binder.model = viewModel
         binder.addHandler = AddressEditorHandler(this, requireContext())
         binder.handler = NavigationHandler(this)
 
         binder.root.findViewById<Button>(R.id.delete_account).setOnClickListener {
-            //TODO: delete user from DB
+            viewModel.deleteAccount()
             NavigationHandler(this).logout()
         }
 
         val recyclerView = binder.root.findViewById<RecyclerView>(R.id.items)
         val placeAdapter = PlaceAdapter(this)
         recyclerView.adapter = placeAdapter
-        observablePlaces.observe(viewLifecycleOwner, { placeAdapter.setData(it as List<Address>) })
     }
 
     override fun add(address: Address) {
-        userViewModel.places.add(address)
-        observablePlaces.value = userViewModel.places
+        //TODO
     }
 
     override fun remove(address: Address) {
-        userViewModel.places.remove(address)
-        observablePlaces.value = userViewModel.places
+        //TODO
     }
 
     override fun getView(id: Int): View {
         return requireView().findViewById(id)
     }
 
-    override fun save(): Boolean {
-        //TODO
-        println("SAVING User: $userViewModel")
-        return super.save()
+}
+
+//TODO
+class AccountSettingsViewModel : ObservableViewModel(), Displayable {
+
+    val firstName: String = ""
+    val lastName: String = ""
+    val email: String = ""
+
+    fun deleteAccount() {
+        TODO("Not yet implemented")
+    }
+
+    override fun getImage(): Bitmap? {
+        TODO("Not yet implemented")
+    }
+
+    override fun rotate() {
+        TODO("Not yet implemented")
     }
 
 }

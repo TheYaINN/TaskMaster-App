@@ -7,7 +7,7 @@
 
         <variable
             name="model"
-            type="de.taskmaster.model.data.Task" />
+            type="de.taskmaster.activity.app.ui.task.editor.TaskEditorViewModel" />
 
         <variable
             name="presenter"

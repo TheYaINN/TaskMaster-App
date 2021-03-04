@@ -1,4 +1,4 @@
-package de.taskmaster.model.data
+package de.taskmaster.model.data.impl
 
 import androidx.databinding.Observable
 import androidx.databinding.PropertyChangeRegistry

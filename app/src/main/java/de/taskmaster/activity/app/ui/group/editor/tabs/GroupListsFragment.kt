@@ -7,22 +7,34 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import de.taskmaster.R
 import de.taskmaster.activity.util.BasicAdapter
-import de.taskmaster.model.data.Group
+import de.taskmaster.model.data.impl.Group
 
+//TODO: check if correct
 class GroupListsFragment : Fragment(R.layout.fragment_lists_members) {
 
-    //TODO: add viewmodel
+    private lateinit var viewModel: GroupListsViewModel
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerview)
+        viewModel = ViewModelProvider(this).get(GroupListsViewModel::class.java)
+
         val adapter = GroupListAdapter(this)
         recyclerView.adapter = adapter
-        adapter.setData(listOf(Group().apply { title = "Test 1" }, Group().apply { title = "Test 2" }))
+
+        viewModel.lists.observe(viewLifecycleOwner, { adapter.setData(it) })
     }
+}
+
+class GroupListsViewModel : ViewModel() {
+    val lists: LiveData<List<Group>> = MutableLiveData()
 }
 
 class GroupListAdapter(val fragment: Fragment) : BasicAdapter<Group, GroupListAdapter.GroupListViewHolder>() {

@@ -6,11 +6,11 @@
 
         <variable
             name="repeat"
-            type="de.taskmaster.model.data.Repeat" />
+            type="de.taskmaster.model.data.impl.Repeat" />
 
         <variable
             name="model"
-            type="de.taskmaster.model.data.TaskList" />
+            type="de.taskmaster.activity.app.ui.list.edit.ListEditorViewModel" />
 
         <variable
             name="presenter"

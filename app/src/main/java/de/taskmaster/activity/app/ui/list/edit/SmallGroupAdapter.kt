@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import de.taskmaster.R
 import de.taskmaster.activity.util.BasicAdapter
-import de.taskmaster.model.data.Group
+import de.taskmaster.model.data.impl.Group
 import de.taskmaster.model.handler.GroupSelector
 
 class SmallGroupAdapter(val fragment: Fragment) : BasicAdapter<Group, SmallGroupAdapter.SmallGroupViewHolder>() {

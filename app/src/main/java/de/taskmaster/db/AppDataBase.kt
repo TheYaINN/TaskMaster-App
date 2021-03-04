@@ -5,14 +5,24 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import model.User
+import de.taskmaster.model.data.GroupDAO
+import de.taskmaster.model.data.ListDAO
+import de.taskmaster.model.data.UserDAO
+import de.taskmaster.model.data.UserWithAssociationsDAO
+import de.taskmaster.model.data.impl.Address
+import de.taskmaster.model.data.impl.Group
+import de.taskmaster.model.data.impl.Tag
+import de.taskmaster.model.data.impl.Task
+import de.taskmaster.model.data.impl.ToDoList
+import de.taskmaster.model.data.impl.User
 
-//TODO: add entities
-@Database(entities = [User::class], version = 1)
+@Database(
+    exportSchema = false,
+    entities = [User::class, Group::class, Tag::class, ToDoList::class, Task::class, Address::class],
+    version = 4
+)
 @TypeConverters(DBConverter::class)
 abstract class AppDataBase : RoomDatabase() {
-
-    //TODO: add interfaces here
 
     companion object {
         private var instance: AppDataBase? = null
@@ -31,4 +41,9 @@ abstract class AppDataBase : RoomDatabase() {
             return instance
         }
     }
+
+    abstract fun userDAO(): UserDAO
+    abstract fun userWithAssociationsDAO(): UserWithAssociationsDAO
+    abstract fun listDAO(): ListDAO
+    abstract fun groupDAO(): GroupDAO
 }
