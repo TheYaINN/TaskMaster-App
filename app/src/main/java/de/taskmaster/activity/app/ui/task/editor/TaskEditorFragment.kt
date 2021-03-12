@@ -12,6 +12,7 @@ import de.taskmaster.model.data.impl.ObservableViewModel
 import de.taskmaster.model.data.impl.User
 import de.taskmaster.model.handler.NavigationHandler
 import de.taskmaster.model.handler.ToggleEditableComponentHandler
+import de.taskmaster.model.rotate
 
 class TaskEditorFragment : SubFragment<FragmentTasksEditorBinding>(R.layout.fragment_tasks_editor) {
 
@@ -25,15 +26,25 @@ class TaskEditorFragment : SubFragment<FragmentTasksEditorBinding>(R.layout.frag
 
 class TaskEditorViewModel : ObservableViewModel(), Displayable {
 
+    var img: Bitmap? = null
+    var title: String = ""
+    var description: String = ""
 
-    val responsiblePerson: User? = null
+    var responsiblePerson: User? = null
 
     override fun getImage(): Bitmap? {
-        TODO("Not yet implemented")
+        return img
     }
 
     override fun rotate() {
-        TODO("Not yet implemented")
+        img?.rotate(90f)
+    }
+
+    init {
+        //TODO: remove only for testing
+        title = "Test title"
+        description = "Test Description"
+        responsiblePerson = User(0, null, "Test", "pwd", "", 100, "Bengt", "Joachimsohn", "bengt@joachimsohn.de")
     }
 
 }

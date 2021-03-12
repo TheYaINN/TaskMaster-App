@@ -38,7 +38,19 @@ class GroupsFragment : TopLevelFragment(R.layout.fragment_group, R.menu.lists_gr
 }
 
 class GroupViewModel : ViewModel() {
-    val groups: LiveData<List<Group>> = MutableLiveData()
+
+    private val _groups = MutableLiveData<List<Group>>()
+    val groups: LiveData<List<Group>> = _groups
+
+    init {
+        //TODO: Replace with loading from DB
+        val arr = arrayListOf<Group>()
+
+        for (i in 0 until 10) {
+            arr.add(Group(0, "Test $i", "Test"))
+        }
+        _groups.postValue(arr)
+    }
 }
 
 class BigGroupAdapter(private val fragment: Fragment) : BasicAdapter<Group, BigGroupAdapter.GroupViewHolder>() {

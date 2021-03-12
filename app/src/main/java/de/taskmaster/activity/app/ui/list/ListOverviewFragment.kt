@@ -12,10 +12,16 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import de.taskmaster.R
 import de.taskmaster.activity.util.fragment.TopLevelFragment
 import de.taskmaster.db.LocalDataBaseConnector
+import de.taskmaster.model.data.impl.Address
+import de.taskmaster.model.data.impl.Deadline
+import de.taskmaster.model.data.impl.Status
+import de.taskmaster.model.data.impl.Tag
+import de.taskmaster.model.data.impl.Task
 import de.taskmaster.model.data.impl.ToDoList
+import de.taskmaster.model.data.impl.TodoListWithAssociations
+import java.time.LocalDate
 
 class ListOverviewFragment : TopLevelFragment(R.layout.fragment_lists_overview) {
-
 
     private lateinit var viewModel: ListOverviewViewModel
 
@@ -29,13 +35,30 @@ class ListOverviewFragment : TopLevelFragment(R.layout.fragment_lists_overview) 
         val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerview)
         val adapter = ListOverviewAdapter(this)
         recyclerView.adapter = adapter
+        viewModel.lists.observe(viewLifecycleOwner, { adapter.setData(it) })
     }
 
     fun delete(taskList: ToDoList) {
-        LocalDataBaseConnector.instance.listDAO.delete(taskList)
+        LocalDataBaseConnector.instance.delete(taskList)
     }
 }
 
 class ListOverviewViewModel : ViewModel() {
-    val user: LiveData<List<ToDoList>> = MutableLiveData()
+    private val _lists = MutableLiveData<List<TodoListWithAssociations>>()
+    val lists: LiveData<List<TodoListWithAssociations>> = _lists
+
+    init {
+        //TODO: replace with load from db
+        _lists.postValue(
+            arrayListOf(
+                TodoListWithAssociations(
+                    ToDoList(0, "Zuhause", "", Address(), Deadline(LocalDate.now())),
+                    arrayListOf(Task(0, null, "Task 1", "Wäsche aufhängen", Status.OPEN, null)),
+                    arrayListOf(
+                        Tag(0, "Test")
+                    )
+                )
+            )
+        )
+    }
 }

@@ -13,13 +13,13 @@ import de.taskmaster.model.data.impl.User
 interface ListDAO {
 
     @Insert
-    fun insert(user: ToDoList)
+    suspend fun insert(user: ToDoList)
 
     @Update
-    fun update(user: ToDoList)
+    suspend fun update(user: ToDoList)
 
     @Delete
-    fun delete(user: ToDoList)
+    suspend fun delete(user: ToDoList)
 
     @Query("SELECT * FROM USR u WHERE u.userId == :id")
     fun getByID(id: Int): LiveData<User>

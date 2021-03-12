@@ -46,12 +46,14 @@
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Title" />
+                    android:hint="Title"
+                    android:text="@={model.title}" />
 
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Description" />
+                    android:hint="Description"
+                    android:text="@={model.description}" />
 
                 <include
                     layout="@layout/component_person_editor"

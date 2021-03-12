@@ -6,6 +6,7 @@ import android.widget.TextView
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import de.taskmaster.R
 import de.taskmaster.activity.util.fragment.SubFragment
@@ -19,6 +20,7 @@ class TaskOverview : SubFragment<FragmentTasksOverviewBinding>(R.layout.fragment
     private lateinit var viewModel: TaskViewModel
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        viewModel = ViewModelProvider(this).get(TaskViewModel::class.java)
 
         binder.handler = NavigationHandler(this)
 
@@ -37,5 +39,15 @@ class TaskOverview : SubFragment<FragmentTasksOverviewBinding>(R.layout.fragment
 }
 
 class TaskViewModel : ViewModel() {
-    val tasks: LiveData<List<Task>> = MutableLiveData()
+    private val _tasks = MutableLiveData<List<Task>>()
+    val tasks: LiveData<List<Task>> = _tasks
+
+    init {
+        //TODO: remove only for testing purpose
+        val arr = arrayListOf<Task>()
+        for (i in 0 until 10) {
+            arr.add(Task(0, null, "Test 1", "Test 1 desc", Status.OPEN, null))
+        }
+        _tasks.postValue(arr)
+    }
 }

@@ -10,12 +10,12 @@ import de.taskmaster.model.data.impl.Group
 interface GroupDAO {
 
     @Insert
-    fun insert(user: Group)
+    suspend fun insert(user: Group)
 
     @Update
-    fun update(user: Group)
+    suspend fun update(user: Group)
 
     @Delete
-    fun delete(user: Group)
+    suspend fun delete(user: Group)
 
 }

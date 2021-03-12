@@ -13,6 +13,7 @@ import de.taskmaster.R
 import de.taskmaster.activity.app.AppActivity
 import de.taskmaster.activity.util.ActivityHelper
 import de.taskmaster.auth.LocalAuthHelper
+import de.taskmaster.db.LocalDataBaseConnector
 
 
 class LoginActivity : AppCompatActivity() {
@@ -22,10 +23,15 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+
+        LocalDataBaseConnector.instance.init(application)
+
         if (LocalAuthHelper.onStartUp(applicationContext)) {
             ActivityHelper.startActivity(this, AppActivity::class.java)
             return
         }
+
+
         val tabLayout = findViewById<TabLayout>(R.id.tabLayout)
         val viewPager = findViewById<ViewPager>(R.id.viewPager)
         val indicator = findViewById<View>(R.id.tab_indicator)

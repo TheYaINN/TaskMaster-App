@@ -32,7 +32,17 @@ class GroupMembersFragment : Fragment(R.layout.fragment_lists_members) {
 }
 
 class GroupMembersViewModel : ViewModel() {
-    val members: LiveData<List<User>> = MutableLiveData()
+    private val _members = MutableLiveData<List<User>>()
+    val members: LiveData<List<User>> = _members
+
+    init {
+        //TODO: replace loading from db
+        val arr = arrayListOf<User>()
+        for (i in 0 until 10) {
+            arr.add(User(0, null, "Test $i", "", "", 100, "Bengt", "Joachimsohn", "bengt@joachimsohn.de"))
+        }
+        _members.postValue(arr)
+    }
 }
 
 

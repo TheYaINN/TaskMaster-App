@@ -9,6 +9,9 @@ import de.taskmaster.model.data.impl.User
 class RegistrationHandler {
 
     fun register(view: View, model: RegisterViewModel) {
+        if (!model.isValid()) {
+            return
+        }
         val hashedPassword = SecurityHelper.instance.generateHashedPassword(model.password)
         val user = User(
             0,
@@ -21,6 +24,6 @@ class RegistrationHandler {
             model.lastName,
             model.email
         )
-        LocalDataBaseConnector.instance.userDAO.insert(user)
+        LocalDataBaseConnector.instance.insert(user)
     }
 }

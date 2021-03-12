@@ -50,23 +50,22 @@ class AccountSettingsFragment : SubFragment<FragmentProfileEditBinding>(R.layout
 
 }
 
-//TODO
 class AccountSettingsViewModel : ObservableViewModel(), Displayable {
 
-    val firstName: String = ""
-    val lastName: String = ""
-    val email: String = ""
+    var firstName: String = ""
+    var lastName: String = ""
+    var email: String = ""
 
     fun deleteAccount() {
-        TODO("Not yet implemented")
+
     }
 
     override fun getImage(): Bitmap? {
-        TODO("Not yet implemented")
+        return null
     }
 
     override fun rotate() {
-        TODO("Not yet implemented")
+
     }
 
 }

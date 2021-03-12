@@ -29,7 +29,7 @@ class ListOverviewAdapter(private val fragment: ListOverviewFragment) : BasicAda
 
         fun bind(taskList: TodoListWithAssociations, fragment: ListOverviewFragment) {
             val title = itemView.findViewById<TextView>(R.id.item_title)
-            val description = itemView.findViewById<TextView>(R.id.description)
+            val description = itemView.findViewById<TextView>(R.id.item_description)
             val status = itemView.findViewById<ImageView>(R.id.item_status)
 
             title.text = taskList.list.title

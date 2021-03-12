@@ -12,7 +12,6 @@ import de.taskmaster.BR
 import de.taskmaster.R
 import de.taskmaster.databinding.FragmentLoginBinding
 import de.taskmaster.model.data.impl.ObservableViewModel
-import de.taskmaster.model.data.impl.User
 import de.taskmaster.model.handler.NavigationHandler
 
 class LoginFragment : Fragment() {
@@ -27,13 +26,28 @@ class LoginFragment : Fragment() {
 }
 
 class LoginViewModel : ObservableViewModel() {
-    val user: User = User(0, null, "", "", "", 0, "", "", "")
+
+    @get:Bindable
+    @set:Bindable
+    var userName: String = ""
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.userName)
+        }
+
+    @get:Bindable
+    @set:Bindable
+    var password: String = ""
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.password)
+        }
 
     @get:Bindable
     @set:Bindable
     var rememberMe = false
         set(value) {
             field = value
-            notifyPropertyChanged(BR.repeat)
+            notifyPropertyChanged(BR.rememberMe)
         }
 }

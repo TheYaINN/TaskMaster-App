@@ -14,29 +14,38 @@ class LocalAuthHelper {
         private const val passwordKey = "password"
 
         fun login(viewModel: LoginViewModel, context: Context): Boolean {
-            //TODO before sending anything to the server, the password should be hashed
-            //val response = ServerConnector.INSTANCE.postRequest("login", userData.first, userData.second)
-            if (viewModel.rememberMe) {
-                saveLoginInformation(context, viewModel.user)
+            var user: User? = null
+            /* TODO:
+            val latch = CountDownLatch(1)
+             GlobalScope.launch {
+                 user = LocalDataBaseConnector.instance.userDAO.getByUserName(viewModel.userName)
+                 latch.countDown()
+             }
+             latch.await()
+             if (user != null && SecurityHelper.instance.validatePassword(viewModel.password, user!!.password, user!!.salt, user!!.iterations)) {*/
+            if (true) {
+                if (viewModel.rememberMe) {
+                    saveLoginInformation(context, viewModel)
+                }
                 return true
             }
             return false
         }
 
 
-        private fun saveLoginInformation(context: Context, user: User) {
+        private fun saveLoginInformation(context: Context, viewModel: LoginViewModel) {
             val sp = context.getSharedPreferences(preferencesKey, MODE_PRIVATE)
             val editor: SharedPreferences.Editor = sp.edit()
-            editor.putString(usernameKey, user.username)
-            editor.putString(passwordKey, user.password)
+            editor.putString(usernameKey, viewModel.userName)
+            editor.putString(passwordKey, viewModel.password)
             editor.apply()
         }
 
         private fun getLoginInformation(context: Context): LoginViewModel {
             val loginInformation = context.getSharedPreferences(preferencesKey, MODE_PRIVATE)
             val viewModel = LoginViewModel()
-            viewModel.user.username = loginInformation.getString(usernameKey, "") ?: ""
-            viewModel.user.password = loginInformation.getString(passwordKey, "") ?: ""
+            viewModel.userName = loginInformation.getString(usernameKey, null) ?: ""
+            viewModel.password = loginInformation.getString(passwordKey, null) ?: ""
             return viewModel
         }
 

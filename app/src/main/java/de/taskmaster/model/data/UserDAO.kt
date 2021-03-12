@@ -12,15 +12,18 @@ import de.taskmaster.model.data.impl.User
 interface UserDAO {
 
     @Insert
-    fun insert(user: User)
+    suspend fun insert(user: User)
 
     @Update
-    fun update(user: User)
+    suspend fun update(user: User)
 
     @Delete
-    fun delete(user: User)
+    suspend fun delete(user: User)
 
-    @Query("SELECT * FROM USR u WHERE u.userId == :id")
+    @Query("SELECT * FROM USR u WHERE u.userId IS :id")
     fun getByID(id: Int): LiveData<User>
+
+    @Query("SELECT * FROM USR u WHERE u.userName IS :username")
+    fun getByUserName(username: String): User
 
 }

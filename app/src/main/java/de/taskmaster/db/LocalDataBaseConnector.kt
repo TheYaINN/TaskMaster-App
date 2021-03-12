@@ -5,6 +5,10 @@ import de.taskmaster.model.data.GroupDAO
 import de.taskmaster.model.data.ListDAO
 import de.taskmaster.model.data.UserDAO
 import de.taskmaster.model.data.UserWithAssociationsDAO
+import de.taskmaster.model.data.impl.ToDoList
+import de.taskmaster.model.data.impl.User
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 //TODO refactor
 class LocalDataBaseConnector {
@@ -24,6 +28,18 @@ class LocalDataBaseConnector {
         userWithAssociationsDAO = db.userWithAssociationsDAO()
         listDAO = db.listDAO()
         groupDAO = db.groupDAO()
+    }
+
+    fun insert(user: User) {
+        GlobalScope.launch {
+            userDAO.insert(user)
+        }
+    }
+
+    fun delete(taskList: ToDoList) {
+        GlobalScope.launch {
+            listDAO.delete(taskList)
+        }
     }
 
 }
