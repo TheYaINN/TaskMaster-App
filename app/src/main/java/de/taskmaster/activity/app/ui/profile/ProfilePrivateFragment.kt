@@ -9,11 +9,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import de.taskmaster.R
 import de.taskmaster.activity.util.fragment.TopLevelFragment
 import de.taskmaster.databinding.FragmentProfilePrivateBinding
 import de.taskmaster.model.data.impl.User
 import de.taskmaster.model.handler.NavigationHandler
+import kotlinx.coroutines.launch
 
 class ProfilePrivateFragment : TopLevelFragment(R.layout.fragment_profile_private, null) {
 
@@ -30,5 +32,11 @@ class ProfilePrivateViewModel : ViewModel() {
 
     fun getDisplayableName(): String {
         return "${user.value?.firstName} ${user.value?.lastName}"
+    }
+
+    init {
+        viewModelScope.launch {
+            //TODO: Load from DB here
+        }
     }
 }

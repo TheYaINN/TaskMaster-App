@@ -18,54 +18,59 @@
             type="de.taskmaster.model.handler.NavigationHandler" />
     </data>
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="16dp"
-        android:orientation="vertical"
-        tools:ignore="RtlSymmetry">
+        android:layout_height="match_parent">
 
-        <include
-            layout="@layout/component_image_editor"
-            app:handler="@{handler}"
-            app:model="@{model}" />
-
-        <EditText
-            android:id="@+id/first_name_field"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/first_name"
-            android:importantForAutofill="no"
-            android:inputType="textPersonName"
-            android:text="@={model.firstName}" />
+            android:layout_margin="16dp"
+            android:orientation="vertical"
+            tools:ignore="RtlSymmetry">
 
-        <EditText
-            android:id="@+id/last_name_field"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/last_name"
-            android:importantForAutofill="no"
-            android:inputType="textPersonName"
-            android:text="@={model.lastName}" />
+            <include
+                layout="@layout/component_image_editor"
+                app:handler="@{handler}"
+                app:model="@{model}" />
 
-        <EditText
-            android:id="@+id/email_field"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/email"
-            android:importantForAutofill="no"
-            android:inputType="textEmailAddress"
-            android:text="@={model.email}" />
+            <EditText
+                android:id="@+id/first_name_field"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/first_name"
+                android:importantForAutofill="no"
+                android:inputType="textPersonName"
+                android:text="@={model.firstName}" />
 
-        <include
-            layout="@layout/component_address_editor"
-            app:addHandler="@{addHandler}" />
+            <EditText
+                android:id="@+id/last_name_field"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/last_name"
+                android:importantForAutofill="no"
+                android:inputType="textPersonName"
+                android:text="@={model.lastName}" />
 
-        <Button
-            android:id="@+id/delete_account"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/warning"
-            android:text="@string/delete_account" />
-    </LinearLayout>
+            <EditText
+                android:id="@+id/email_field"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/email"
+                android:importantForAutofill="no"
+                android:inputType="textEmailAddress"
+                android:text="@={model.email}" />
+
+            <include
+                layout="@layout/component_address_editor"
+                app:addHandler="@{addHandler}" />
+
+            <Button
+                android:id="@+id/delete_account"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/warning"
+                android:text="@string/delete_account" />
+        </LinearLayout>
+    </ScrollView>
 </layout>

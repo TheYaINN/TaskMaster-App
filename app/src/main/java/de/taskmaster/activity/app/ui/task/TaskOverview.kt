@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.RecyclerView
 import de.taskmaster.R
 import de.taskmaster.activity.util.fragment.SubFragment
@@ -14,6 +15,7 @@ import de.taskmaster.databinding.FragmentTasksOverviewBinding
 import de.taskmaster.model.data.impl.Status
 import de.taskmaster.model.data.impl.Task
 import de.taskmaster.model.handler.NavigationHandler
+import kotlinx.coroutines.launch
 
 class TaskOverview : SubFragment<FragmentTasksOverviewBinding>(R.layout.fragment_tasks_overview, null) {
 
@@ -43,11 +45,13 @@ class TaskViewModel : ViewModel() {
     val tasks: LiveData<List<Task>> = _tasks
 
     init {
-        //TODO: remove only for testing purpose
-        val arr = arrayListOf<Task>()
-        for (i in 0 until 10) {
-            arr.add(Task(0, null, "Test 1", "Test 1 desc", Status.OPEN, null))
+        viewModelScope.launch {
+            //TODO: remove only for testing purpose
+            val arr = arrayListOf<Task>()
+            for (i in 0 until 10) {
+                arr.add(Task(0, null, "Test 1", "Test 1 desc", Status.OPEN))
+            }
+            _tasks.postValue(arr)
         }
-        _tasks.postValue(arr)
     }
 }

@@ -11,10 +11,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.RecyclerView
 import de.taskmaster.R
 import de.taskmaster.activity.util.BasicAdapter
 import de.taskmaster.model.data.impl.User
+import kotlinx.coroutines.launch
 
 class GroupMembersFragment : Fragment(R.layout.fragment_lists_members) {
 
@@ -36,12 +38,14 @@ class GroupMembersViewModel : ViewModel() {
     val members: LiveData<List<User>> = _members
 
     init {
-        //TODO: replace loading from db
-        val arr = arrayListOf<User>()
-        for (i in 0 until 10) {
-            arr.add(User(0, null, "Test $i", "", "", 100, "Bengt", "Joachimsohn", "bengt@joachimsohn.de"))
+        viewModelScope.launch {
+            //TODO: replace loading from db
+            val arr = arrayListOf<User>()
+            for (i in 0 until 10) {
+                arr.add(User(0, null, "Test $i", "", "", 100, "Bengt", "Joachimsohn", "bengt@joachimsohn.de"))
+            }
+            _members.postValue(arr)
         }
-        _members.postValue(arr)
     }
 }
 

@@ -12,6 +12,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -19,6 +20,7 @@ import de.taskmaster.R
 import de.taskmaster.activity.util.BasicAdapter
 import de.taskmaster.activity.util.fragment.TopLevelFragment
 import de.taskmaster.model.data.impl.Group
+import kotlinx.coroutines.launch
 
 class GroupsFragment : TopLevelFragment(R.layout.fragment_group, R.menu.lists_groups_menu) {
 
@@ -43,13 +45,15 @@ class GroupViewModel : ViewModel() {
     val groups: LiveData<List<Group>> = _groups
 
     init {
-        //TODO: Replace with loading from DB
-        val arr = arrayListOf<Group>()
+        viewModelScope.launch {
+            //TODO: Replace with loading from DB
+            val arr = arrayListOf<Group>()
 
-        for (i in 0 until 10) {
-            arr.add(Group(0, "Test $i", "Test"))
+            for (i in 0 until 10) {
+                arr.add(Group(0, "Test $i", "Test"))
+            }
+            _groups.postValue(arr)
         }
-        _groups.postValue(arr)
     }
 }
 

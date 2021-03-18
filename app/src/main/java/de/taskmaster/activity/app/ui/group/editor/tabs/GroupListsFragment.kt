@@ -11,11 +11,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.RecyclerView
 import de.taskmaster.R
 import de.taskmaster.activity.util.BasicAdapter
-import de.taskmaster.model.data.impl.Address
 import de.taskmaster.model.data.impl.ToDoList
+import kotlinx.coroutines.launch
 
 class GroupListsFragment : Fragment(R.layout.fragment_lists_members) {
 
@@ -36,12 +37,14 @@ class GroupListsViewModel : ViewModel() {
     val lists: LiveData<List<ToDoList>> = _lists
 
     init {
-        //TODO: replace loading from db
-        val arr = arrayListOf<ToDoList>()
-        for (i in 0 until 10) {
-            arr.add(ToDoList(0, "List $i", "desc", Address()))
+        viewModelScope.launch {
+            //TODO: replace loading from db
+            val arr = arrayListOf<ToDoList>()
+            for (i in 0 until 10) {
+                arr.add(ToDoList(0, "List $i", "desc"))
+            }
+            _lists.postValue(arr)
         }
-        _lists.postValue(arr)
     }
 }
 

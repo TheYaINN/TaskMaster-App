@@ -12,11 +12,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.RecyclerView
 import de.taskmaster.R
 import de.taskmaster.activity.util.BasicAdapter
 import de.taskmaster.activity.util.fragment.TopLevelFragment
-import de.taskmaster.model.data.impl.Address
 import de.taskmaster.model.data.impl.Deadline
 import de.taskmaster.model.data.impl.Status
 import de.taskmaster.model.data.impl.Tag
@@ -24,6 +24,7 @@ import de.taskmaster.model.data.impl.Task
 import de.taskmaster.model.data.impl.ToDoList
 import de.taskmaster.model.data.impl.TodoListWithAssociations
 import de.taskmaster.model.toggleVisibility
+import kotlinx.coroutines.launch
 import java.time.LocalDate
 
 class HomeFragment : TopLevelFragment(R.layout.fragment_home, null) {
@@ -44,20 +45,22 @@ class HomeViewModel : ViewModel() {
     val lists: LiveData<List<TodoListWithAssociations>> = _lists
 
     init {
-        //TODO: remove only for test purpose
-        val arr = arrayListOf<TodoListWithAssociations>()
-        for (i in 0 until 10) {
-            arr.add(
-                TodoListWithAssociations(
-                    ToDoList(0, "Zuhause", "", Address(), Deadline(LocalDate.now())),
-                    arrayListOf(Task(0, null, "Task 1", "Wäsche aufhängen", Status.OPEN, null)),
-                    arrayListOf(
-                        Tag(0, "Test")
+        viewModelScope.launch {
+            //TODO: remove only for test purpose
+            val arr = arrayListOf<TodoListWithAssociations>()
+            for (i in 0 until 10) {
+                arr.add(
+                    TodoListWithAssociations(
+                        ToDoList(0, "Zuhause", "", Deadline(LocalDate.now())),
+                        arrayListOf(Task(0, null, "Task 1", "Wäsche aufhängen", Status.OPEN)),
+                        arrayListOf(
+                            Tag(0, "Test")
+                        )
                     )
                 )
-            )
+            }
+            _lists.postValue(arr)
         }
-        _lists.postValue(arr)
     }
 }
 

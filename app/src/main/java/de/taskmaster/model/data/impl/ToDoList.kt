@@ -17,8 +17,8 @@ data class ToDoList(
 
     var description: String,
 
-    @Embedded
-    val place: Address,
+    /*@Ignore
+    val place: Address,*/
 
     var deadline: Deadline = Deadline(null),
 )

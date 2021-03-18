@@ -10,12 +10,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.RecyclerView
 import de.taskmaster.R
 import de.taskmaster.activity.util.BasicAdapter
 import de.taskmaster.activity.util.fragment.SubFragment
 import de.taskmaster.databinding.FragmentNotificationBinding
 import de.taskmaster.model.data.impl.Address
+import kotlinx.coroutines.launch
 
 class AccountNotificationSettings : SubFragment<FragmentNotificationBinding>(R.layout.fragment_notification, null) {
 
@@ -38,13 +40,14 @@ class AccountNotificationViewModel : ViewModel() {
     val places: LiveData<List<Address>> = _places
 
     init {
-        //TODO: replace with load from db
-
-        val arr = arrayListOf<Address>()
-        for (i in 0 until 10) {
-            arr.add(Address())
+        viewModelScope.launch {
+            //TODO: replace with load from db
+            val arr = arrayListOf<Address>()
+            for (i in 0 until 10) {
+                arr.add(Address())
+            }
+            _places.postValue(arr)
         }
-        _places.postValue(arr)
     }
 
 }

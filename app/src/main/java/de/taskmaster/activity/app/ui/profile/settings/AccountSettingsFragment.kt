@@ -1,20 +1,27 @@
 package de.taskmaster.activity.app.ui.profile.settings
 
-import android.graphics.Bitmap
+import android.content.Intent
+import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.View
 import android.widget.Button
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.RecyclerView
 import de.taskmaster.R
 import de.taskmaster.activity.util.fragment.SubFragment
 import de.taskmaster.databinding.FragmentProfileEditBinding
 import de.taskmaster.model.data.impl.Address
 import de.taskmaster.model.data.impl.Displayable
-import de.taskmaster.model.data.impl.ObservableViewModel
 import de.taskmaster.model.handler.AddressEditorHandler
 import de.taskmaster.model.handler.NavigationHandler
 import de.taskmaster.model.handler.PlaceEditor
+import de.taskmaster.model.rotate
+import kotlinx.coroutines.launch
 
 class AccountSettingsFragment : SubFragment<FragmentProfileEditBinding>(R.layout.fragment_profile_edit), PlaceEditor {
 
@@ -34,38 +41,62 @@ class AccountSettingsFragment : SubFragment<FragmentProfileEditBinding>(R.layout
         val recyclerView = binder.root.findViewById<RecyclerView>(R.id.items)
         val placeAdapter = PlaceAdapter(this)
         recyclerView.adapter = placeAdapter
+        viewModel.places.observe(viewLifecycleOwner, placeAdapter::setData)
     }
 
     override fun add(address: Address) {
-        //TODO
+        viewModel.addAddress(address)
     }
 
     override fun remove(address: Address) {
-        //TODO
+        viewModel.removeAddress(address)
     }
 
     override fun getView(id: Int): View {
         return requireView().findViewById(id)
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == REQUEST_CODE_SELECT_AVATAR && resultCode == AppCompatActivity.RESULT_OK && null != data) {
+            val selectedImage = data.data
+            val filePathColumn = arrayOf(MediaStore.Images.Media.DATA)
+            val cursor = requireActivity().contentResolver.query(selectedImage!!, filePathColumn, null, null, null)
+            cursor!!.moveToFirst()
+            val columnIndex = cursor.getColumnIndex(filePathColumn[0])
+            val picturePath = cursor.getString(columnIndex)
+            cursor.close()
+            //Has to be rotated by 90 degrees CW at this point, due to importing it this way causes it to be rotated 90 degrees CCW
+            viewModel.updateImage(BitmapFactory.decodeFile(picturePath).rotate(90f))
+        }
+    }
+
 }
 
-class AccountSettingsViewModel : ObservableViewModel(), Displayable {
+class AccountSettingsViewModel : Displayable() {
 
     var firstName: String = ""
     var lastName: String = ""
     var email: String = ""
 
+    private var _places: MutableLiveData<List<Address>> = MutableLiveData()
+    val places: LiveData<List<Address>> = _places
+
+    init {
+        viewModelScope.launch {
+
+        }
+    }
+
     fun deleteAccount() {
 
     }
 
-    override fun getImage(): Bitmap? {
-        return null
+    fun addAddress(address: Address) {
+        //TODO: write to DB here
     }
 
-    override fun rotate() {
-
+    fun removeAddress(address: Address) {
+        //TODO: write to DB here
     }
 
 }

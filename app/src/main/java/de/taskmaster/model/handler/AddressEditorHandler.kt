@@ -32,7 +32,7 @@ class AddressEditorHandler(val view: PlaceEditor, context: Context) : ToggleEdit
         address.zipCode = zipCode.text.toString().toInt()
         address.city = city.text.toString()
 
-        if (AddressValidator.validate(address)) {
+        if (!AddressValidator.validate(address)) {
             Toast.makeText(context, "Please enter valid Address", Toast.LENGTH_LONG).show()
         } else {
 
@@ -55,7 +55,7 @@ class AddressValidator {
 
     companion object {
         fun validate(address: Address): Boolean {
-            TODO()
+            return address.city != null && address.street != null && address.number != null && address.name != null
         }
     }
 
