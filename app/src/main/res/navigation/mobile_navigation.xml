@@ -18,7 +18,11 @@
         tools:layout="@layout/fragment_lists_overview">
         <action
             android:id="@+id/action_navigation_list_to_listEditorFragment"
-            app:destination="@id/list_editor" />
+            app:destination="@id/list_editor">
+            <argument
+                android:name="id"
+                app:argType="integer" />
+        </action>
         <action
             android:id="@+id/action_navigation_list_to_listDetailsFragment"
             app:destination="@id/taskOverview" />
@@ -66,11 +70,7 @@
         android:id="@+id/list_editor"
         android:name="de.taskmaster.activity.app.ui.list.edit.ListEditorFragment"
         android:label="ListEditorFragment"
-        tools:layout="@layout/fragment_list_edit">
-        <action
-            android:id="@+id/action_list_editor_to_mapsFragment"
-            app:destination="@id/mapsFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_list_edit"></fragment>
 
     <fragment
         android:id="@+id/group_editor"
@@ -90,12 +90,6 @@
         android:name="de.taskmaster.activity.app.ui.profile.ProfilePublicFragment"
         android:label="PublicProfileFragment"
         tools:layout="@layout/fragment_profile_public" />
-
-    <fragment
-        android:id="@+id/mapsFragment"
-        android:name="de.taskmaster.activity.app.ui.list.edit.subeditors.MapsFragment"
-        android:label="fragment_maps"
-        tools:layout="@layout/fragment_maps" />
 
     <fragment
         android:id="@+id/taskOverview"

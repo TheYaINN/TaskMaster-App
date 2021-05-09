@@ -8,6 +8,7 @@ import android.widget.PopupMenu
 import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.cardview.widget.CardView
+import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import de.taskmaster.R
@@ -47,12 +48,13 @@ class ListOverviewAdapter(private val fragment: ListOverviewFragment) : BasicAda
 
         private fun addListeners(taskList: TodoListWithAssociations, fragment: ListOverviewFragment) {
             val actions = itemView.findViewById<ImageView>(R.id.item_actions)
+            val bundle = bundleOf("id" to itemId)
             actions.setOnClickListener {
                 val popupMenu = PopupMenu(fragment.requireContext(), actions)
                 popupMenu.inflate(R.menu.item_actions)
                 popupMenu.setOnMenuItemClickListener {
                     when (it.itemId) {
-                        R.id.item_edit -> fragment.findNavController().navigate(R.id.action_navigation_list_to_listEditorFragment)
+                        R.id.item_edit -> fragment.findNavController().navigate(R.id.action_navigation_list_to_listEditorFragment, bundle)
                         R.id.item_delete -> fragment.delete(taskList.list)
                     }
                     true
@@ -60,7 +62,7 @@ class ListOverviewAdapter(private val fragment: ListOverviewFragment) : BasicAda
                 popupMenu.show()
             }
             itemView.setOnClickListener {
-                fragment.findNavController().navigate(R.id.action_navigation_list_to_listDetailsFragment)
+                fragment.findNavController().navigate(R.id.action_navigation_list_to_listDetailsFragment, bundle)
             }
         }
     }
