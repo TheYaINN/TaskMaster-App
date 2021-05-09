@@ -12,8 +12,11 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import de.taskmaster.R
 import de.taskmaster.activity.util.BasicAdapter
+import de.taskmaster.db.LocalDataBaseConnector
 import de.taskmaster.model.data.impl.Status
 import de.taskmaster.model.data.impl.Task
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
 
 
 class TaskAdapter(private val fragment: TaskOverview) : BasicAdapter<Task, TaskAdapter.TaskViewHolder>() {
@@ -52,7 +55,11 @@ class TaskAdapter(private val fragment: TaskOverview) : BasicAdapter<Task, TaskA
                 popupMenu.setOnMenuItemClickListener {
                     when (it.itemId) {
                         R.id.item_edit -> fragment.findNavController().navigate(R.id.action_taskOverview_to_taskEditorFragment)
-                        R.id.item_delete -> println("DELETING: $task") //TODO: remove item from DB here
+                        R.id.item_delete -> {
+                            GlobalScope.async {
+                                LocalDataBaseConnector.instance.taskDAO.delete(task)
+                            }
+                        }
                     }
                     true
                 }

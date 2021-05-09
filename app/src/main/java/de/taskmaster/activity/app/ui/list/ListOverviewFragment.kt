@@ -14,6 +14,8 @@ import de.taskmaster.R
 import de.taskmaster.activity.util.fragment.TopLevelFragment
 import de.taskmaster.db.LocalDataBaseConnector
 import de.taskmaster.model.data.impl.ToDoList
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
 class ListOverviewFragment : TopLevelFragment(R.layout.fragment_lists_overview) {
@@ -33,18 +35,22 @@ class ListOverviewFragment : TopLevelFragment(R.layout.fragment_lists_overview) 
 
     }
 
-    fun delete(taskList: ToDoList) {
-        LocalDataBaseConnector.instance.delete(taskList)
+    fun delete(toDoList: ToDoList) {
+        GlobalScope.async {
+            LocalDataBaseConnector.instance.toDoListDAO.delete(toDoList)
+        }
     }
 }
 
 class ListOverviewViewModel : ViewModel() {
 
-    private val _lists = MutableLiveData<ToDoList>()
-    val lists: LiveData<ToDoList> = _lists
+    private val _lists = MutableLiveData<List<ToDoList>>()
+    val lists: LiveData<List<ToDoList>> = _lists
 
     init {
         viewModelScope.launch {
+            //TODO: fix id loading
+            val id = 1
             LocalDataBaseConnector.instance.toDoListDAO.getByID(id).observeForever { _lists.postValue(it) }
         }
     }

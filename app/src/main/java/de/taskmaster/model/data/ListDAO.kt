@@ -12,15 +12,15 @@ import de.taskmaster.model.data.impl.ToDoList
 interface ListDAO {
 
     @Insert
-    suspend fun insert(user: ToDoList)
+    suspend fun insert(toDoList: ToDoList)
 
     @Update
-    suspend fun update(user: ToDoList)
+    suspend fun update(toDoList: ToDoList)
 
     @Delete
-    suspend fun delete(user: ToDoList)
+    suspend fun delete(toDoList: ToDoList)
 
     @Query("SELECT * FROM todolist t JOIN usr u ON :id == t.listId")
-    fun getByID(id: Int): LiveData<ToDoList>
+    fun getByID(id: Int): LiveData<List<ToDoList>>
 
 }

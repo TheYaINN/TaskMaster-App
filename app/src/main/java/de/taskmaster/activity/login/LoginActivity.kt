@@ -10,9 +10,6 @@ import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import com.google.android.material.tabs.TabLayout.Tab
 import com.google.android.material.tabs.TabLayout.TabLayoutOnPageChangeListener
 import de.taskmaster.R
-import de.taskmaster.activity.app.AppActivity
-import de.taskmaster.activity.util.ActivityHelper
-import de.taskmaster.auth.LocalAuthHelper
 import de.taskmaster.db.LocalDataBaseConnector
 
 
@@ -26,10 +23,12 @@ class LoginActivity : AppCompatActivity() {
 
         LocalDataBaseConnector.instance.init(application)
 
-        if (LocalAuthHelper.onStartUp(applicationContext)) {
-            ActivityHelper.startActivity(this, AppActivity::class.java)
-            return
-        }
+
+//TODO: only execute when login = rememberme
+// if (LocalAuthHelper.onStartUp(applicationContext)) {
+//            ActivityHelper.startActivity(this, AppActivity::class.java)
+//            return
+//        }
 
 
         val tabLayout = findViewById<TabLayout>(R.id.tabLayout)

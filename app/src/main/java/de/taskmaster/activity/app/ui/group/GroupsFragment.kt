@@ -19,6 +19,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import de.taskmaster.R
 import de.taskmaster.activity.util.BasicAdapter
 import de.taskmaster.activity.util.fragment.TopLevelFragment
+import de.taskmaster.db.LocalDataBaseConnector
 import de.taskmaster.model.data.impl.Group
 import kotlinx.coroutines.launch
 
@@ -46,13 +47,9 @@ class GroupViewModel : ViewModel() {
 
     init {
         viewModelScope.launch {
-            //TODO: Replace with loading from DB
-            val arr = arrayListOf<Group>()
-
-            for (i in 0 until 10) {
-                arr.add(Group(0, "Test $i", "Test"))
-            }
-            _groups.postValue(arr)
+            //TODO: fix id loading
+            val id = 1
+            LocalDataBaseConnector.instance.groupDAO.getByID(id).observeForever { _groups.postValue(it) }
         }
     }
 }

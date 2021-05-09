@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import de.taskmaster.R
 import de.taskmaster.activity.util.fragment.SubFragment
 import de.taskmaster.databinding.FragmentTasksOverviewBinding
+import de.taskmaster.db.LocalDataBaseConnector
 import de.taskmaster.model.data.impl.Status
 import de.taskmaster.model.data.impl.Task
 import de.taskmaster.model.handler.NavigationHandler
@@ -46,12 +47,9 @@ class TaskViewModel : ViewModel() {
 
     init {
         viewModelScope.launch {
-            //TODO: remove only for testing purpose
-            val arr = arrayListOf<Task>()
-            for (i in 0 until 10) {
-                arr.add(Task(0, null, "Test 1", "Test 1 desc", Status.OPEN))
-            }
-            _tasks.postValue(arr)
+            //Task
+            val id = 1
+            LocalDataBaseConnector.instance.taskDAO.getByID(id).observeForever { _tasks.postValue(it) }
         }
     }
 }
