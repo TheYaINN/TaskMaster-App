@@ -102,7 +102,7 @@ class AccountSettingsViewModel : Displayable() {
             val tempUser = userWithAssociations.value!!
             tempUser.places.toMutableList().remove(address)
             _user.postValue(tempUser)
-            LocalDataBaseConnector.instance.userWithAssociationsDAO.update(userWithAssociations.value!!)
+            LocalDataBaseConnector.instance.addressDAO.insert(address)
         }
     }
 
@@ -111,8 +111,7 @@ class AccountSettingsViewModel : Displayable() {
             val tempUser = userWithAssociations.value!!
             tempUser.places.toMutableList().add(address)
             _user.postValue(tempUser)
-            LocalDataBaseConnector.instance.userWithAssociationsDAO.update(userWithAssociations.value!!)
+            LocalDataBaseConnector.instance.addressDAO.delete(address)
         }
     }
-
 }

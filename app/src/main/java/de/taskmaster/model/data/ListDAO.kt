@@ -9,7 +9,7 @@ import androidx.room.Update
 import de.taskmaster.model.data.impl.ToDoList
 
 @Dao
-interface ListDAO {
+interface ToDoListDAO {
 
     @Insert
     suspend fun insert(toDoList: ToDoList)
@@ -20,7 +20,7 @@ interface ListDAO {
     @Delete
     suspend fun delete(toDoList: ToDoList)
 
-    @Query("SELECT * FROM todolist t JOIN usr u ON :id == t.listId")
+    @Query("SELECT * FROM todolists t JOIN usr u ON :id == t.listId")
     fun getByID(id: Int): LiveData<List<ToDoList>>
 
 }
