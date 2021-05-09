@@ -7,7 +7,6 @@ import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
 import de.taskmaster.model.data.impl.ToDoList
-import de.taskmaster.model.data.impl.User
 
 @Dao
 interface ListDAO {
@@ -22,6 +21,6 @@ interface ListDAO {
     suspend fun delete(user: ToDoList)
 
     @Query("SELECT * FROM USR u WHERE u.userId == :id")
-    fun getByID(id: Int): LiveData<User>
+    fun getByID(id: Int): LiveData<ToDoList>
 
 }

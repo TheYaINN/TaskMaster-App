@@ -7,6 +7,7 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import de.taskmaster.model.data.GroupDAO
 import de.taskmaster.model.data.ListDAO
+import de.taskmaster.model.data.TodoListWithAssociationsDAO
 import de.taskmaster.model.data.UserDAO
 import de.taskmaster.model.data.UserWithAssociationsDAO
 import de.taskmaster.model.data.impl.Address
@@ -44,6 +45,7 @@ abstract class AppDataBase : RoomDatabase() {
 
     abstract fun userDAO(): UserDAO
     abstract fun userWithAssociationsDAO(): UserWithAssociationsDAO
+    abstract fun todoListWithAssociationsDAO(): TodoListWithAssociationsDAO
     abstract fun listDAO(): ListDAO
     abstract fun groupDAO(): GroupDAO
 }

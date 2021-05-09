@@ -17,6 +17,7 @@ import de.taskmaster.model.data.impl.ObservableViewModel
 import de.taskmaster.model.data.impl.Repeat
 import de.taskmaster.model.data.impl.Status
 import de.taskmaster.model.data.impl.Task
+import de.taskmaster.model.data.impl.ToDoList
 import de.taskmaster.model.handler.GroupSelector
 import de.taskmaster.model.handler.ToggleEditableComponentHandler
 import java.time.LocalDate
@@ -44,7 +45,6 @@ class ListEditorFragment : SubFragment<FragmentListEditBinding>(R.layout.fragmen
         print("SAVING: $viewModel")
         return super.save()
     }
-
 }
 
 class ListEditorViewModel : ObservableViewModel() {
@@ -54,7 +54,7 @@ class ListEditorViewModel : ObservableViewModel() {
     val nextWeek = Deadline(LocalDate.now().plusDays(7))
     val reset = Deadline(null)
 
-    var title: String? = null
+    var title: String = ""
 
     @get:Bindable
     @set:Bindable
@@ -66,6 +66,10 @@ class ListEditorViewModel : ObservableViewModel() {
 
     fun dateChanged(view: DatePicker?, year: Int, monthOfYear: Int, dayOfMonth: Int) {
         deadline = Deadline(LocalDate.of(year, monthOfYear + 1, dayOfMonth))
+    }
+
+    fun build(): ToDoList {
+        return ToDoList(1, title, description, deadline)
     }
 
     var place: Address? = null

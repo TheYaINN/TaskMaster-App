@@ -21,6 +21,9 @@ const val ACCOUNT = "babaAccount"
 
 class AppActivity : AppCompatActivity() {
 
+    //TODO: darf eigentlich nicht so, aber geht nicht besser z.Z.
+    var userId: Int = -1
+
     private lateinit var mAccount: Account
 
     override fun onCreate(savedInstanceState: Bundle?) {
