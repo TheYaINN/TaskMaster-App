@@ -26,6 +26,7 @@ class RegistrationHandler {
             runBlocking {
                 LocalDataBaseConnector.instance.userDAO.insert(user)
             }
+            model.clear()
         }
     }
 

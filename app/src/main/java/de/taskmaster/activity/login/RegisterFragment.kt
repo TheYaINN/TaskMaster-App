@@ -62,4 +62,13 @@ class RegisterViewModel : ObservableViewModel() {
     var password: String = ""
     var email: String = ""
     var places: MutableList<Address> = arrayListOf()
+
+    fun clear() {
+        firstName = ""
+        lastName = ""
+        userName = ""
+        password = ""
+        email = ""
+        places = arrayListOf()
+    }
 }

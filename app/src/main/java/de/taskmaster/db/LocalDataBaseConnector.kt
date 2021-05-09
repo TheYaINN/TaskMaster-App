@@ -11,13 +11,12 @@ import de.taskmaster.model.data.impl.User
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-//TODO refactor
 class LocalDataBaseConnector {
 
     lateinit var userDAO: UserDAO
     lateinit var userWithAssociationsDAO: UserWithAssociationsDAO
     lateinit var todoListWithAssociationsDAO: TodoListWithAssociationsDAO
-    lateinit var listDAO: ListDAO
+    lateinit var toDoListDAO: ListDAO
     lateinit var groupDAO: GroupDAO
 
     companion object {
@@ -29,7 +28,7 @@ class LocalDataBaseConnector {
         userDAO = db.userDAO()
         userWithAssociationsDAO = db.userWithAssociationsDAO()
         todoListWithAssociationsDAO = db.todoListWithAssociationsDAO()
-        listDAO = db.listDAO()
+        toDoListDAO = db.listDAO()
         groupDAO = db.groupDAO()
     }
 
@@ -41,7 +40,7 @@ class LocalDataBaseConnector {
 
     fun delete(taskList: ToDoList) {
         GlobalScope.launch {
-            listDAO.delete(taskList)
+            toDoListDAO.delete(taskList)
         }
     }
 }

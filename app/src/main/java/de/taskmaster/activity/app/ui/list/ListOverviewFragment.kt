@@ -2,8 +2,11 @@ package de.taskmaster.activity.app.ui.list
 
 import android.os.Bundle
 import android.view.View
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -11,6 +14,7 @@ import de.taskmaster.R
 import de.taskmaster.activity.util.fragment.TopLevelFragment
 import de.taskmaster.db.LocalDataBaseConnector
 import de.taskmaster.model.data.impl.ToDoList
+import kotlinx.coroutines.launch
 
 class ListOverviewFragment : TopLevelFragment(R.layout.fragment_lists_overview) {
 
@@ -34,5 +38,15 @@ class ListOverviewFragment : TopLevelFragment(R.layout.fragment_lists_overview) 
     }
 }
 
-class ListOverviewViewModel : ViewModel()
+class ListOverviewViewModel : ViewModel() {
+
+    private val _lists = MutableLiveData<ToDoList>()
+    val lists: LiveData<ToDoList> = _lists
+
+    init {
+        viewModelScope.launch {
+            LocalDataBaseConnector.instance.toDoListDAO.getByID(id).observeForever { _lists.postValue(it) }
+        }
+    }
+}
 
