@@ -69,7 +69,14 @@ class ListEditorViewModel : ObservableViewModel() {
     }
 
     fun build(): ToDoList {
-        return ToDoList(1, title, description, deadline)
+        val result = ToDoList(1, title, description, deadline)
+        reset()
+        return result
+
+    }
+
+    private fun reset() {
+        //TODO: reset everything in the view
     }
 
     var place: Address? = null

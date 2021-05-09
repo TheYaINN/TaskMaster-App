@@ -6,7 +6,7 @@ import android.content.Intent
 class ActivityHelper {
 
     companion object {
-        fun startActivity(callingActivity: Activity, activityToStart: Class<*>) {
+        fun startActivity(callingActivity: Activity, activityToStart: Class<*>, variables: String? = "") {
             callingActivity.startActivity(Intent(callingActivity, activityToStart))
             callingActivity.finish()
         }
