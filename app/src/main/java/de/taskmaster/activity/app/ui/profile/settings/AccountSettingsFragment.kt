@@ -15,12 +15,16 @@ import androidx.recyclerview.widget.RecyclerView
 import de.taskmaster.R
 import de.taskmaster.activity.util.fragment.SubFragment
 import de.taskmaster.databinding.FragmentProfileEditBinding
+import de.taskmaster.db.LocalDataBaseConnector
 import de.taskmaster.model.data.impl.Address
 import de.taskmaster.model.data.impl.Displayable
+import de.taskmaster.model.data.impl.UserWithAssociations
 import de.taskmaster.model.handler.AddressEditorHandler
 import de.taskmaster.model.handler.NavigationHandler
 import de.taskmaster.model.handler.PlaceEditor
 import de.taskmaster.model.rotate
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
 class AccountSettingsFragment : SubFragment<FragmentProfileEditBinding>(R.layout.fragment_profile_edit), PlaceEditor {
@@ -41,7 +45,7 @@ class AccountSettingsFragment : SubFragment<FragmentProfileEditBinding>(R.layout
         val recyclerView = binder.root.findViewById<RecyclerView>(R.id.items)
         val placeAdapter = PlaceAdapter(this)
         recyclerView.adapter = placeAdapter
-        viewModel.places.observe(viewLifecycleOwner, placeAdapter::setData)
+        viewModel.userWithAssociations.observe(viewLifecycleOwner, { data -> placeAdapter.setData(data.places) })
     }
 
     override fun add(address: Address) {
@@ -74,29 +78,41 @@ class AccountSettingsFragment : SubFragment<FragmentProfileEditBinding>(R.layout
 
 class AccountSettingsViewModel : Displayable() {
 
-    var firstName: String = ""
-    var lastName: String = ""
-    var email: String = ""
-
-    private var _places: MutableLiveData<List<Address>> = MutableLiveData()
-    val places: LiveData<List<Address>> = _places
+    private var _user: MutableLiveData<UserWithAssociations> = MutableLiveData()
+    val userWithAssociations: LiveData<UserWithAssociations> = _user
 
     init {
         viewModelScope.launch {
-
+            //TODO load id here
+            val id = 1
+            LocalDataBaseConnector.instance.userWithAssociationsDAO.getByID(id).observeForever {
+                _user.postValue(it)
+            }
         }
     }
 
     fun deleteAccount() {
-
+        GlobalScope.async {
+            LocalDataBaseConnector.instance.userDAO.delete(userWithAssociations.value!!.user)
+        }
     }
 
     fun addAddress(address: Address) {
-        //TODO: write to DB here
+        GlobalScope.async {
+            val tempUser = userWithAssociations.value!!
+            tempUser.places.toMutableList().remove(address)
+            _user.postValue(tempUser)
+            LocalDataBaseConnector.instance.userWithAssociationsDAO.update(userWithAssociations.value!!)
+        }
     }
 
     fun removeAddress(address: Address) {
-        //TODO: write to DB here
+        GlobalScope.async {
+            val tempUser = userWithAssociations.value!!
+            tempUser.places.toMutableList().add(address)
+            _user.postValue(tempUser)
+            LocalDataBaseConnector.instance.userWithAssociationsDAO.update(userWithAssociations.value!!)
+        }
     }
 
 }
