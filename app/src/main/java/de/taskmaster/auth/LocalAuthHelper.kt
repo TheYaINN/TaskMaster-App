@@ -19,6 +19,7 @@ class LocalAuthHelper {
         fun login(viewModel: LoginViewModel, context: Context): Boolean {
             var user: User
             runBlocking {
+                //TODO: show error to user
                 user = LocalDataBaseConnector.instance.userDAO.getByUserName(viewModel.userName) ?: error("Could not find user")
             }
             if (SecurityHelper.validatePassword(viewModel.password, user.password, user.salt, user.iterations)) {
