@@ -8,7 +8,7 @@ import de.taskmaster.model.data.impl.TodoListWithAssociations
 @Dao
 interface TodoListWithAssociationsDAO {
 
-    @Query("SELECT * FROM tasks t WHERE t.taskId == :id")
+    @Query("SELECT listId, title, description, deadline FROM todolist t JOIN usr u ON :id == t.listId ")
     fun getByID(id: Int): LiveData<List<TodoListWithAssociations>>
 
 }

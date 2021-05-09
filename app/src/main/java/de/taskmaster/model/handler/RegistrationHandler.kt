@@ -2,6 +2,7 @@ package de.taskmaster.model.handler
 
 import android.view.View
 import de.taskmaster.activity.login.RegisterViewModel
+import de.taskmaster.auth.SecurityHelper
 import de.taskmaster.db.LocalDataBaseConnector
 import de.taskmaster.model.data.impl.User
 
@@ -11,7 +12,7 @@ class RegistrationHandler {
         if (!model.isValid()) {
             return
         }
-        val hashedPassword = SecurityHelper.instance.generateHashedPassword(model.password)
+        val hashedPassword = SecurityHelper.generateHashedPassword(model.password)
         val user = User(
             0,
             null,
