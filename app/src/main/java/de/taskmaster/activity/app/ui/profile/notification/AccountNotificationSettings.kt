@@ -16,6 +16,7 @@ import de.taskmaster.R
 import de.taskmaster.activity.util.BasicAdapter
 import de.taskmaster.activity.util.fragment.SubFragment
 import de.taskmaster.databinding.FragmentNotificationBinding
+import de.taskmaster.db.LocalDataBaseConnector
 import de.taskmaster.model.data.impl.Address
 import kotlinx.coroutines.launch
 
@@ -41,12 +42,9 @@ class AccountNotificationViewModel : ViewModel() {
 
     init {
         viewModelScope.launch {
-            //TODO: replace with load from db
-            val arr = arrayListOf<Address>()
-            for (i in 0 until 10) {
-                arr.add(Address())
-            }
-            _places.postValue(arr)
+            //TODO: fix id loading
+            val id = 1
+            LocalDataBaseConnector.instance.userWithAssociationsDAO.getByID(id).observeForever { _places.postValue(it.places) }
         }
     }
 
