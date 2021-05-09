@@ -20,7 +20,7 @@ import de.taskmaster.model.data.impl.User
 @Database(
     exportSchema = false,
     entities = [User::class, Group::class, Tag::class, ToDoList::class, Task::class, Address::class],
-    version = 4
+    version = 5
 )
 @TypeConverters(DBConverter::class)
 abstract class AppDataBase : RoomDatabase() {
