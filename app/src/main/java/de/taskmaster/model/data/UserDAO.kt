@@ -24,6 +24,6 @@ interface UserDAO {
     fun getByID(id: Int): LiveData<User>
 
     @Query("SELECT * FROM USR u WHERE u.userName IS :username")
-    fun getByUserName(username: String): User
+    fun getByUserName(username: String): User?
 
 }

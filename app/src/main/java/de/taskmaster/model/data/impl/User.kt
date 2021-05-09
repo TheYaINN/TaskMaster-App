@@ -12,10 +12,10 @@ data class User(
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "userId")
-    val userId: Int,
+    val userId: Int = 0,
 
     @ColumnInfo(name = "profilePicture")
-    var profilePicture: Bitmap?,
+    var profilePicture: Bitmap? = null,
 
     @ColumnInfo(name = "userName")
     var username: String,

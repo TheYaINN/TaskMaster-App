@@ -62,8 +62,4 @@ class RegisterViewModel : ObservableViewModel() {
     var password: String = ""
     var email: String = ""
     var places: MutableList<Address> = arrayListOf()
-
-    fun isValid(): Boolean {
-        return true
-    }
 }

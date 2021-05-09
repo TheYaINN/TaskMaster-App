@@ -19,7 +19,7 @@ class LocalAuthHelper {
         fun login(viewModel: LoginViewModel, context: Context): Boolean {
             var user: User
             runBlocking {
-                user = LocalDataBaseConnector.instance.userDAO.getByUserName(viewModel.userName)
+                user = LocalDataBaseConnector.instance.userDAO.getByUserName(viewModel.userName) ?: error("Could not find user")
             }
             if (SecurityHelper.validatePassword(viewModel.password, user.password, user.salt, user.iterations)) {
                 val sp = context.getSharedPreferences(preferencesKey, MODE_PRIVATE)
