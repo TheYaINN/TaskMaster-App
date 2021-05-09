@@ -44,5 +44,4 @@ class LocalDataBaseConnector {
             listDAO.delete(taskList)
         }
     }
-
 }

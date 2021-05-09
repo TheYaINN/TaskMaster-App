@@ -5,6 +5,8 @@ import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity.MODE_PRIVATE
 import de.taskmaster.activity.login.LoginViewModel
 import de.taskmaster.db.LocalDataBaseConnector
+import de.taskmaster.model.data.impl.User
+import kotlinx.coroutines.runBlocking
 
 class LocalAuthHelper {
 
@@ -15,7 +17,10 @@ class LocalAuthHelper {
         private const val passwordKey = "password"
 
         fun login(viewModel: LoginViewModel, context: Context): Boolean {
-            val user = LocalDataBaseConnector.instance.userDAO.getByUserName(viewModel.userName)
+            var user: User
+            runBlocking {
+                user = LocalDataBaseConnector.instance.userDAO.getByUserName(viewModel.userName)
+            }
             if (SecurityHelper.validatePassword(viewModel.password, user.password, user.salt, user.iterations)) {
                 val sp = context.getSharedPreferences(preferencesKey, MODE_PRIVATE)
                 val editor: SharedPreferences.Editor = sp.edit()
