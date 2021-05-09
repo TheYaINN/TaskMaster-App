@@ -21,11 +21,15 @@
             app:destination="@id/list_editor">
             <argument
                 android:name="id"
-                app:argType="integer" />
+                app:argType="long" />
         </action>
         <action
             android:id="@+id/action_navigation_list_to_listDetailsFragment"
-            app:destination="@id/taskOverview" />
+            app:destination="@id/taskOverview">
+            <argument
+                android:name="id"
+                app:argType="long" />
+        </action>
     </fragment>
 
     <fragment
@@ -35,7 +39,11 @@
         tools:layout="@layout/fragment_lists_overview">
         <action
             android:id="@+id/action_navigation_group_to_groupEditorFragment"
-            app:destination="@id/group_editor" />
+            app:destination="@id/group_editor">
+            <argument
+                android:name="id"
+                app:argType="long" />
+        </action>
     </fragment>
 
     <fragment
@@ -70,7 +78,7 @@
         android:id="@+id/list_editor"
         android:name="de.taskmaster.activity.app.ui.list.edit.ListEditorFragment"
         android:label="ListEditorFragment"
-        tools:layout="@layout/fragment_list_edit"></fragment>
+        tools:layout="@layout/fragment_list_edit" />
 
     <fragment
         android:id="@+id/group_editor"
@@ -98,7 +106,11 @@
         tools:layout="@layout/fragment_tasks_overview">
         <action
             android:id="@+id/action_taskOverview_to_taskEditorFragment"
-            app:destination="@id/taskEditorFragment" />
+            app:destination="@id/taskEditorFragment">
+            <argument
+                android:name="id"
+                app:argType="long" />
+        </action>
     </fragment>
     <fragment
         android:id="@+id/taskEditorFragment"
