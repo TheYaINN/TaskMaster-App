@@ -82,15 +82,13 @@ class GroupEditorFragment : SubFragment<FragmentGroupEditBinding>(R.layout.fragm
 
 class GroupEditorViewModel(private val groupId: Int, private val isEditMode: Boolean) : ObservableViewModel() {
 
-    lateinit var group: Group
+    var group = Group(title = "", description = "")
 
     init {
         if (isEditMode) {
             GlobalScope.launch {
                 group = LocalDataBaseConnector.instance.groupDAO.getGroupByGroupId(groupId) ?: Group(title = "", description = "")
             }
-        } else {
-            group = Group(title = "", description = "")
         }
     }
 
