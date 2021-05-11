@@ -17,6 +17,10 @@ class LocalAuthHelper {
         const val useridKey = "userid"
         const val passwordKey = "password"
 
+        fun getUserId(context: Context): Int {
+            return context.getSharedPreferences(preferencesKey, MODE_PRIVATE).getInt(useridKey, -1)
+        }
+
         fun login(viewModel: LoginViewModel, context: Context): Boolean {
             var user: User
             runBlocking {
