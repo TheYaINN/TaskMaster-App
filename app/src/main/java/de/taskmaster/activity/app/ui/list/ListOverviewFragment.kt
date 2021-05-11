@@ -3,13 +3,7 @@ package de.taskmaster.activity.app.ui.list
 import android.app.Application
 import android.os.Bundle
 import android.view.View
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.observe
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -18,6 +12,7 @@ import de.taskmaster.activity.util.fragment.TopLevelFragment
 import de.taskmaster.auth.LocalAuthHelper
 import de.taskmaster.db.LocalDataBaseConnector
 import de.taskmaster.model.data.impl.ToDoList
+import de.taskmaster.model.data.impl.TodoListWithAssociations
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
@@ -31,14 +26,17 @@ class ListOverviewFragment : TopLevelFragment(R.layout.fragment_lists_overview) 
         }
 
         val userId = LocalAuthHelper.getUserId(requireContext())
-        viewModel = ViewModelProvider(this, ListOverviewViewModelFactory(requireActivity().application, userId, viewLifecycleOwner))
+        viewModel = ViewModelProvider(
+            this,
+            ListOverviewViewModelFactory(requireActivity().application, userId, viewLifecycleOwner)
+        )
             .get(ListOverviewViewModel::class.java)
 
 
         val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerview)
         val adapter = ListOverviewAdapter(this)
         recyclerView.adapter = adapter
-        viewModel.lists.observe(viewLifecycleOwner, { adapter::data })
+        viewModel.lists.observe(viewLifecycleOwner, { adapter.setData(it) })
     }
 
     fun delete(toDoList: ToDoList) {
@@ -50,18 +48,22 @@ class ListOverviewFragment : TopLevelFragment(R.layout.fragment_lists_overview) 
 
 class ListOverviewViewModel(userId: Int, viewLifecycleOwner: LifecycleOwner) : ViewModel() {
 
-    private val _lists = MutableLiveData<List<ToDoList>>()
-    val lists: LiveData<List<ToDoList>> = _lists
+    private val _lists = MutableLiveData<List<TodoListWithAssociations>>()
+    val lists: LiveData<List<TodoListWithAssociations>> = _lists
 
     init {
         viewModelScope.launch {
-            LocalDataBaseConnector.instance.toDoListDAO.getByUserId(userId)
+            LocalDataBaseConnector.instance.todoListWithAssociationsDAO.getByUserId(userId)
                 .observe(viewLifecycleOwner, { _lists.postValue(it) })
         }
     }
 }
 
-class ListOverviewViewModelFactory(application: Application, private val userId: Int, private val viewLifecycleOwner: LifecycleOwner) :
+class ListOverviewViewModelFactory(
+    application: Application,
+    private val userId: Int,
+    private val viewLifecycleOwner: LifecycleOwner
+) :
     ViewModelProvider.AndroidViewModelFactory(application) {
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {

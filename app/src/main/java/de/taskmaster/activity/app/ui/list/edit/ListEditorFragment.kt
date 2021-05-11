@@ -3,7 +3,6 @@ package de.taskmaster.activity.app.ui.list.edit
 import android.os.Bundle
 import android.view.View
 import android.widget.DatePicker
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.Bindable
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
@@ -13,14 +12,7 @@ import de.taskmaster.activity.util.fragment.SubFragment
 import de.taskmaster.auth.LocalAuthHelper
 import de.taskmaster.databinding.FragmentListEditBinding
 import de.taskmaster.db.LocalDataBaseConnector
-import de.taskmaster.model.data.impl.Address
-import de.taskmaster.model.data.impl.Deadline
-import de.taskmaster.model.data.impl.Group
-import de.taskmaster.model.data.impl.ObservableViewModel
-import de.taskmaster.model.data.impl.Repeat
-import de.taskmaster.model.data.impl.Status
-import de.taskmaster.model.data.impl.Task
-import de.taskmaster.model.data.impl.ToDoList
+import de.taskmaster.model.data.impl.*
 import de.taskmaster.model.handler.GroupSelector
 import de.taskmaster.model.handler.ToggleEditableComponentHandler
 import kotlinx.coroutines.GlobalScope
@@ -49,14 +41,9 @@ class ListEditorFragment : SubFragment<FragmentListEditBinding>(R.layout.fragmen
     }
 
     override fun save(): Boolean {
-        val userId = context?.getSharedPreferences(
-            LocalAuthHelper.preferencesKey,
-            AppCompatActivity.MODE_PRIVATE
-        )?.getInt(LocalAuthHelper.useridKey, -1)
+        val userId = LocalAuthHelper.getUserId(requireContext())
         GlobalScope.launch {
-            if (userId != null) {
-                LocalDataBaseConnector.instance.toDoListDAO.insert(viewModel.build(userId))
-            }
+            LocalDataBaseConnector.instance.toDoListDAO.insert(viewModel.build(userId))
         }
         return super.save()
     }
