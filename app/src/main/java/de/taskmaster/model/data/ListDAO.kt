@@ -23,4 +23,7 @@ interface ToDoListDAO {
     @Query("SELECT * FROM todolists t WHERE t.userId == :userId")
     fun getByUserId(userId: Int): LiveData<List<ToDoList>>
 
+    @Query("SELECT * FROM todolists t WHERE t.listId == :listId")
+    fun getByListId(listId: Int): LiveData<ToDoList>
+
 }

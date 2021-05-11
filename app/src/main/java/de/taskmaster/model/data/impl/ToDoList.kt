@@ -17,8 +17,7 @@ data class ToDoList(
 
     var description: String = "",
 
-    /*@Ignore
-    val place: Address,*/
+    var addressId: Int = -1,
 
     var deadline: Deadline = Deadline(null),
 )
@@ -31,5 +30,6 @@ data class TodoListWithAssociations(
     val tasks: List<Task>,
 
     @Relation(parentColumn = "listId", entityColumn = "tagId")
-    val tags: List<Tag>,
+    val tags: List<Tag>
+
 )

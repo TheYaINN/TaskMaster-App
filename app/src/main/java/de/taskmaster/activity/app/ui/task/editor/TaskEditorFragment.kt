@@ -21,7 +21,7 @@ class TaskEditorFragment : SubFragment<FragmentTasksEditorBinding>(R.layout.frag
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val id = arguments?.getInt("id")
         if (id != null) {
-            val application = activity?.application ?: error("Could not retrieve application")
+            val application = requireActivity().application
             binder.model = ViewModelProvider(this, TaskEditorViewModelFactory(application, id)).get(TaskEditorViewModel::class.java)
         } else {
             binder.model = ViewModelProvider(this).get(TaskEditorViewModel::class.java)

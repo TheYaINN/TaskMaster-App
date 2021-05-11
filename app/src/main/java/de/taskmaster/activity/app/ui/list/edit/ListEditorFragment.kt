@@ -24,8 +24,21 @@ class ListEditorFragment : SubFragment<FragmentListEditBinding>(R.layout.fragmen
 
     private lateinit var viewModel: ListEditorViewModel
     private val smallGroupAdapter = SmallGroupAdapter(this)
+    private var isEdit: Boolean = false
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        val listId = arguments?.getInt("id")
+
+        if(listId != null){
+            isEdit = true
+            val todoList = LocalDataBaseConnector.instance.toDoListDAO.getByListId(listId).value
+            if (todoList != null) {
+                viewModel.title = todoList.title
+                viewModel.deadline = todoList.deadline
+                viewModel.description = todoList.description
+            }
+        }
+
         binder.presenter = ToggleEditableComponentHandler(requireContext())
 
         viewModel = ViewModelProvider(requireActivity()).get(ListEditorViewModel::class.java)
@@ -43,7 +56,11 @@ class ListEditorFragment : SubFragment<FragmentListEditBinding>(R.layout.fragmen
     override fun save(): Boolean {
         val userId = LocalAuthHelper.getUserId(requireContext())
         GlobalScope.launch {
-            LocalDataBaseConnector.instance.toDoListDAO.insert(viewModel.build(userId))
+            if(isEdit){
+                LocalDataBaseConnector.instance.toDoListDAO.update(viewModel.build(userId))
+            }else{
+                LocalDataBaseConnector.instance.toDoListDAO.insert(viewModel.build(userId))
+            }
         }
         return super.save()
     }
