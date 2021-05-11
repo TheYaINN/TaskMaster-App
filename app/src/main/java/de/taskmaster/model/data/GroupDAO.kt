@@ -24,7 +24,7 @@ interface GroupDAO {
     fun getGroupsByGroupId(groupId: Int): LiveData<List<Group>>
 
     @Query("SELECT * FROM groups g WHERE g.groupId == :groupId")
-    fun getGroupByGroupId(groupId: Int): LiveData<Group>
+    suspend fun getGroupByGroupId(groupId: Int): Group?
 
 
 }

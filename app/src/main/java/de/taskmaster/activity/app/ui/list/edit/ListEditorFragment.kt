@@ -8,29 +8,26 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import de.taskmaster.BR
 import de.taskmaster.R
+import de.taskmaster.activity.app.ui.profile.settings.PlaceAdapter
 import de.taskmaster.activity.util.fragment.SubFragment
 import de.taskmaster.auth.LocalAuthHelper
 import de.taskmaster.databinding.FragmentListEditBinding
 import de.taskmaster.db.LocalDataBaseConnector
-import de.taskmaster.model.data.impl.Address
-import de.taskmaster.model.data.impl.Deadline
-import de.taskmaster.model.data.impl.Group
-import de.taskmaster.model.data.impl.ObservableViewModel
-import de.taskmaster.model.data.impl.Repeat
-import de.taskmaster.model.data.impl.Status
-import de.taskmaster.model.data.impl.Task
-import de.taskmaster.model.data.impl.ToDoList
+import de.taskmaster.model.data.impl.*
 import de.taskmaster.model.handler.GroupSelector
+import de.taskmaster.model.handler.PlaceEditor
 import de.taskmaster.model.handler.ToggleEditableComponentHandler
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 
 class ListEditorFragment : SubFragment<FragmentListEditBinding>(R.layout.fragment_list_edit),
+    PlaceEditor,
     GroupSelector {
 
     private lateinit var viewModel: ListEditorViewModel
     private val smallGroupAdapter = SmallGroupAdapter(this)
+    private val placeAdapter = PlaceAdapter(this)
     private var isEdit: Boolean = false
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -40,11 +37,14 @@ class ListEditorFragment : SubFragment<FragmentListEditBinding>(R.layout.fragmen
 
         if (listId != null) {
             isEdit = true
-            val todoList = LocalDataBaseConnector.instance.toDoListDAO.getByListId(listId).value
-            if (todoList != null) {
-                viewModel.title = todoList.title
-                viewModel.description = todoList.description
-                viewModel.deadline = todoList.deadline
+            GlobalScope.launch {
+                val todoList = LocalDataBaseConnector.instance.toDoListDAO.getByListId(listId)
+                if (todoList != null) {
+                    val group =
+                        LocalDataBaseConnector.instance.groupDAO.getGroupByGroupId(todoList.groupId)
+                    viewModel.inflate(todoList, group)
+
+                }
             }
         }
 
@@ -75,6 +75,18 @@ class ListEditorFragment : SubFragment<FragmentListEditBinding>(R.layout.fragmen
         }
         return super.save()
     }
+
+    override fun getView(id: Int): View {
+        TODO("Not yet implemented")
+    }
+
+    override fun add(address: Address) {
+        TODO("Not yet implemented")
+    }
+
+    override fun remove(address: Address) {
+        TODO("Not yet implemented")
+    }
 }
 
 class ListEditorViewModel : ObservableViewModel() {
@@ -101,7 +113,7 @@ class ListEditorViewModel : ObservableViewModel() {
     fun build(userId: Int): ToDoList {
 
         val result = ToDoList(
-            listId = 0,
+            listId = listId,
             userId = userId,
             groupId = group?.groupId ?: -1,
             title = title,
@@ -115,6 +127,14 @@ class ListEditorViewModel : ObservableViewModel() {
 
     private fun reset() {
         //TODO: reset everything in the view
+    }
+
+    fun inflate(todoList: ToDoList, group: Group?) {
+        title = todoList.title
+        description = todoList.description
+        deadline = todoList.deadline
+        listId = todoList.listId
+        this.group = group
     }
 
     var place: Address? = null
@@ -136,5 +156,7 @@ class ListEditorViewModel : ObservableViewModel() {
     var status: Status = Status.OPEN
 
     var tasks: List<Task>? = null
+
+    var listId: Int = 0
 
 }

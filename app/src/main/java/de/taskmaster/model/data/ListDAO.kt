@@ -1,11 +1,7 @@
 package de.taskmaster.model.data
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.Update
+import androidx.room.*
 import de.taskmaster.model.data.impl.ToDoList
 
 @Dao
@@ -24,6 +20,6 @@ interface ToDoListDAO {
     fun getByUserId(userId: Int): LiveData<List<ToDoList>>
 
     @Query("SELECT * FROM todolists t WHERE t.listId == :listId")
-    fun getByListId(listId: Int): LiveData<ToDoList>
+    suspend fun getByListId(listId: Int): ToDoList?
 
 }
