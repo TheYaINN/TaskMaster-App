@@ -38,7 +38,6 @@ class ListOverviewFragment : TopLevelFragment(R.layout.fragment_lists_overview) 
         val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerview)
         val adapter = ListOverviewAdapter(this)
         recyclerView.adapter = adapter
-
         viewModel.lists.observe(viewLifecycleOwner, { adapter::data })
     }
 

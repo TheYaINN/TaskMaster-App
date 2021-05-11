@@ -1,5 +1,6 @@
 package de.taskmaster.activity.app.ui.group
 
+import android.app.Application
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,7 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -20,6 +22,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import de.taskmaster.R
 import de.taskmaster.activity.util.BasicAdapter
 import de.taskmaster.activity.util.fragment.TopLevelFragment
+import de.taskmaster.auth.LocalAuthHelper
 import de.taskmaster.db.LocalDataBaseConnector
 import de.taskmaster.model.data.impl.Group
 import kotlinx.coroutines.launch
@@ -30,8 +33,9 @@ class GroupsFragment : TopLevelFragment(R.layout.fragment_group, R.menu.lists_gr
         view.findViewById<FloatingActionButton>(R.id.add_item).setOnClickListener {
             findNavController().navigate(R.id.action_navigation_group_to_groupEditorFragment)
         }
-
-        val viewModel = ViewModelProvider(this).get(GroupViewModel::class.java)
+        val userId = LocalAuthHelper.getUserId(requireContext())
+        val viewModel = ViewModelProvider(this, GroupViewModelFactory(requireActivity().application, userId, viewLifecycleOwner))
+            .get(GroupViewModel::class.java)
 
         val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerview)
         val adapter = BigGroupAdapter(this)
@@ -41,18 +45,25 @@ class GroupsFragment : TopLevelFragment(R.layout.fragment_group, R.menu.lists_gr
 
 }
 
-class GroupViewModel : ViewModel() {
+class GroupViewModel(userId: Int, viewLifecycleOwner: LifecycleOwner) : ViewModel() {
 
     private val _groups = MutableLiveData<List<Group>>()
     val groups: LiveData<List<Group>> = _groups
 
     init {
         viewModelScope.launch {
-            //TODO: fix id loading
-            val id = 1
-            LocalDataBaseConnector.instance.groupDAO.getByID(id).observeForever { _groups.postValue(it) }
+            LocalDataBaseConnector.instance.groupDAO.getByID(userId).observe(viewLifecycleOwner, { _groups.postValue(it) })
         }
     }
+}
+
+class GroupViewModelFactory(application: Application, private val userId: Int, private val viewLifecycleOwner: LifecycleOwner) :
+    ViewModelProvider.AndroidViewModelFactory(application) {
+
+    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+        return GroupViewModel(userId, viewLifecycleOwner) as T
+    }
+
 }
 
 class BigGroupAdapter(private val fragment: Fragment) : BasicAdapter<Group, BigGroupAdapter.GroupViewHolder>() {

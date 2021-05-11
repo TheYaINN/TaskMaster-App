@@ -1,5 +1,6 @@
 package de.taskmaster.activity.app.ui.home
 
+import android.app.Application
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -17,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView
 import de.taskmaster.R
 import de.taskmaster.activity.util.BasicAdapter
 import de.taskmaster.activity.util.fragment.TopLevelFragment
+import de.taskmaster.auth.LocalAuthHelper
 import de.taskmaster.db.LocalDataBaseConnector
 import de.taskmaster.model.data.impl.TodoListWithAssociations
 import de.taskmaster.model.toggleVisibility
@@ -27,7 +30,10 @@ class HomeFragment : TopLevelFragment(R.layout.fragment_home, null) {
     private lateinit var viewModel: HomeViewModel
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
+        val userId = LocalAuthHelper.getUserId(requireContext())
+        viewModel = ViewModelProvider(this, HomeViewModelFactory(requireActivity().application, userId, viewLifecycleOwner))
+            .get(HomeViewModel::class.java)
+
         val recyclerview = view.findViewById<RecyclerView>(R.id.calendar_events)
         val adapter = HomeAdapter(this)
         recyclerview.adapter = adapter
@@ -35,17 +41,28 @@ class HomeFragment : TopLevelFragment(R.layout.fragment_home, null) {
     }
 }
 
-class HomeViewModel : ViewModel() {
+class HomeViewModel(userId: Int, viewLifecycleOwner: LifecycleOwner) : ViewModel() {
     private val _lists = MutableLiveData<List<TodoListWithAssociations>>()
     val lists: LiveData<List<TodoListWithAssociations>> = _lists
 
     init {
         viewModelScope.launch {
-            //TODO load userID
-            val id = 1
-            LocalDataBaseConnector.instance.todoListWithAssociationsDAO.getByUserId(id).observeForever { _lists.postValue(it) }
+            LocalDataBaseConnector
+                .instance
+                .todoListWithAssociationsDAO
+                .getByUserId(userId)
+                .observe(viewLifecycleOwner, { _lists.postValue(it) })
         }
     }
+}
+
+class HomeViewModelFactory(application: Application, private val userId: Int, private val viewLifecycleOwner: LifecycleOwner) :
+    ViewModelProvider.AndroidViewModelFactory(application) {
+
+    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+        return HomeViewModel(userId, viewLifecycleOwner) as T
+    }
+
 }
 
 class HomeAdapter(val fragment: Fragment) : BasicAdapter<TodoListWithAssociations, HomeAdapter.HomeViewHolder>() {
