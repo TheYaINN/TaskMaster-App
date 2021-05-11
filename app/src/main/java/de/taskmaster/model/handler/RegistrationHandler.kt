@@ -30,6 +30,7 @@ class RegistrationHandler {
                 }
                 Toast.makeText(view.context, "Registration sucessful", Toast.LENGTH_LONG).show()
                 model.clear()
+                return
             }
         }
         Toast.makeText(view.context, "Registration unsucessful", Toast.LENGTH_LONG).show()
