@@ -89,8 +89,10 @@ class GroupEditorViewModel(private val groupId: Int, private val isEditMode: Boo
     init {
         if (isEditMode) {
             LocalDataBaseConnector.instance.groupDAO.getGroupByGroupId(groupId).observe(viewLifecycleOwner, {
-                title = it.title.toString()
-                description = it.description.toString()
+                if (it != null) {
+                    title = it.title.toString()
+                    description = it.description.toString()
+                }
             })
         } else {
             title = ""
