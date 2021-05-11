@@ -83,8 +83,8 @@ class GroupEditorFragment : SubFragment<FragmentGroupEditBinding>(R.layout.fragm
 
 class GroupEditorViewModel(private val groupId: Int, private val isEditMode: Boolean, viewLifecycleOwner: LifecycleOwner) : ObservableViewModel() {
 
-    private var title = ""
-    private var description = ""
+    var title = ""
+    var description = ""
 
     init {
         if (isEditMode) {
