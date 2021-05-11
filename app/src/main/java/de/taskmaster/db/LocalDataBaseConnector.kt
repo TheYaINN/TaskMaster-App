@@ -1,13 +1,7 @@
 package de.taskmaster.db
 
 import android.app.Application
-import de.taskmaster.model.data.AddressDAO
-import de.taskmaster.model.data.GroupDAO
-import de.taskmaster.model.data.TaskDAO
-import de.taskmaster.model.data.ToDoListDAO
-import de.taskmaster.model.data.TodoListWithAssociationsDAO
-import de.taskmaster.model.data.UserDAO
-import de.taskmaster.model.data.UserWithAssociationsDAO
+import de.taskmaster.model.data.*
 
 class LocalDataBaseConnector {
 
@@ -18,6 +12,7 @@ class LocalDataBaseConnector {
     lateinit var groupDAO: GroupDAO
     lateinit var taskDAO: TaskDAO
     lateinit var addressDAO: AddressDAO
+    lateinit var groupWithTodDoListDao: GroupWithToDoListsDAO
 
     companion object {
         val instance by lazy { LocalDataBaseConnector() }
@@ -32,5 +27,6 @@ class LocalDataBaseConnector {
         groupDAO = db.groupDAO()
         taskDAO = db.taskDAO()
         addressDAO = db.addressDAO()
+        groupWithTodDoListDao = db.groupWithToDoListDAO()
     }
 }

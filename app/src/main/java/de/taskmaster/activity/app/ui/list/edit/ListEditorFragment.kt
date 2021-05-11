@@ -3,26 +3,25 @@ package de.taskmaster.activity.app.ui.list.edit
 import android.os.Bundle
 import android.view.View
 import android.widget.DatePicker
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.Bindable
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import de.taskmaster.BR
 import de.taskmaster.R
 import de.taskmaster.activity.util.fragment.SubFragment
+import de.taskmaster.auth.LocalAuthHelper
 import de.taskmaster.databinding.FragmentListEditBinding
-import de.taskmaster.model.data.impl.Address
-import de.taskmaster.model.data.impl.Deadline
-import de.taskmaster.model.data.impl.Group
-import de.taskmaster.model.data.impl.ObservableViewModel
-import de.taskmaster.model.data.impl.Repeat
-import de.taskmaster.model.data.impl.Status
-import de.taskmaster.model.data.impl.Task
-import de.taskmaster.model.data.impl.ToDoList
+import de.taskmaster.db.LocalDataBaseConnector
+import de.taskmaster.model.data.impl.*
 import de.taskmaster.model.handler.GroupSelector
 import de.taskmaster.model.handler.ToggleEditableComponentHandler
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import java.time.LocalDate
 
-class ListEditorFragment : SubFragment<FragmentListEditBinding>(R.layout.fragment_list_edit), GroupSelector {
+class ListEditorFragment : SubFragment<FragmentListEditBinding>(R.layout.fragment_list_edit),
+    GroupSelector {
 
     private lateinit var viewModel: ListEditorViewModel
     private val smallGroupAdapter = SmallGroupAdapter(this)
@@ -45,7 +44,15 @@ class ListEditorFragment : SubFragment<FragmentListEditBinding>(R.layout.fragmen
     }
 
     override fun save(): Boolean {
-        print("SAVING: $viewModel")
+        GlobalScope.launch {
+            val userId = context?.getSharedPreferences(
+                LocalAuthHelper.preferencesKey,
+                AppCompatActivity.MODE_PRIVATE
+            )?.getInt(LocalAuthHelper.useridKey, -1)
+            if(userId != null){
+                LocalDataBaseConnector.instance.toDoListDAO.insert(viewModel.build(userId))
+            }
+        }
         return super.save()
     }
 }
@@ -71,8 +78,15 @@ class ListEditorViewModel : ObservableViewModel() {
         deadline = Deadline(LocalDate.of(year, monthOfYear + 1, dayOfMonth))
     }
 
-    fun build(): ToDoList {
-        val result = ToDoList(1, title, description, deadline)
+    fun build(userId: Int): ToDoList {
+
+        val result = ToDoList(
+            listId = 0,
+            userId = userId,
+            title = title,
+            description = description,
+            deadline = deadline
+        )
         reset()
         return result
 

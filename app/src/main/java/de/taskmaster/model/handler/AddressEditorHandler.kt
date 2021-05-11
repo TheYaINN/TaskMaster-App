@@ -27,7 +27,7 @@ class AddressEditorHandler(val view: PlaceEditor, context: Context) :
         )
         val address = Address()
 
-        val userId = sharedPreferences.getInt(LocalAuthHelper.useridKey, 0)
+        val userId = sharedPreferences.getInt(LocalAuthHelper.useridKey, -1)
         val name = view.getView(R.id.item_title) as TextView
         val street = view.getView(R.id.item_place_street) as TextView
         val number = view.getView(R.id.item_place_number) as TextView

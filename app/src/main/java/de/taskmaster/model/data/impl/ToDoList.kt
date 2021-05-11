@@ -1,25 +1,21 @@
 package de.taskmaster.model.data.impl
 
-import androidx.room.Embedded
-import androidx.room.Entity
-import androidx.room.ForeignKey
+import androidx.room.*
 import androidx.room.ForeignKey.CASCADE
-import androidx.room.PrimaryKey
-import androidx.room.Relation
 
 @Entity(tableName = "todolists")
 data class ToDoList(
 
     @PrimaryKey(autoGenerate = true)
-    var listId: Int,
+    var listId: Int = -1,
 
-    var userId: Int,
+    var userId: Int = -1,
 
-    var groupId: Int,
+    var groupId: Int = -1,
 
-    var title: String,
+    var title: String = "",
 
-    var description: String,
+    var description: String = "",
 
     /*@Ignore
     val place: Address,*/

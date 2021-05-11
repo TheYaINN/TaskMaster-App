@@ -35,7 +35,7 @@ data class User(
     var email: String,
 )
 
-@Entity(primaryKeys = ["userId", "gorupId"])
+@Entity(primaryKeys = ["userId", "groupId"])
 data class UserGroupCrossRef(
     var userId: Int,
 

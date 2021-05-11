@@ -43,7 +43,7 @@ class HomeViewModel : ViewModel() {
         viewModelScope.launch {
             //TODO load userID
             val id = 1
-            LocalDataBaseConnector.instance.todoListWithAssociationsDAO.getByID(id).observeForever { _lists.postValue(it) }
+            LocalDataBaseConnector.instance.todoListWithAssociationsDAO.getByUserId(id).observeForever { _lists.postValue(it) }
         }
     }
 }

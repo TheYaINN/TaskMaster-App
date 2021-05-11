@@ -15,6 +15,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.RecyclerView
 import de.taskmaster.R
 import de.taskmaster.activity.util.BasicAdapter
+import de.taskmaster.db.LocalDataBaseConnector
 import de.taskmaster.model.data.impl.ToDoList
 import kotlinx.coroutines.launch
 
@@ -38,12 +39,9 @@ class GroupListsViewModel : ViewModel() {
 
     init {
         viewModelScope.launch {
-            //TODO: replace loading from db
-            val arr = arrayListOf<ToDoList>()
-            for (i in 0 until 10) {
-                arr.add(ToDoList(0, "List $i", "desc"))
-            }
-            _lists.postValue(arr)
+            //TODO: get groupID
+             val todoLists = LocalDataBaseConnector.instance.groupWithTodDoListDao.getByGroupId(0).value?.list
+            _lists.postValue(todoLists)
         }
     }
 }

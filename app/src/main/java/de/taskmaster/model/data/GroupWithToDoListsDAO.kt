@@ -10,7 +10,7 @@ import de.taskmaster.model.data.impl.GroupWithToDoLists
 interface GroupWithToDoListsDAO {
 
     @Transaction
-    @Query("SELECT * FROM groups g  WHERE g.groupId == :id")
-    fun getByID(id: Int): LiveData<GroupWithToDoLists>
+    @Query("SELECT * FROM groups g  WHERE g.groupId == :groupId")
+    fun getByGroupId(groupId: Int): LiveData<GroupWithToDoLists>
 
 }
