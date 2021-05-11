@@ -1,5 +1,6 @@
 package de.taskmaster.activity.util.fragment
 
+import android.os.Bundle
 import android.view.MenuItem
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -9,7 +10,12 @@ import de.taskmaster.auth.LocalAuthHelper
 
 open class SavableFragment : Fragment(), Savable {
 
-    val userId = LocalAuthHelper.getUserId(requireContext())
+    var userId: Int = -1
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        userId = LocalAuthHelper.getUserId(requireContext())
+    }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
