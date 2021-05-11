@@ -11,7 +11,7 @@ import de.taskmaster.model.data.impl.*
 @Database(
     exportSchema = false,
     entities = [User::class, Group::class, Tag::class, ToDoList::class, Task::class, Address::class, UserGroupCrossRef::class],
-    version = 8
+    version = 9
 )
 @TypeConverters(DBConverter::class)
 abstract class AppDataBase : RoomDatabase() {
@@ -43,4 +43,5 @@ abstract class AppDataBase : RoomDatabase() {
     abstract fun taskDAO(): TaskDAO
     abstract fun addressDAO(): AddressDAO
     abstract fun groupWithToDoListDAO(): GroupWithToDoListsDAO
+    abstract fun userGroupCrossRefDAO(): UserGroupCrossRefDAO
 }

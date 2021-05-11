@@ -13,6 +13,7 @@ class LocalDataBaseConnector {
     lateinit var taskDAO: TaskDAO
     lateinit var addressDAO: AddressDAO
     lateinit var groupWithTodDoListDao: GroupWithToDoListsDAO
+    lateinit var userGroupCrossRefDAO: UserGroupCrossRefDAO
 
     companion object {
         val instance by lazy { LocalDataBaseConnector() }
@@ -28,5 +29,6 @@ class LocalDataBaseConnector {
         taskDAO = db.taskDAO()
         addressDAO = db.addressDAO()
         groupWithTodDoListDao = db.groupWithToDoListDAO()
+        userGroupCrossRefDAO = db.userGroupCrossRefDAO()
     }
 }

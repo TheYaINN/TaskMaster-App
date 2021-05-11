@@ -14,8 +14,15 @@ import de.taskmaster.R
 import de.taskmaster.activity.app.ui.group.editor.tabs.GroupListsFragment
 import de.taskmaster.activity.app.ui.group.editor.tabs.GroupMembersFragment
 import de.taskmaster.activity.util.fragment.SubFragment
+import de.taskmaster.auth.LocalAuthHelper
 import de.taskmaster.databinding.FragmentGroupEditBinding
+import de.taskmaster.db.LocalDataBaseConnector
+import de.taskmaster.model.data.impl.Group
 import de.taskmaster.model.data.impl.ObservableViewModel
+import de.taskmaster.model.data.impl.UserGroupCrossRef
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import org.osmdroid.tileprovider.util.Counters.reset
 
 class GroupEditorFragment : SubFragment<FragmentGroupEditBinding>(R.layout.fragment_group_edit) {
 
@@ -26,7 +33,11 @@ class GroupEditorFragment : SubFragment<FragmentGroupEditBinding>(R.layout.fragm
         val viewPager = view.findViewById<ViewPager>(R.id.viewPager)
         binder.viewPager.adapter = GroupTabAdapter(requireActivity().supportFragmentManager)
         viewPager.addOnPageChangeListener(object : OnPageChangeListener {
-            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+            override fun onPageScrolled(
+                position: Int,
+                positionOffset: Float,
+                positionOffsetPixels: Int
+            ) {
                 tabLayout.setScrollPosition(position, positionOffset, false)
             }
 
@@ -48,14 +59,43 @@ class GroupEditorFragment : SubFragment<FragmentGroupEditBinding>(R.layout.fragm
         binder.model = viewModel
     }
 
+    override fun save(): Boolean {
+        val userId = LocalAuthHelper.getUserId(requireContext())
+        GlobalScope.launch {
+            if (false) {
+                LocalDataBaseConnector.instance.groupDAO.update(viewModel.build())
+            } else {
+                val group = viewModel.build()
+                LocalDataBaseConnector.instance.groupDAO.insert(group)
+
+                val userGroupCrossRef = UserGroupCrossRef(userId, group.groupId)
+                LocalDataBaseConnector.instance.userGroupCrossRefDAO.insert(userGroupCrossRef)
+            }
+        }
+        return super.save()
+    }
+
 }
 
 class GroupEditorViewModel : ObservableViewModel() {
     var title = ""
     var description = ""
+
+    fun build(): Group {
+
+        val result = Group(
+            groupId = 0,
+            title = title,
+            description = description,
+        )
+        reset()
+        return result
+
+    }
 }
 
-class GroupTabAdapter(fragmentManager: FragmentManager) : FragmentPagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
+class GroupTabAdapter(fragmentManager: FragmentManager) :
+    FragmentPagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
     private val tabs = listOf(GroupListsFragment(), GroupMembersFragment())
 

@@ -34,7 +34,8 @@ class GroupListsFragment : Fragment(R.layout.fragment_lists_members) {
 
         val adapter = GroupListAdapter(this)
         recyclerView.adapter = adapter
-        viewModel.lists.observe(viewLifecycleOwner, { adapter.setData(it) })
+        viewModel.lists.observe(viewLifecycleOwner, {
+            if(it != null) adapter.setData(it) })
     }
 }
 
@@ -44,7 +45,7 @@ class GroupListsViewModel(userId: Int, viewLifecycleOwner: LifecycleOwner) : Vie
 
     init {
         viewModelScope.launch {
-            LocalDataBaseConnector.instance.groupWithTodDoListDao.getByGroupId(userId).observe(viewLifecycleOwner, { _lists.postValue(it.list) })
+            LocalDataBaseConnector.instance.groupWithTodDoListDao.getByGroupId(userId).observe(viewLifecycleOwner, { _lists.postValue(it?.list) })
         }
     }
 }
