@@ -13,8 +13,11 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import de.taskmaster.R
 import de.taskmaster.activity.util.BasicAdapter
+import de.taskmaster.db.LocalDataBaseConnector
 import de.taskmaster.model.data.impl.Status
 import de.taskmaster.model.data.impl.TodoListWithAssociations
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class ListOverviewAdapter(private val fragment: ListOverviewFragment) : BasicAdapter<TodoListWithAssociations, ListOverviewAdapter.ListViewHolder>() {
 
@@ -46,7 +49,7 @@ class ListOverviewAdapter(private val fragment: ListOverviewFragment) : BasicAda
             }
         }
 
-        private fun addListeners(taskList: TodoListWithAssociations, fragment: ListOverviewFragment) {
+        private fun addListeners(todoListWithAssociations: TodoListWithAssociations, fragment: ListOverviewFragment) {
             val actions = itemView.findViewById<ImageView>(R.id.item_actions)
             val bundle = bundleOf("id" to itemId)
             actions.setOnClickListener {
@@ -55,7 +58,11 @@ class ListOverviewAdapter(private val fragment: ListOverviewFragment) : BasicAda
                 popupMenu.setOnMenuItemClickListener {
                     when (it.itemId) {
                         R.id.item_edit -> fragment.findNavController().navigate(R.id.action_navigation_list_to_listEditorFragment, bundle)
-                        R.id.item_delete -> fragment.delete(taskList.list)
+                        R.id.item_delete -> {
+                            GlobalScope.launch {
+                                LocalDataBaseConnector.instance.toDoListDAO.delete(todoListWithAssociations.list)
+                            }
+                        }
                     }
                     true
                 }

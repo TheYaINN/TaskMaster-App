@@ -6,10 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.PopupMenu
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.core.os.bundleOf
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -25,6 +25,7 @@ import de.taskmaster.activity.util.fragment.TopLevelFragment
 import de.taskmaster.auth.LocalAuthHelper
 import de.taskmaster.db.LocalDataBaseConnector
 import de.taskmaster.model.data.impl.Group
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 class GroupOverviewFragment : TopLevelFragment(R.layout.fragment_group, R.menu.lists_groups_menu) {
@@ -66,7 +67,7 @@ class GroupViewModelFactory(application: Application, private val userId: Int, p
 
 }
 
-class BigGroupAdapter(private val fragment: Fragment) : BasicAdapter<Group, BigGroupAdapter.GroupViewHolder>() {
+class BigGroupAdapter(private val fragment: GroupOverviewFragment) : BasicAdapter<Group, BigGroupAdapter.GroupViewHolder>() {
 
     private lateinit var listView: CardView
 
@@ -76,7 +77,7 @@ class BigGroupAdapter(private val fragment: Fragment) : BasicAdapter<Group, BigG
     }
 
     override fun onBindViewHolder(holder: GroupViewHolder, position: Int) {
-        holder.bind(data[position])
+        holder.bind(data[position], fragment)
         listView.setOnClickListener {
             fragment.findNavController().navigate(R.id.action_navigation_group_to_groupEditorFragment, bundleOf("id" to holder.itemId))
         }
@@ -84,7 +85,7 @@ class BigGroupAdapter(private val fragment: Fragment) : BasicAdapter<Group, BigG
 
     class GroupViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        fun bind(group: Group) {
+        fun bind(group: Group, fragment: GroupOverviewFragment) {
             val icon = itemView.findViewById<ImageView>(R.id.item_icon)
             val name = itemView.findViewById<TextView>(R.id.item_name)
             val description = itemView.findViewById<TextView>(R.id.item_description)
@@ -92,6 +93,28 @@ class BigGroupAdapter(private val fragment: Fragment) : BasicAdapter<Group, BigG
             //TODO: icon.setImageDrawable()
             name.text = group.title
             description.text = group.description
+            addListeners(group, fragment)
+        }
+
+        private fun addListeners(group: Group, fragment: GroupOverviewFragment) {
+            val actions = itemView.findViewById<ImageView>(R.id.item_actions)
+            val bundle = bundleOf("id" to group.groupId)
+            actions.setOnClickListener {
+                val popupMenu = PopupMenu(fragment.requireContext(), actions)
+                popupMenu.inflate(R.menu.item_actions)
+                popupMenu.setOnMenuItemClickListener {
+                    when (it.itemId) {
+                        R.id.item_edit -> fragment.findNavController().navigate(R.id.action_navigation_group_to_groupEditorFragment, bundle)
+                        R.id.item_delete -> {
+                            GlobalScope.launch {
+                                LocalDataBaseConnector.instance.groupDAO.delete(group)
+                            }
+                        }
+                    }
+                    true
+                }
+                popupMenu.show()
+            }
         }
     }
 }

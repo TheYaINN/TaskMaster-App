@@ -17,9 +17,7 @@ import de.taskmaster.R
 import de.taskmaster.activity.util.fragment.TopLevelFragment
 import de.taskmaster.auth.LocalAuthHelper
 import de.taskmaster.db.LocalDataBaseConnector
-import de.taskmaster.model.data.impl.ToDoList
 import de.taskmaster.model.data.impl.TodoListWithAssociations
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 class ListOverviewFragment : TopLevelFragment(R.layout.fragment_lists_overview) {
@@ -39,12 +37,6 @@ class ListOverviewFragment : TopLevelFragment(R.layout.fragment_lists_overview) 
         val adapter = ListOverviewAdapter(this)
         recyclerView.adapter = adapter
         viewModel.lists.observe(viewLifecycleOwner, { adapter.setData(it) })
-    }
-
-    fun delete(toDoList: ToDoList) {
-        GlobalScope.launch {
-            LocalDataBaseConnector.instance.toDoListDAO.delete(toDoList)
-        }
     }
 }
 
