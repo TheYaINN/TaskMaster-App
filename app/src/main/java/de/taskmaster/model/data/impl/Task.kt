@@ -10,6 +10,8 @@ data class Task(
     @PrimaryKey(autoGenerate = true)
     val taskId: Int,
 
+    val listId: Int,
+
     var img: Bitmap?,
 
     var title: String,

@@ -1,11 +1,7 @@
 package de.taskmaster.model.data.impl
 
 import android.graphics.Bitmap
-import androidx.room.ColumnInfo
-import androidx.room.Embedded
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-import androidx.room.Relation
+import androidx.room.*
 
 @Entity(tableName = "usr")
 data class User(
@@ -39,16 +35,23 @@ data class User(
     var email: String,
 )
 
+@Entity(primaryKeys = ["userId", "gorupId"])
+data class UserGroupCrossRef(
+    var userId: Int,
+
+    var groupId: Int
+)
+
 data class UserWithAssociations(
 
     @Embedded val user: User,
 
-    @Relation(parentColumn = "userId", entityColumn = "groupId", entity = Group::class)
+    @Relation(parentColumn = "userId", entityColumn = "groupId", associateBy = Junction(UserGroupCrossRef::class))
     val groups: List<Group>,
 
-    @Relation(parentColumn = "userId", entityColumn = "listId", entity = ToDoList::class)
+    @Relation(parentColumn = "userId", entityColumn = "userId")
     val lists: List<ToDoList>,
 
-    @Relation(parentColumn = "userId", entityColumn = "addressId", entity = Address::class)
+    @Relation(parentColumn = "userId", entityColumn = "userId")
     val places: List<Address>,
 )

@@ -4,10 +4,13 @@ import android.content.Context
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import de.taskmaster.R
+import de.taskmaster.auth.LocalAuthHelper
 import de.taskmaster.model.data.impl.Address
 
-class AddressEditorHandler(val view: PlaceEditor, context: Context) : ToggleEditableComponentHandler(context, "Show", "Hide") {
+class AddressEditorHandler(val view: PlaceEditor, context: Context) :
+    ToggleEditableComponentHandler(context, "Show", "Hide") {
 
     fun toggleAdd() {
         val editor = view.getView(R.id.item_editor)
@@ -18,14 +21,20 @@ class AddressEditorHandler(val view: PlaceEditor, context: Context) : ToggleEdit
     }
 
     fun save() {
+        val sharedPreferences = context.getSharedPreferences(
+            LocalAuthHelper.preferencesKey,
+            AppCompatActivity.MODE_PRIVATE
+        )
         val address = Address()
 
+        val userId = sharedPreferences.getInt(LocalAuthHelper.useridKey, 0)
         val name = view.getView(R.id.item_title) as TextView
         val street = view.getView(R.id.item_place_street) as TextView
         val number = view.getView(R.id.item_place_number) as TextView
         val zipCode = view.getView(R.id.item_place_zip) as TextView
         val city = view.getView(R.id.item_place_city) as TextView
 
+        address.userId = userId
         address.name = name.text.toString()
         address.street = street.text.toString()
         address.number = number.text.toString().toInt()

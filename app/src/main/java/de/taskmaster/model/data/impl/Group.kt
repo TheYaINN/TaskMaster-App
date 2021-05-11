@@ -21,6 +21,6 @@ data class GroupWithToDoLists(
 
     @Embedded val group: Group,
 
-    @Relation(parentColumn = "groupId", entityColumn = "listId")
+    @Relation(parentColumn = "groupId", entityColumn = "groupId")
     val list: List<ToDoList>
 )

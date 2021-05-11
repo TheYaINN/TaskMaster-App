@@ -7,15 +7,15 @@ import androidx.room.ForeignKey.CASCADE
 import androidx.room.PrimaryKey
 import androidx.room.Relation
 
-@Entity(tableName = "todolists",
-    foreignKeys = [
-        ForeignKey(entity = User::class, parentColumns = arrayOf("userId"), childColumns = arrayOf("listId"), onDelete = CASCADE)
-    ]
-)
+@Entity(tableName = "todolists")
 data class ToDoList(
 
     @PrimaryKey(autoGenerate = true)
     var listId: Int,
+
+    var userId: Int,
+
+    var groupId: Int,
 
     var title: String,
 
@@ -31,7 +31,7 @@ data class TodoListWithAssociations(
 
     @Embedded val list: ToDoList,
 
-    @Relation(parentColumn = "listId", entityColumn = "taskId")
+    @Relation(parentColumn = "listId", entityColumn = "listId")
     val tasks: List<Task>,
 
     @Relation(parentColumn = "listId", entityColumn = "tagId")
