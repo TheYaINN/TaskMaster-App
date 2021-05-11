@@ -21,18 +21,16 @@ import de.taskmaster.db.LocalDataBaseConnector
 import de.taskmaster.model.data.impl.ToDoList
 import kotlinx.coroutines.launch
 
-class GroupListsFragment : Fragment(R.layout.fragment_lists_members) {
+class GroupListsFragment(private val groupId: Int?) : Fragment(R.layout.fragment_lists_members) {
 
     private lateinit var viewModel: GroupListsViewModel
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerview)
-        //TODO get this from somewhere
-        val groupId = 0
         viewModel = ViewModelProvider(this, GroupListsViewModelFactory(requireActivity().application, groupId, viewLifecycleOwner))
             .get(GroupListsViewModel::class.java)
 
         val adapter = GroupListAdapter(this)
+        val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerview)
         recyclerView.adapter = adapter
         viewModel.lists.observe(viewLifecycleOwner, {
             adapter.setData(it)
@@ -40,23 +38,23 @@ class GroupListsFragment : Fragment(R.layout.fragment_lists_members) {
     }
 }
 
-class GroupListsViewModel(groupId: Int, viewLifecycleOwner: LifecycleOwner) : ViewModel() {
+class GroupListsViewModel(groupId: Int?, viewLifecycleOwner: LifecycleOwner) : ViewModel() {
 
     private val _lists: MutableLiveData<List<ToDoList>> = MutableLiveData()
     val lists: LiveData<List<ToDoList>> = _lists
 
     init {
         viewModelScope.launch {
-            LocalDataBaseConnector.instance.groupWithTodDoListDao.getByGroupId(groupId).observe(viewLifecycleOwner, {
-                if (it != null) {
+            if (groupId != null) {
+                LocalDataBaseConnector.instance.groupWithTodDoListDao.getByGroupId(groupId).observe(viewLifecycleOwner, {
                     _lists.postValue(it.list)
-                }
-            })
+                })
+            }
         }
     }
 }
 
-class GroupListsViewModelFactory(application: Application, private val groupId: Int, private val viewLifecycleOwner: LifecycleOwner) :
+class GroupListsViewModelFactory(application: Application, private val groupId: Int?, private val viewLifecycleOwner: LifecycleOwner) :
     ViewModelProvider.AndroidViewModelFactory(application) {
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
