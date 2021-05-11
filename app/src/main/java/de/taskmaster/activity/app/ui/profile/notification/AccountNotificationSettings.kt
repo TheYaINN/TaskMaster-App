@@ -45,7 +45,7 @@ class AccountNotificationViewModel(userId: Int, viewLifecycleOwner: LifecycleOwn
 
     init {
         viewModelScope.launch {
-            LocalDataBaseConnector.instance.userWithAssociationsDAO.getByID(userId).observe(viewLifecycleOwner, { _places.postValue(it.places) })
+            LocalDataBaseConnector.instance.userWithAssociationsDAO.getByUserId(userId).observe(viewLifecycleOwner, { _places.postValue(it.places) })
         }
     }
 }

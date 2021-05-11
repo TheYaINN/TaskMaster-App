@@ -23,7 +23,7 @@
             android:id="@+id/username_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableStart="@drawable/person"
+            android:drawableStart="@drawable/person_outlined"
             android:gravity="start"
             android:hint="@string/hint_username"
             android:importantForAutofill="no"

@@ -100,7 +100,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/profile_button"
-                    android:drawableEnd="@drawable/person"
+                    android:drawableEnd="@drawable/person_outlined"
                     android:drawableTint="@color/Secondary"
                     android:onClick="@{() -> handler.toAccountSetting()}"
                     android:padding="12dp"

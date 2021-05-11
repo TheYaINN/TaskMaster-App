@@ -6,9 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
@@ -22,42 +19,37 @@ import kotlinx.coroutines.launch
 
 class ProfilePrivateFragment : TopLevelFragment(R.layout.fragment_profile_private, null) {
 
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val binder = DataBindingUtil.inflate<FragmentProfilePrivateBinding>(inflater, R.layout.fragment_profile_private, container, false)
         binder.handler = NavigationHandler(this)
 
-        binder.model = ViewModelProvider(this, ProfilePrivateViewModelFactory(requireActivity().application, userId, viewLifecycleOwner))
+        binder.model = ViewModelProvider(this, ProfilePrivateViewModelFactory(requireActivity().application, userId))
             .get(ProfilePrivateViewModel::class.java)
         return binder.root
     }
 }
 
-class ProfilePrivateViewModel(userId: Int, viewLifecycleOwner: LifecycleOwner) : ViewModel() {
+class ProfilePrivateViewModel(userId: Int) : ViewModel() {
 
-    private val _user = MutableLiveData<User>()
-    val user: LiveData<User> = _user
-
-    fun getDisplayableName(): String {
-        val user = user.value
-        return if (user != null) "${user.firstName} ${user.lastName}" else ""
-    }
+    var user: User? = null
 
     init {
         viewModelScope.launch {
-            LocalDataBaseConnector.instance.userDAO.getByID(userId).observe(viewLifecycleOwner, { _user.postValue(it) })
+            user = LocalDataBaseConnector.instance.userDAO.getByID(userId)
         }
+    }
+
+    fun getDisplayableName(): String {
+        return if (user != null) "${user?.firstName} ${user?.lastName}" else ""
     }
 }
 
-class ProfilePrivateViewModelFactory(
-    application: Application,
-    private val userId: Int,
-    private val viewLifecycleOwner: LifecycleOwner,
-) :
+class ProfilePrivateViewModelFactory(application: Application, private val userId: Int) :
     ViewModelProvider.AndroidViewModelFactory(application) {
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return ProfilePrivateViewModel(userId, viewLifecycleOwner) as T
+        return ProfilePrivateViewModel(userId) as T
     }
 
 }

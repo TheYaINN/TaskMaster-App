@@ -4,7 +4,6 @@ import android.content.Context
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import de.taskmaster.R
 import de.taskmaster.auth.LocalAuthHelper
 import de.taskmaster.model.data.impl.Address
@@ -21,13 +20,9 @@ class AddressEditorHandler(val view: PlaceEditor, context: Context) :
     }
 
     fun save() {
-        val sharedPreferences = context.getSharedPreferences(
-            LocalAuthHelper.preferencesKey,
-            AppCompatActivity.MODE_PRIVATE
-        )
         val address = Address()
 
-        val userId = sharedPreferences.getInt(LocalAuthHelper.useridKey, -1)
+        val userId = LocalAuthHelper.getUserId(context)
         val name = view.getView(R.id.item_title) as TextView
         val street = view.getView(R.id.item_place_street) as TextView
         val number = view.getView(R.id.item_place_number) as TextView
