@@ -6,7 +6,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity.MODE_PRIVATE
 import de.taskmaster.activity.login.LoginViewModel
 import de.taskmaster.db.LocalDataBaseConnector
-import de.taskmaster.model.data.impl.User
 import kotlinx.coroutines.runBlocking
 
 class LocalAuthHelper {
@@ -22,26 +21,28 @@ class LocalAuthHelper {
         }
 
         fun login(viewModel: LoginViewModel, context: Context): Boolean {
-            var user: User
+            var success = false
             runBlocking {
-                user = LocalDataBaseConnector.instance.userDAO.getByUserName(viewModel.userName) ?: error("Could not find user")
-                Toast.makeText(context,
-                    "Could not find User, please reenter Username and password",
-                    Toast.LENGTH_LONG).show()
-            }
-            if (SecurityHelper.validatePassword(viewModel.password, user.password, user.salt, user.iterations)) {
-                val sp = context.getSharedPreferences(preferencesKey, MODE_PRIVATE)
-                val editor: SharedPreferences.Editor = sp.edit()
-                editor.putInt(useridKey, user.userId)
-                editor.apply()
-                if (viewModel.rememberMe) {
-                    saveLoginInformation(context, viewModel)
+                val user = LocalDataBaseConnector.instance.userDAO.getByUserName(viewModel.userName)
+                if (user != null) {
+                    if (SecurityHelper.validatePassword(viewModel.password, user.password, user.salt, user.iterations)) {
+                        val sp = context.getSharedPreferences(preferencesKey, MODE_PRIVATE)
+                        val editor: SharedPreferences.Editor = sp.edit()
+                        editor.putInt(useridKey, user.userId)
+                        editor.apply()
+                        if (viewModel.rememberMe) {
+                            saveLoginInformation(context, viewModel)
+                        }
+                        success = true
+                    }
+                } else {
+                    Toast.makeText(context,
+                        "Could not find User, please re-enter Username and password",
+                        Toast.LENGTH_LONG).show()
                 }
-                viewModel.clear()
-                return true
             }
             viewModel.clear()
-            return false
+            return success
         }
 
 
