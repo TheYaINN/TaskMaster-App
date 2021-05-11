@@ -2,6 +2,7 @@ package de.taskmaster.auth
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity.MODE_PRIVATE
 import de.taskmaster.activity.login.LoginViewModel
 import de.taskmaster.db.LocalDataBaseConnector
@@ -19,8 +20,12 @@ class LocalAuthHelper {
         fun login(viewModel: LoginViewModel, context: Context): Boolean {
             var user: User
             runBlocking {
-                //TODO: show error to user
                 user = LocalDataBaseConnector.instance.userDAO.getByUserName(viewModel.userName) ?: error("Could not find user")
+                Toast.makeText(context,
+                    "Could not find User, please reenter Username and password",
+                    Toast.LENGTH_LONG).show()
+                viewModel.clear()
+                return@runBlocking
             }
             if (SecurityHelper.validatePassword(viewModel.password, user.password, user.salt, user.iterations)) {
                 val sp = context.getSharedPreferences(preferencesKey, MODE_PRIVATE)

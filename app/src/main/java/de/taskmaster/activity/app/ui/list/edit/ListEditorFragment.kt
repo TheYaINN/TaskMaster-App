@@ -30,7 +30,7 @@ class ListEditorFragment : SubFragment<FragmentListEditBinding>(R.layout.fragmen
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binder.presenter = ToggleEditableComponentHandler(requireContext())
 
-        val id = arguments?.getLong("id")
+        val id = arguments?.getInt("id")
 
         viewModel = ViewModelProvider(requireActivity()).get(ListEditorViewModel::class.java)
         binder.model = viewModel

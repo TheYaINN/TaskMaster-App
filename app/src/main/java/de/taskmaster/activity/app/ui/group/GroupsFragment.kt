@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -66,8 +67,7 @@ class BigGroupAdapter(private val fragment: Fragment) : BasicAdapter<Group, BigG
     override fun onBindViewHolder(holder: GroupViewHolder, position: Int) {
         holder.bind(data[position])
         listView.setOnClickListener {
-            //TODO: somehow remember which id i pressed on to edit it here
-            fragment.findNavController().navigate(R.id.action_navigation_group_to_groupEditorFragment)
+            fragment.findNavController().navigate(R.id.action_navigation_group_to_groupEditorFragment, bundleOf("id" to holder.itemId))
         }
     }
 

@@ -50,4 +50,10 @@ class LoginViewModel : ObservableViewModel() {
             field = value
             notifyPropertyChanged(BR.rememberMe)
         }
+
+    fun clear() {
+        userName = ""
+        password = ""
+        rememberMe = false
+    }
 }
