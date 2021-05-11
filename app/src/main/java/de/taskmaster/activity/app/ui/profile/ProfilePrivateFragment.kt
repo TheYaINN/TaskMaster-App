@@ -14,7 +14,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import de.taskmaster.R
 import de.taskmaster.activity.util.fragment.TopLevelFragment
-import de.taskmaster.auth.LocalAuthHelper
 import de.taskmaster.databinding.FragmentProfilePrivateBinding
 import de.taskmaster.db.LocalDataBaseConnector
 import de.taskmaster.model.data.impl.User
@@ -27,7 +26,6 @@ class ProfilePrivateFragment : TopLevelFragment(R.layout.fragment_profile_privat
         val binder = DataBindingUtil.inflate<FragmentProfilePrivateBinding>(inflater, R.layout.fragment_profile_private, container, false)
         binder.handler = NavigationHandler(this)
 
-        val userId = LocalAuthHelper.getUserId(requireContext())
         binder.model = ViewModelProvider(this, ProfilePrivateViewModelFactory(requireActivity().application, userId, viewLifecycleOwner))
             .get(ProfilePrivateViewModel::class.java)
         return binder.root

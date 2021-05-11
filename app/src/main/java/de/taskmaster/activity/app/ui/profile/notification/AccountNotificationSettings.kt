@@ -1,11 +1,13 @@
 package de.taskmaster.activity.app.ui.profile.notification
 
+import android.app.Application
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.widget.SwitchCompat
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -18,16 +20,17 @@ import de.taskmaster.activity.util.fragment.SubFragment
 import de.taskmaster.databinding.FragmentNotificationBinding
 import de.taskmaster.db.LocalDataBaseConnector
 import de.taskmaster.model.data.impl.Address
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 class AccountNotificationSettings : SubFragment<FragmentNotificationBinding>(R.layout.fragment_notification, null) {
 
-    private lateinit var viewModel: AccountNotificationViewModel
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val recyclerView = binder.root.findViewById<RecyclerView>(R.id.items)
 
-        viewModel = ViewModelProvider(this).get(AccountNotificationViewModel::class.java)
+        val viewModel = ViewModelProvider(this, AccountNotificationViewModelFactory(requireActivity().application, userId, viewLifecycleOwner))
+            .get(AccountNotificationViewModel::class.java)
 
         val adapter = NotificationAdapter()
         recyclerView.adapter = adapter
@@ -36,16 +39,22 @@ class AccountNotificationSettings : SubFragment<FragmentNotificationBinding>(R.l
 
 }
 
-class AccountNotificationViewModel : ViewModel() {
+class AccountNotificationViewModel(userId: Int, viewLifecycleOwner: LifecycleOwner) : ViewModel() {
     private val _places = MutableLiveData<List<Address>>()
     val places: LiveData<List<Address>> = _places
 
     init {
         viewModelScope.launch {
-            //TODO: fix id loading
-            val id = 1
-            LocalDataBaseConnector.instance.userWithAssociationsDAO.getByID(id).observeForever { _places.postValue(it.places) }
+            LocalDataBaseConnector.instance.userWithAssociationsDAO.getByID(userId).observe(viewLifecycleOwner, { _places.postValue(it.places) })
         }
+    }
+}
+
+class AccountNotificationViewModelFactory(application: Application, private val userId: Int, private val viewLifecycleOwner: LifecycleOwner) :
+    ViewModelProvider.AndroidViewModelFactory(application) {
+
+    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+        return AccountNotificationViewModel(userId, viewLifecycleOwner) as T
     }
 
 }
@@ -70,7 +79,9 @@ class NotificationAdapter : BasicAdapter<Address, NotificationAdapter.ListViewHo
             notify.isChecked = address.notifiable
 
             notify.setOnCheckedChangeListener { _, isChecked ->
-                //TODO: update here
+                GlobalScope.launch {
+                    LocalDataBaseConnector.instance.addressDAO.update(address.apply { notifiable = isChecked })
+                }
             }
         }
     }
