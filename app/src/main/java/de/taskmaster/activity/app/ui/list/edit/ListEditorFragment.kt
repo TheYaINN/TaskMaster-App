@@ -15,19 +15,16 @@ import de.taskmaster.databinding.FragmentListEditBinding
 import de.taskmaster.db.LocalDataBaseConnector
 import de.taskmaster.model.data.impl.*
 import de.taskmaster.model.handler.GroupSelector
-import de.taskmaster.model.handler.PlaceEditor
 import de.taskmaster.model.handler.ToggleEditableComponentHandler
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 
 class ListEditorFragment : SubFragment<FragmentListEditBinding>(R.layout.fragment_list_edit),
-    PlaceEditor,
     GroupSelector {
 
     private lateinit var viewModel: ListEditorViewModel
     private val smallGroupAdapter = SmallGroupAdapter(this)
-    private val placeAdapter = PlaceAdapter(this)
     private var isEdit: Boolean = false
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -74,18 +71,6 @@ class ListEditorFragment : SubFragment<FragmentListEditBinding>(R.layout.fragmen
             }
         }
         return super.save()
-    }
-
-    override fun getView(id: Int): View {
-        TODO("Not yet implemented")
-    }
-
-    override fun add(address: Address) {
-        TODO("Not yet implemented")
-    }
-
-    override fun remove(address: Address) {
-        TODO("Not yet implemented")
     }
 }
 
