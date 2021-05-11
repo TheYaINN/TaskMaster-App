@@ -10,6 +10,8 @@ import de.taskmaster.databinding.FragmentProfilePublicBinding
 class ProfilePublicFragment : SubFragment<FragmentProfilePublicBinding>(R.layout.fragment_profile_public, null) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binder.model = ViewModelProvider(this).get(ProfilePrivateViewModel::class.java)
+        val userId = arguments?.getInt("userId")!!
+        binder.model = ViewModelProvider(this, ProfilePrivateViewModelFactory(requireActivity().application, userId))
+            .get(ProfilePrivateViewModel::class.java)
     }
 }

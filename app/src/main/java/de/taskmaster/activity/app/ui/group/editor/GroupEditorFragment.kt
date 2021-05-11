@@ -62,18 +62,19 @@ class GroupEditorFragment : SubFragment<FragmentGroupEditBinding>(R.layout.fragm
 
 
 
-        viewModel = ViewModelProvider(this, GroupEditorViewModelFactory(requireActivity().application, isEditMode, groupId ?: 0))
+        viewModel = ViewModelProvider(this, GroupEditorViewModelFactory(requireActivity().application, isEditMode, groupId ?: -1))
             .get(GroupEditorViewModel::class.java)
         binder.model = viewModel
     }
 
     override fun save(): Boolean {
         GlobalScope.launch {
+            val dao = LocalDataBaseConnector.instance.groupDAO
             if (isEditMode) {
-                LocalDataBaseConnector.instance.groupDAO.update(viewModel.build())
+                dao.update(viewModel.build())
             } else {
                 val group = viewModel.build()
-                LocalDataBaseConnector.instance.groupDAO.insert(group)
+                dao.insert(group)
 
                 val userGroupCrossRef = UserGroupCrossRef(userId, group.groupId)
                 LocalDataBaseConnector.instance.userGroupCrossRefDAO.insert(userGroupCrossRef)

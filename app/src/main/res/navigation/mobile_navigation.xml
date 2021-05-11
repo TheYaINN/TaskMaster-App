@@ -59,7 +59,11 @@
             app:destination="@id/notification_settings" />
         <action
             android:id="@+id/action_navigation_profile_to_publicProfileFragment"
-            app:destination="@id/publicProfileFragment" />
+            app:destination="@id/publicProfileFragment">
+            <argument
+                android:name="userId"
+                app:argType="integer" />
+        </action>
     </fragment>
 
     <fragment
