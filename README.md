@@ -15,6 +15,6 @@ TODO:
 -Adressen in Listen
 -Member und Listen in Gruppen
 -Status der Tasks
--Status der Listen
+-(Status der Listen)
 -Listen repeat
 -Gruppen und Listen aktualisiern nach dem hinzufügen
