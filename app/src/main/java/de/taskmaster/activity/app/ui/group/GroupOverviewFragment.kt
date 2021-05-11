@@ -52,7 +52,7 @@ class GroupViewModel(userId: Int, viewLifecycleOwner: LifecycleOwner) : ViewMode
 
     init {
         viewModelScope.launch {
-            LocalDataBaseConnector.instance.groupDAO.getGroupsByGroupId(userId).observe(viewLifecycleOwner, { _groups.postValue(it) })
+            LocalDataBaseConnector.instance.groupDAO.getGroupsByUserId(userId).observe(viewLifecycleOwner, { _groups.postValue(it) })
         }
     }
 }
@@ -77,7 +77,7 @@ class BigGroupAdapter(private val fragment: GroupOverviewFragment) : BasicAdapte
 
     override fun onBindViewHolder(holder: GroupViewHolder, position: Int) {
         val group = data[position]
-            holder.bind(group, fragment)
+        holder.bind(group, fragment)
         listView.setOnClickListener {
             fragment.findNavController().navigate(R.id.action_navigation_group_to_groupEditorFragment, bundleOf("groupId" to group.groupId))
         }
@@ -98,7 +98,7 @@ class BigGroupAdapter(private val fragment: GroupOverviewFragment) : BasicAdapte
 
         private fun addListeners(group: Group, fragment: GroupOverviewFragment) {
             val actions = itemView.findViewById<ImageView>(R.id.item_actions)
-            val bundle = bundleOf("groupId" to group.groupId)
+            val bundle = bundleOf("id" to group.groupId)
             actions.setOnClickListener {
                 val popupMenu = PopupMenu(fragment.requireContext(), actions)
                 popupMenu.inflate(R.menu.item_actions)

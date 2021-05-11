@@ -20,8 +20,8 @@ interface GroupDAO {
     @Delete
     suspend fun delete(user: Group)
 
-    @Query("SELECT * FROM groups g WHERE g.groupId == :groupId")
-    fun getGroupsByGroupId(groupId: Int): LiveData<List<Group>>
+    @Query("SELECT * FROM groups g WHERE g.groupId == :userId")
+    fun getGroupsByUserId(userId: Int): LiveData<List<Group>>
 
     @Query("SELECT * FROM groups g WHERE g.groupId == :groupId")
     suspend fun getGroupByGroupId(groupId: Int): Group?
