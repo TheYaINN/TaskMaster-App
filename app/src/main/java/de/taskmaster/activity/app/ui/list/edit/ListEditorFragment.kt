@@ -126,7 +126,15 @@ class ListEditorViewModel : ObservableViewModel() {
     }
 
     private fun reset() {
-        //TODO: reset everything in the view
+        title = ""
+        description = ""
+        deadline = Deadline(null)
+        listId = -1
+        group = null
+        status = Status.OPEN
+        repeat = Repeat.NEVER
+        place = null
+        tags = ""
     }
 
     fun inflate(todoList: ToDoList, group: Group?) {
@@ -155,8 +163,6 @@ class ListEditorViewModel : ObservableViewModel() {
 
     var status: Status = Status.OPEN
 
-    var tasks: List<Task>? = null
-
-    var listId: Int = 0
+    var listId: Int = -1
 
 }
