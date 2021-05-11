@@ -51,7 +51,7 @@ class ListOverviewAdapter(private val fragment: ListOverviewFragment) : BasicAda
 
         private fun addListeners(todoListWithAssociations: TodoListWithAssociations, fragment: ListOverviewFragment) {
             val actions = itemView.findViewById<ImageView>(R.id.item_actions)
-            val bundle = bundleOf("id" to taskList.list.listId)
+            val bundle = bundleOf("id" to todoListWithAssociations.list.listId)
             actions.setOnClickListener {
                 val popupMenu = PopupMenu(fragment.requireContext(), actions)
                 popupMenu.inflate(R.menu.item_actions)

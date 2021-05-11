@@ -1,33 +1,34 @@
 package de.taskmaster.activity.app.ui.task
 
+import android.app.Application
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
 import androidx.core.os.bundleOf
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import de.taskmaster.R
 import de.taskmaster.activity.util.fragment.SubFragment
 import de.taskmaster.databinding.FragmentTasksOverviewBinding
+import de.taskmaster.db.LocalDataBaseConnector
 import de.taskmaster.model.data.impl.Status
 import de.taskmaster.model.data.impl.Task
-import de.taskmaster.model.handler.NavigationHandler
 import kotlinx.coroutines.launch
 
-class TaskOverview : SubFragment<FragmentTasksOverviewBinding>(R.layout.fragment_tasks_overview, null) {
+class TaskOverview :
+    SubFragment<FragmentTasksOverviewBinding>(R.layout.fragment_tasks_overview, null) {
 
     private lateinit var viewModel: TaskViewModel
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        viewModel = ViewModelProvider(this).get(TaskViewModel::class.java)
-
         val listId = arguments?.getInt("id")!!
+        viewModel = ViewModelProvider(
+            this,
+            TaskViewModelFactory(requireActivity().application, listId, viewLifecycleOwner)
+        ).get(TaskViewModel::class.java)
+
 
         val addButton = view.findViewById<FloatingActionButton>(R.id.add_item)
         addButton.setOnClickListener {
@@ -43,22 +44,38 @@ class TaskOverview : SubFragment<FragmentTasksOverviewBinding>(R.layout.fragment
             { list ->
                 adapter.setData(list)
                 view.findViewById<TextView>(R.id.list_status).text =
-                    getString(R.string.tasks_done, list.filter { it.status == Status.FINISHED }.size, list.size)
+                    getString(
+                        R.string.tasks_done,
+                        list.filter { it.status == Status.FINISHED }.size,
+                        list.size
+                    )
             })
     }
 
 }
 
-class TaskViewModel : ViewModel() {
+class TaskViewModel(listId: Int, viewLifecycleOwner: LifecycleOwner) : ViewModel() {
 
     private val _tasks = MutableLiveData<List<Task>>()
     val tasks: LiveData<List<Task>> = _tasks
 
     init {
         viewModelScope.launch {
-            //Task
-            val id = 1L
-            //TODO: LocalDataBaseConnector.instance.taskDAO.getByID(id).observeForever { _tasks.postValue(it) }
+            LocalDataBaseConnector.instance.taskDAO.getByListId(listId)
+                .observe(viewLifecycleOwner, { _tasks.postValue(it) })
         }
     }
+}
+
+class TaskViewModelFactory(
+    application: Application,
+    private val listId: Int,
+    private val viewLifecycleOwner: LifecycleOwner
+) :
+    ViewModelProvider.AndroidViewModelFactory(application) {
+
+    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+        return TaskViewModel(listId, viewLifecycleOwner) as T
+    }
+
 }
