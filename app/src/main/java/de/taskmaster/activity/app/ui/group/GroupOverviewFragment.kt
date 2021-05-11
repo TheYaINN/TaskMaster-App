@@ -27,7 +27,7 @@ import de.taskmaster.db.LocalDataBaseConnector
 import de.taskmaster.model.data.impl.Group
 import kotlinx.coroutines.launch
 
-class GroupsFragment : TopLevelFragment(R.layout.fragment_group, R.menu.lists_groups_menu) {
+class GroupOverviewFragment : TopLevelFragment(R.layout.fragment_group, R.menu.lists_groups_menu) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         view.findViewById<FloatingActionButton>(R.id.add_item).setOnClickListener {

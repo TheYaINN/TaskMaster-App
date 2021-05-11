@@ -3,7 +3,13 @@ package de.taskmaster.activity.app.ui.list
 import android.app.Application
 import android.os.Bundle
 import android.view.View
-import androidx.lifecycle.*
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.observe
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -26,12 +32,8 @@ class ListOverviewFragment : TopLevelFragment(R.layout.fragment_lists_overview) 
         }
 
         val userId = LocalAuthHelper.getUserId(requireContext())
-        viewModel = ViewModelProvider(
-            this,
-            ListOverviewViewModelFactory(requireActivity().application, userId, viewLifecycleOwner)
-        )
+        viewModel = ViewModelProvider(this, ListOverviewViewModelFactory(requireActivity().application, userId, viewLifecycleOwner))
             .get(ListOverviewViewModel::class.java)
-
 
         val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerview)
         val adapter = ListOverviewAdapter(this)
@@ -62,7 +64,7 @@ class ListOverviewViewModel(userId: Int, viewLifecycleOwner: LifecycleOwner) : V
 class ListOverviewViewModelFactory(
     application: Application,
     private val userId: Int,
-    private val viewLifecycleOwner: LifecycleOwner
+    private val viewLifecycleOwner: LifecycleOwner,
 ) :
     ViewModelProvider.AndroidViewModelFactory(application) {
 
