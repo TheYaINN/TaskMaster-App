@@ -12,7 +12,14 @@ import de.taskmaster.activity.util.fragment.SubFragment
 import de.taskmaster.auth.LocalAuthHelper
 import de.taskmaster.databinding.FragmentListEditBinding
 import de.taskmaster.db.LocalDataBaseConnector
-import de.taskmaster.model.data.impl.*
+import de.taskmaster.model.data.impl.Address
+import de.taskmaster.model.data.impl.Deadline
+import de.taskmaster.model.data.impl.Group
+import de.taskmaster.model.data.impl.ObservableViewModel
+import de.taskmaster.model.data.impl.Repeat
+import de.taskmaster.model.data.impl.Status
+import de.taskmaster.model.data.impl.Task
+import de.taskmaster.model.data.impl.ToDoList
 import de.taskmaster.model.handler.GroupSelector
 import de.taskmaster.model.handler.ToggleEditableComponentHandler
 import kotlinx.coroutines.GlobalScope

@@ -34,7 +34,7 @@
 
     <fragment
         android:id="@+id/navigation_group"
-        android:name="de.taskmaster.activity.app.ui.group.GroupsFragment"
+        android:name="de.taskmaster.activity.app.ui.group.GroupOverviewFragment"
         android:label="@string/title_group"
         tools:layout="@layout/fragment_lists_overview">
         <action
