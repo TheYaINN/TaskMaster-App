@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView
 import de.taskmaster.R
 import de.taskmaster.activity.util.fragment.SubFragment
 import de.taskmaster.databinding.FragmentTasksOverviewBinding
-import de.taskmaster.db.LocalDataBaseConnector
 import de.taskmaster.model.data.impl.Status
 import de.taskmaster.model.data.impl.Task
 import de.taskmaster.model.handler.NavigationHandler
@@ -42,14 +41,15 @@ class TaskOverview : SubFragment<FragmentTasksOverviewBinding>(R.layout.fragment
 }
 
 class TaskViewModel : ViewModel() {
+
     private val _tasks = MutableLiveData<List<Task>>()
     val tasks: LiveData<List<Task>> = _tasks
 
     init {
         viewModelScope.launch {
             //Task
-            val id = 1
-            LocalDataBaseConnector.instance.taskDAO.getByID(id).observeForever { _tasks.postValue(it) }
+            val id = 1L
+            //TODO: LocalDataBaseConnector.instance.taskDAO.getByID(id).observeForever { _tasks.postValue(it) }
         }
     }
 }

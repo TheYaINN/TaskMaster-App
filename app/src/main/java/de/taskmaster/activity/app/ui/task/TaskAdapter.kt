@@ -8,6 +8,7 @@ import android.widget.PopupMenu
 import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.cardview.widget.CardView
+import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import de.taskmaster.R
@@ -54,7 +55,10 @@ class TaskAdapter(private val fragment: TaskOverview) : BasicAdapter<Task, TaskA
                 popupMenu.inflate(R.menu.item_actions)
                 popupMenu.setOnMenuItemClickListener {
                     when (it.itemId) {
-                        R.id.item_edit -> fragment.findNavController().navigate(R.id.action_taskOverview_to_taskEditorFragment)
+                        R.id.item_edit -> {
+                            val bundle = bundleOf("id" to itemId)
+                            fragment.findNavController().navigate(R.id.action_taskOverview_to_taskEditorFragment, bundle)
+                        }
                         R.id.item_delete -> {
                             GlobalScope.async {
                                 LocalDataBaseConnector.instance.taskDAO.delete(task)

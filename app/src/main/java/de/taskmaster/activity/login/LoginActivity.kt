@@ -24,11 +24,11 @@ class LoginActivity : AppCompatActivity() {
         LocalDataBaseConnector.instance.init(application)
 
 
-//TODO: only execute when login = rememberme
-// if (LocalAuthHelper.onStartUp(applicationContext)) {
-//            ActivityHelper.startActivity(this, AppActivity::class.java)
-//            return
-//        }
+        /*TODO: insert when DB finalized
+        if (LocalAuthHelper.onStartUp(applicationContext)) {
+            ActivityHelper.startActivity(this, AppActivity::class.java)
+            return
+        }*/
 
 
         val tabLayout = findViewById<TabLayout>(R.id.tabLayout)

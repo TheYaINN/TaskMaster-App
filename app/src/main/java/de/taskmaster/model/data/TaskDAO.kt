@@ -21,5 +21,5 @@ interface TaskDAO {
     suspend fun delete(user: Task)
 
     @Query("SELECT * FROM tasks t JOIN usr u ON :id == t.taskId")
-    fun getByID(id: Int): LiveData<List<Task>>
+    fun getByID(id: Int): LiveData<Task>
 }

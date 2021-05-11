@@ -33,7 +33,7 @@
                 android:drawablePadding="16dp"
                 android:gravity="center_vertical"
                 android:hint="Responsible Person"
-                android:text="@{model.responsiblePerson.username}"
+                android:text="@{model.task.responsiblePerson.username}"
                 app:drawableStartCompat="@drawable/person" />
 
             <TextView

@@ -73,6 +73,6 @@ class RegisterViewModel : ObservableViewModel() {
     }
 
     fun isValid(): Boolean {
-        TODO("Not yet implemented")
+        return password.isNotBlank() && userName.isNotBlank()
     }
 }
