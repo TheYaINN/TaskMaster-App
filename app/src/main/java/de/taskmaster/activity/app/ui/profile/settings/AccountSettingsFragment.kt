@@ -1,5 +1,6 @@
 package de.taskmaster.activity.app.ui.profile.settings
 
+import android.app.Application
 import android.content.Intent
 import android.graphics.BitmapFactory
 import android.os.Bundle
@@ -7,8 +8,10 @@ import android.provider.MediaStore
 import android.view.View
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.RecyclerView
@@ -24,7 +27,6 @@ import de.taskmaster.model.handler.NavigationHandler
 import de.taskmaster.model.handler.PlaceEditor
 import de.taskmaster.model.rotate
 import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
 class AccountSettingsFragment : SubFragment<FragmentProfileEditBinding>(R.layout.fragment_profile_edit), PlaceEditor {
@@ -32,7 +34,8 @@ class AccountSettingsFragment : SubFragment<FragmentProfileEditBinding>(R.layout
     private lateinit var viewModel: AccountSettingsViewModel
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        viewModel = ViewModelProvider(this).get(AccountSettingsViewModel::class.java)
+        viewModel = ViewModelProvider(this, AccountSettingsViewModelFactory(requireActivity().application, userId, viewLifecycleOwner))
+            .get(AccountSettingsViewModel::class.java)
         binder.model = viewModel
         binder.addHandler = AddressEditorHandler(this, requireContext())
         binder.handler = NavigationHandler(this)
@@ -76,29 +79,25 @@ class AccountSettingsFragment : SubFragment<FragmentProfileEditBinding>(R.layout
 
 }
 
-class AccountSettingsViewModel : Displayable() {
+class AccountSettingsViewModel(userId: Int, viewLifecycleOwner: LifecycleOwner) : Displayable() {
 
     private var _user: MutableLiveData<UserWithAssociations> = MutableLiveData()
     val userWithAssociations: LiveData<UserWithAssociations> = _user
 
     init {
         viewModelScope.launch {
-            //TODO load id here
-            val id = 1
-            LocalDataBaseConnector.instance.userWithAssociationsDAO.getByID(id).observeForever {
-                _user.postValue(it)
-            }
+            LocalDataBaseConnector.instance.userWithAssociationsDAO.getByID(userId).observe(viewLifecycleOwner, { _user.postValue(it) })
         }
     }
 
     fun deleteAccount() {
-        GlobalScope.async {
+        GlobalScope.launch {
             LocalDataBaseConnector.instance.userDAO.delete(userWithAssociations.value!!.user)
         }
     }
 
     fun addAddress(address: Address) {
-        GlobalScope.async {
+        GlobalScope.launch {
             val tempUser = userWithAssociations.value!!
             tempUser.places.toMutableList().remove(address)
             _user.postValue(tempUser)
@@ -107,11 +106,20 @@ class AccountSettingsViewModel : Displayable() {
     }
 
     fun removeAddress(address: Address) {
-        GlobalScope.async {
+        GlobalScope.launch {
             val tempUser = userWithAssociations.value!!
             tempUser.places.toMutableList().add(address)
             _user.postValue(tempUser)
             LocalDataBaseConnector.instance.addressDAO.delete(address)
         }
     }
+}
+
+class AccountSettingsViewModelFactory(application: Application, private val userId: Int, private val viewLifecycleOwner: LifecycleOwner) :
+    ViewModelProvider.AndroidViewModelFactory(application) {
+
+    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+        return AccountSettingsViewModel(userId, viewLifecycleOwner) as T
+    }
+
 }

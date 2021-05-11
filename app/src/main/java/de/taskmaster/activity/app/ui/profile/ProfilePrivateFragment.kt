@@ -26,9 +26,10 @@ class ProfilePrivateFragment : TopLevelFragment(R.layout.fragment_profile_privat
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val binder = DataBindingUtil.inflate<FragmentProfilePrivateBinding>(inflater, R.layout.fragment_profile_private, container, false)
         binder.handler = NavigationHandler(this)
+
         val userId = LocalAuthHelper.getUserId(requireContext())
-        binder.model = ViewModelProvider(this,
-            ProfilePrivateViewModelFactory(requireActivity().application, userId, viewLifecycleOwner)).get(ProfilePrivateViewModel::class.java)
+        binder.model = ViewModelProvider(this, ProfilePrivateViewModelFactory(requireActivity().application, userId, viewLifecycleOwner))
+            .get(ProfilePrivateViewModel::class.java)
         return binder.root
     }
 }
@@ -39,7 +40,8 @@ class ProfilePrivateViewModel(userId: Int, viewLifecycleOwner: LifecycleOwner) :
     val user: LiveData<User> = _user
 
     fun getDisplayableName(): String {
-        return "${user.value?.firstName} ${user.value?.lastName}"
+        val user = user.value
+        return if (user != null) "${user.firstName} ${user.lastName}" else ""
     }
 
     init {

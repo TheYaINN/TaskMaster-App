@@ -22,7 +22,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import de.taskmaster.R
 import de.taskmaster.activity.util.BasicAdapter
 import de.taskmaster.activity.util.fragment.TopLevelFragment
-import de.taskmaster.auth.LocalAuthHelper
 import de.taskmaster.db.LocalDataBaseConnector
 import de.taskmaster.model.data.impl.Group
 import kotlinx.coroutines.GlobalScope
@@ -34,7 +33,7 @@ class GroupOverviewFragment : TopLevelFragment(R.layout.fragment_group, R.menu.l
         view.findViewById<FloatingActionButton>(R.id.add_item).setOnClickListener {
             findNavController().navigate(R.id.action_navigation_group_to_groupEditorFragment)
         }
-        val userId = LocalAuthHelper.getUserId(requireContext())
+
         val viewModel = ViewModelProvider(this, GroupViewModelFactory(requireActivity().application, userId, viewLifecycleOwner))
             .get(GroupViewModel::class.java)
 

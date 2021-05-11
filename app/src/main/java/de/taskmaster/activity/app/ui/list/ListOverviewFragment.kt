@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import de.taskmaster.R
 import de.taskmaster.activity.util.fragment.TopLevelFragment
-import de.taskmaster.auth.LocalAuthHelper
 import de.taskmaster.db.LocalDataBaseConnector
 import de.taskmaster.model.data.impl.TodoListWithAssociations
 import kotlinx.coroutines.launch
@@ -29,7 +28,6 @@ class ListOverviewFragment : TopLevelFragment(R.layout.fragment_lists_overview) 
             findNavController().navigate(R.id.action_navigation_list_to_listEditorFragment)
         }
 
-        val userId = LocalAuthHelper.getUserId(requireContext())
         viewModel = ViewModelProvider(this, ListOverviewViewModelFactory(requireActivity().application, userId, viewLifecycleOwner))
             .get(ListOverviewViewModel::class.java)
 

@@ -54,6 +54,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:textSize="20sp"
+                    android:text="@{model.getDisplayableName()}"
                     app:layout_constraintStart_toEndOf="@id/profile_picture"
                     app:layout_constraintTop_toTopOf="parent" />
 

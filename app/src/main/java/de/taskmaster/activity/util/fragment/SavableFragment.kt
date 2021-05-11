@@ -5,8 +5,11 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import de.taskmaster.R
 import de.taskmaster.activity.app.AppActivity
+import de.taskmaster.auth.LocalAuthHelper
 
 open class SavableFragment : Fragment(), Savable {
+
+    val userId = LocalAuthHelper.getUserId(requireContext())
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {

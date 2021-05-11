@@ -19,7 +19,6 @@ import androidx.recyclerview.widget.RecyclerView
 import de.taskmaster.R
 import de.taskmaster.activity.util.BasicAdapter
 import de.taskmaster.activity.util.fragment.TopLevelFragment
-import de.taskmaster.auth.LocalAuthHelper
 import de.taskmaster.db.LocalDataBaseConnector
 import de.taskmaster.model.data.impl.TodoListWithAssociations
 import de.taskmaster.model.toggleVisibility
@@ -30,7 +29,6 @@ class HomeFragment : TopLevelFragment(R.layout.fragment_home, null) {
     private lateinit var viewModel: HomeViewModel
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val userId = LocalAuthHelper.getUserId(requireContext())
         viewModel = ViewModelProvider(this, HomeViewModelFactory(requireActivity().application, userId, viewLifecycleOwner))
             .get(HomeViewModel::class.java)
 
