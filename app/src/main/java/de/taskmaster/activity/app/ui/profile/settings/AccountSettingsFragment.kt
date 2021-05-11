@@ -8,6 +8,7 @@ import android.provider.MediaStore
 import android.view.View
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -33,7 +34,7 @@ class AccountSettingsFragment : SubFragment<FragmentProfileEditBinding>(R.layout
     private lateinit var viewModel: AccountSettingsViewModel
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        viewModel = ViewModelProvider(this, AccountSettingsViewModelFactory(requireActivity().application, userId))
+        viewModel = ViewModelProvider(this, AccountSettingsViewModelFactory(requireActivity().application, userId, viewLifecycleOwner))
             .get(AccountSettingsViewModel::class.java)
         binder.model = viewModel
         binder.addHandler = AddressEditorHandler(this, requireContext())
@@ -86,15 +87,14 @@ class AccountSettingsFragment : SubFragment<FragmentProfileEditBinding>(R.layout
 
 }
 
-class AccountSettingsViewModel(userId: Int) : Displayable() {
+class AccountSettingsViewModel(userId: Int, viewLifecycleOwner: LifecycleOwner) : Displayable() {
 
     private var _user: MutableLiveData<UserWithAssociations> = MutableLiveData()
     val userWithAssociations: LiveData<UserWithAssociations> = _user
 
     init {
         viewModelScope.launch {
-            _user.postValue(LocalDataBaseConnector.instance.userWithAssociationsDAO.getByUserId(userId))
-
+            LocalDataBaseConnector.instance.userWithAssociationsDAO.getByUserId(userId).observe(viewLifecycleOwner, { _user.postValue(it) })
         }
     }
 
@@ -123,11 +123,11 @@ class AccountSettingsViewModel(userId: Int) : Displayable() {
     }
 }
 
-class AccountSettingsViewModelFactory(application: Application, private val userId: Int) :
+class AccountSettingsViewModelFactory(application: Application, private val userId: Int, private val viewLifecycleOwner: LifecycleOwner) :
     ViewModelProvider.AndroidViewModelFactory(application) {
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return AccountSettingsViewModel(userId) as T
+        return AccountSettingsViewModel(userId, viewLifecycleOwner) as T
     }
 
 }
