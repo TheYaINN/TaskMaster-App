@@ -1,10 +1,12 @@
 package de.taskmaster.activity.app.ui.profile
 
+import android.app.Application
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -13,6 +15,7 @@ import androidx.lifecycle.viewModelScope
 import de.taskmaster.R
 import de.taskmaster.activity.util.fragment.TopLevelFragment
 import de.taskmaster.databinding.FragmentProfilePrivateBinding
+import de.taskmaster.db.LocalDataBaseConnector
 import de.taskmaster.model.data.impl.User
 import de.taskmaster.model.handler.NavigationHandler
 import kotlinx.coroutines.launch
@@ -27,8 +30,10 @@ class ProfilePrivateFragment : TopLevelFragment(R.layout.fragment_profile_privat
     }
 }
 
-class ProfilePrivateViewModel : ViewModel() {
-    val user: LiveData<User> = MutableLiveData()
+class ProfilePrivateViewModel(userId: Int, viewLifecycleOwner: LifecycleOwner) : ViewModel() {
+
+    private val _user = MutableLiveData<User>()
+    val user: LiveData<User> = _user
 
     fun getDisplayableName(): String {
         return "${user.value?.firstName} ${user.value?.lastName}"
@@ -36,7 +41,20 @@ class ProfilePrivateViewModel : ViewModel() {
 
     init {
         viewModelScope.launch {
-            //TODO: Load from DB here
+            LocalDataBaseConnector.instance.userDAO.getByID(userId).observe(viewLifecycleOwner, { _user.postValue(it) })
         }
     }
+}
+
+class ProfilePrivateViewModelFactory(
+    application: Application,
+    private val userId: Int,
+    private val viewLifecycleOwner: LifecycleOwner,
+) :
+    ViewModelProvider.AndroidViewModelFactory(application) {
+
+    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+        return ProfilePrivateViewModel(userId, viewLifecycleOwner) as T
+    }
+
 }
