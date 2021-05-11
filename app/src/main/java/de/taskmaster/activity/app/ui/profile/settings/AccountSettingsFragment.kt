@@ -77,6 +77,14 @@ class AccountSettingsFragment : SubFragment<FragmentProfileEditBinding>(R.layout
         }
     }
 
+    override fun save(): Boolean {
+        val user = viewModel.userWithAssociations.value!!.user
+        GlobalScope.launch {
+            LocalDataBaseConnector.instance.userDAO.update(user)
+        }
+        return super.save()
+    }
+
 }
 
 class AccountSettingsViewModel(userId: Int, viewLifecycleOwner: LifecycleOwner) : Displayable() {
