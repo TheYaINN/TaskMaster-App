@@ -9,11 +9,11 @@ import androidx.room.Relation
 data class Group(
 
     @PrimaryKey(autoGenerate = true)
-    var groupId: Int,
+    var groupId: Int = -1,
 
-    var title: String?,
+    var title: String,
 
-    val description: String?,
+    var description: String,
 )
 
 
@@ -22,5 +22,5 @@ data class GroupWithToDoLists(
     @Embedded val group: Group,
 
     @Relation(parentColumn = "groupId", entityColumn = "groupId")
-    val list: List<ToDoList>
+    val list: List<ToDoList>,
 )

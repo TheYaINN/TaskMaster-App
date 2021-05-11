@@ -6,7 +6,6 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager.widget.ViewPager
@@ -60,7 +59,7 @@ class GroupEditorFragment : SubFragment<FragmentGroupEditBinding>(R.layout.fragm
         val groupId = arguments?.getInt("groupId")
         isEditMode = groupId != null
 
-        viewModel = ViewModelProvider(this, GroupEditorViewModelFactory(requireActivity().application, isEditMode, groupId ?: 0, viewLifecycleOwner))
+        viewModel = ViewModelProvider(this, GroupEditorViewModelFactory(requireActivity().application, isEditMode, groupId ?: 0))
             .get(GroupEditorViewModel::class.java)
         binder.model = viewModel
     }
@@ -81,30 +80,25 @@ class GroupEditorFragment : SubFragment<FragmentGroupEditBinding>(R.layout.fragm
     }
 }
 
-class GroupEditorViewModel(private val groupId: Int, private val isEditMode: Boolean, viewLifecycleOwner: LifecycleOwner) : ObservableViewModel() {
+class GroupEditorViewModel(private val groupId: Int, private val isEditMode: Boolean) : ObservableViewModel() {
 
-    var title = ""
-    var description = ""
+    lateinit var group: Group
 
     init {
         if (isEditMode) {
-            LocalDataBaseConnector.instance.groupDAO.getGroupByGroupId(groupId).observe(viewLifecycleOwner, {
-                if (it != null) {
-                    title = it.title.toString()
-                    description = it.description.toString()
-                }
-            })
+            GlobalScope.launch {
+                group = LocalDataBaseConnector.instance.groupDAO.getGroupByGroupId(groupId) ?: Group(title = "", description = "")
+            }
         } else {
-            title = ""
-            description = ""
+            group = Group(title = "", description = "")
         }
     }
 
     fun build(): Group {
         return Group(
             groupId = groupId,
-            title = title,
-            description = description,
+            title = group.title,
+            description = group.description,
         )
     }
 
@@ -114,12 +108,11 @@ class GroupEditorViewModelFactory(
     application: Application,
     private val isEditMode: Boolean,
     private val groupId: Int,
-    private val viewLifecycleOwner: LifecycleOwner,
 ) :
     ViewModelProvider.AndroidViewModelFactory(application) {
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return GroupEditorViewModel(groupId, isEditMode, viewLifecycleOwner) as T
+        return GroupEditorViewModel(groupId, isEditMode) as T
     }
 
 }

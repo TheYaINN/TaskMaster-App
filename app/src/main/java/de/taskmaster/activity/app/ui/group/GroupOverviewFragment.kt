@@ -52,7 +52,7 @@ class GroupViewModel(userId: Int, viewLifecycleOwner: LifecycleOwner) : ViewMode
 
     init {
         viewModelScope.launch {
-            LocalDataBaseConnector.instance.groupDAO.getGroupsByGroupId(userId).observe(viewLifecycleOwner, { _groups.postValue(it) })
+            LocalDataBaseConnector.instance.groupDAO.getGroupsByUserId(userId).observe(viewLifecycleOwner, { _groups.postValue(it) })
         }
     }
 }
@@ -76,9 +76,10 @@ class BigGroupAdapter(private val fragment: GroupOverviewFragment) : BasicAdapte
     }
 
     override fun onBindViewHolder(holder: GroupViewHolder, position: Int) {
-        holder.bind(data[position], fragment)
+        val group = data[position]
+        holder.bind(group, fragment)
         listView.setOnClickListener {
-            fragment.findNavController().navigate(R.id.action_navigation_group_to_groupEditorFragment, bundleOf("groupId" to holder.itemId))
+            fragment.findNavController().navigate(R.id.action_navigation_group_to_groupEditorFragment, bundleOf("groupId" to group.groupId))
         }
     }
 

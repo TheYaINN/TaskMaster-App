@@ -55,7 +55,7 @@ class ListEditorFragment : SubFragment<FragmentListEditBinding>(R.layout.fragmen
         val recyclerView = binder.root.findViewById<RecyclerView>(R.id.group_items)
         recyclerView.adapter = smallGroupAdapter
 
-        LocalDataBaseConnector.instance.groupDAO.getGroupsByGroupId(
+        LocalDataBaseConnector.instance.groupDAO.getGroupsByUserId(
             LocalAuthHelper.getUserId(requireContext())
         ).observe(viewLifecycleOwner, { smallGroupAdapter.setData(it) })
     }

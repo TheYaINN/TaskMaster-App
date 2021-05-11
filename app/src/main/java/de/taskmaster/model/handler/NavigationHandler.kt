@@ -46,10 +46,6 @@ class NavigationHandler(val fragment: Fragment) {
         }
     }
 
-    fun toTaskEditor() {
-        fragment.findNavController().navigate(R.id.action_taskOverview_to_taskEditorFragment)
-    }
-
     fun takePicture() {
         StorageHelper.verifyStoragePermissions(fragment.requireActivity())
         val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
