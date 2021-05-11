@@ -12,14 +12,7 @@ import de.taskmaster.activity.util.fragment.SubFragment
 import de.taskmaster.auth.LocalAuthHelper
 import de.taskmaster.databinding.FragmentListEditBinding
 import de.taskmaster.db.LocalDataBaseConnector
-import de.taskmaster.model.data.impl.Address
-import de.taskmaster.model.data.impl.Deadline
-import de.taskmaster.model.data.impl.Group
-import de.taskmaster.model.data.impl.ObservableViewModel
-import de.taskmaster.model.data.impl.Repeat
-import de.taskmaster.model.data.impl.Status
-import de.taskmaster.model.data.impl.Task
-import de.taskmaster.model.data.impl.ToDoList
+import de.taskmaster.model.data.impl.*
 import de.taskmaster.model.handler.GroupSelector
 import de.taskmaster.model.handler.ToggleEditableComponentHandler
 import kotlinx.coroutines.GlobalScope
@@ -34,26 +27,30 @@ class ListEditorFragment : SubFragment<FragmentListEditBinding>(R.layout.fragmen
     private var isEdit: Boolean = false
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        viewModel = ViewModelProvider(requireActivity()).get(ListEditorViewModel::class.java)
+
         val listId = arguments?.getInt("id")
 
-        if(listId != null){
+        if (listId != null) {
             isEdit = true
             val todoList = LocalDataBaseConnector.instance.toDoListDAO.getByListId(listId).value
             if (todoList != null) {
                 viewModel.title = todoList.title
-                viewModel.deadline = todoList.deadline
                 viewModel.description = todoList.description
+                viewModel.deadline = todoList.deadline
             }
         }
 
         binder.presenter = ToggleEditableComponentHandler(requireContext())
 
-        viewModel = ViewModelProvider(requireActivity()).get(ListEditorViewModel::class.java)
         binder.model = viewModel
 
         val recyclerView = binder.root.findViewById<RecyclerView>(R.id.group_items)
         recyclerView.adapter = smallGroupAdapter
-        //TODO: groups binding to groupAdapter
+
+        LocalDataBaseConnector.instance.groupDAO.getByID(
+            LocalAuthHelper.getUserId(requireContext())
+        ).observe(viewLifecycleOwner, { smallGroupAdapter.setData(it) })
     }
 
     override fun selectGroup(group: Group) {
@@ -63,9 +60,9 @@ class ListEditorFragment : SubFragment<FragmentListEditBinding>(R.layout.fragmen
     override fun save(): Boolean {
         val userId = LocalAuthHelper.getUserId(requireContext())
         GlobalScope.launch {
-            if(isEdit){
+            if (isEdit) {
                 LocalDataBaseConnector.instance.toDoListDAO.update(viewModel.build(userId))
-            }else{
+            } else {
                 LocalDataBaseConnector.instance.toDoListDAO.insert(viewModel.build(userId))
             }
         }
@@ -99,6 +96,7 @@ class ListEditorViewModel : ObservableViewModel() {
         val result = ToDoList(
             listId = 0,
             userId = userId,
+            groupId = group?.groupId ?: -1,
             title = title,
             description = description,
             deadline = deadline

@@ -44,6 +44,7 @@
             </LinearLayout>
 
             <ImageView
+                android:padding="8dp"
                 android:id="@+id/item_actions"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
