@@ -24,7 +24,7 @@
                 app:argType="integer" />
         </action>
         <action
-            android:id="@+id/action_navigation_list_to_listDetailsFragment"
+            android:id="@+id/action_navigation_list_to_taskoverview"
             app:destination="@id/taskOverview">
             <argument
                 android:name="id"
@@ -108,7 +108,10 @@
             android:id="@+id/action_taskOverview_to_taskEditorFragment"
             app:destination="@id/taskEditorFragment">
             <argument
-                android:name="id"
+                android:name="taskId"
+                app:argType="integer" />
+            <argument
+                android:name="listId"
                 app:argType="integer" />
         </action>
     </fragment>

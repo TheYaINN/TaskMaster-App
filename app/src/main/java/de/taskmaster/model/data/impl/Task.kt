@@ -11,9 +11,9 @@ data class Task(
     @PrimaryKey(autoGenerate = true)
     val taskId: Int,
 
-    val listId: Int,
+    var listId: Int = -1,
 
-    var img: Bitmap?,
+    var img: Bitmap? = null,
 
     var title: String,
 

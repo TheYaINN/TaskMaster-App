@@ -4,14 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".activity.app.ui.list.detailed_list">
 
-    <data>
-
-        <variable
-            name="handler"
-            type="de.taskmaster.model.handler.NavigationHandler" />
-
-    </data>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -43,7 +35,6 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="24dp"
             android:layout_marginBottom="24dp"
-            android:onClick="@{() -> handler.toTaskEditor()}"
             android:src="@drawable/task_add"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

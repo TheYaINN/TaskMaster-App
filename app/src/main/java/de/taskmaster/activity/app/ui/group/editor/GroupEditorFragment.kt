@@ -22,7 +22,6 @@ import de.taskmaster.model.data.impl.ObservableViewModel
 import de.taskmaster.model.data.impl.UserGroupCrossRef
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import org.osmdroid.tileprovider.util.Counters.reset
 
 class GroupEditorFragment : SubFragment<FragmentGroupEditBinding>(R.layout.fragment_group_edit) {
 
@@ -83,13 +82,11 @@ class GroupEditorViewModel : ObservableViewModel() {
 
     fun build(): Group {
 
-        val result = Group(
+        return Group(
             groupId = 0,
             title = title,
             description = description,
         )
-        reset()
-        return result
 
     }
 }

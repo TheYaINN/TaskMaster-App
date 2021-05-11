@@ -47,13 +47,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/title"
-                    android:text="@={model.task.title}" />
+                    android:text="@={model.title}" />
 
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/description"
-                    android:text="@={model.task.description}" />
+                    android:text="@={model.description}" />
 
                 <include
                     layout="@layout/component_person_editor"

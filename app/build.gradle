@@ -42,6 +42,8 @@ repositories {
 }
 
 dependencies {
+    implementation 'androidx.cardview:cardview:1.0.0'
+
     //versioning
     def room_version = "2.4.0-alpha02"
     def navigation_version = "2.3.5"

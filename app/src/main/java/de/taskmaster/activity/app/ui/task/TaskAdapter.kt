@@ -17,20 +17,20 @@ import de.taskmaster.db.LocalDataBaseConnector
 import de.taskmaster.model.data.impl.Status
 import de.taskmaster.model.data.impl.Task
 import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 
 
-class TaskAdapter(private val fragment: TaskOverview) : BasicAdapter<Task, TaskAdapter.TaskViewHolder>() {
+class TaskAdapter(private val fragment: TaskOverview, private val listId: Int) : BasicAdapter<Task, TaskAdapter.TaskViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
-        return TaskViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.items_task, parent, false) as CardView)
+        return TaskViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.items_task, parent, false) as CardView, listId)
     }
 
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
         holder.bind(data[position], fragment)
     }
 
-    class TaskViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class TaskViewHolder(itemView: View, private val listId: Int) : RecyclerView.ViewHolder(itemView) {
 
         fun bind(task: Task, fragment: TaskOverview) {
             val title = itemView.findViewById<TextView>(R.id.item_title)
@@ -50,17 +50,17 @@ class TaskAdapter(private val fragment: TaskOverview) : BasicAdapter<Task, TaskA
             }
 
             val actions = itemView.findViewById<ImageView>(R.id.item_actions)
+            val bundle = bundleOf("taskId" to task.taskId, "listId" to listId)
             actions.setOnClickListener {
                 val popupMenu = PopupMenu(fragment.requireContext(), actions)
                 popupMenu.inflate(R.menu.item_actions)
                 popupMenu.setOnMenuItemClickListener {
                     when (it.itemId) {
                         R.id.item_edit -> {
-                            val bundle = bundleOf("id" to itemId)
                             fragment.findNavController().navigate(R.id.action_taskOverview_to_taskEditorFragment, bundle)
                         }
                         R.id.item_delete -> {
-                            GlobalScope.async {
+                            GlobalScope.launch {
                                 LocalDataBaseConnector.instance.taskDAO.delete(task)
                             }
                         }

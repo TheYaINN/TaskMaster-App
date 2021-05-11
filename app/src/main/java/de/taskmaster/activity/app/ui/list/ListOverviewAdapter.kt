@@ -48,7 +48,7 @@ class ListOverviewAdapter(private val fragment: ListOverviewFragment) : BasicAda
 
         private fun addListeners(taskList: TodoListWithAssociations, fragment: ListOverviewFragment) {
             val actions = itemView.findViewById<ImageView>(R.id.item_actions)
-            val bundle = bundleOf("id" to itemId)
+            val bundle = bundleOf("id" to taskList.list.listId)
             actions.setOnClickListener {
                 val popupMenu = PopupMenu(fragment.requireContext(), actions)
                 popupMenu.inflate(R.menu.item_actions)
@@ -62,7 +62,7 @@ class ListOverviewAdapter(private val fragment: ListOverviewFragment) : BasicAda
                 popupMenu.show()
             }
             itemView.setOnClickListener {
-                fragment.findNavController().navigate(R.id.action_navigation_list_to_listDetailsFragment, bundle)
+                fragment.findNavController().navigate(R.id.action_navigation_list_to_taskoverview, bundle)
             }
         }
     }
