@@ -8,13 +8,14 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
 import de.taskmaster.R
 import de.taskmaster.activity.util.fragment.TopLevelFragment
 import de.taskmaster.databinding.FragmentProfilePrivateBinding
 import de.taskmaster.db.LocalDataBaseConnector
+import de.taskmaster.model.data.impl.ObservableViewModel
 import de.taskmaster.model.data.impl.User
 import de.taskmaster.model.handler.NavigationHandler
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 class ProfilePrivateFragment : TopLevelFragment(R.layout.fragment_profile_private, null) {
@@ -30,12 +31,12 @@ class ProfilePrivateFragment : TopLevelFragment(R.layout.fragment_profile_privat
     }
 }
 
-class ProfilePrivateViewModel(userId: Int) : ViewModel() {
+class ProfilePrivateViewModel(userId: Int) : ObservableViewModel() {
 
     var user: User? = null
 
     init {
-        viewModelScope.launch {
+        GlobalScope.launch {
             user = LocalDataBaseConnector.instance.userDAO.getByID(userId)
         }
     }
