@@ -71,4 +71,8 @@ class RegisterViewModel : ObservableViewModel() {
         email = ""
         places = arrayListOf()
     }
+
+    fun isValid(): Boolean {
+        TODO("Not yet implemented")
+    }
 }

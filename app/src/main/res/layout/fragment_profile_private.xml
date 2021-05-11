@@ -134,14 +134,6 @@
                     android:textAlignment="textStart"
                     android:textAllCaps="false"
                     android:textSize="@dimen/subtitle" />
-
-                <TextView
-                    android:id="@+id/version"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
-                    android:text="@{@string/version}"
-                    android:textAlignment="center" />
             </LinearLayout>
         </ScrollView>
     </LinearLayout>
