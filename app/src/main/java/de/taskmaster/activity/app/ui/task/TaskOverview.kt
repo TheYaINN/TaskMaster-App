@@ -5,7 +5,13 @@ import android.os.Bundle
 import android.view.View
 import android.widget.TextView
 import androidx.core.os.bundleOf
-import androidx.lifecycle.*
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.observe
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -24,10 +30,8 @@ class TaskOverview :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val listId = arguments?.getInt("id")!!
-        viewModel = ViewModelProvider(
-            this,
-            TaskViewModelFactory(requireActivity().application, listId, viewLifecycleOwner)
-        ).get(TaskViewModel::class.java)
+        viewModel = ViewModelProvider(this, TaskViewModelFactory(requireActivity().application, listId, viewLifecycleOwner))
+            .get(TaskViewModel::class.java)
 
 
         val addButton = view.findViewById<FloatingActionButton>(R.id.add_item)
@@ -61,17 +65,12 @@ class TaskViewModel(listId: Int, viewLifecycleOwner: LifecycleOwner) : ViewModel
 
     init {
         viewModelScope.launch {
-            LocalDataBaseConnector.instance.taskDAO.getByListId(listId)
-                .observe(viewLifecycleOwner, { _tasks.postValue(it) })
+            LocalDataBaseConnector.instance.taskDAO.getByListId(listId).observe(viewLifecycleOwner, { _tasks.postValue(it) })
         }
     }
 }
 
-class TaskViewModelFactory(
-    application: Application,
-    private val listId: Int,
-    private val viewLifecycleOwner: LifecycleOwner
-) :
+class TaskViewModelFactory(application: Application, private val listId: Int, private val viewLifecycleOwner: LifecycleOwner) :
     ViewModelProvider.AndroidViewModelFactory(application) {
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {

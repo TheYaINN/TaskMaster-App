@@ -92,7 +92,7 @@ class HomeAdapter(val fragment: Fragment) : BasicAdapter<TodoListWithAssociation
 
         private fun addTasks(linearLayout: LinearLayout, taskList: TodoListWithAssociations) {
             if (taskList.tasks.isEmpty()) {
-                linearLayout.addView(createTextView(taskList.list.title))
+                linearLayout.addView(createTextView("No tasks added currently"))
             } else {
                 taskList.tasks.forEach { linearLayout.addView(createTextView(it.title)) }
             }
