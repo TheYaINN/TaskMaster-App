@@ -1,17 +1,16 @@
 package de.taskmaster.activity.app.ui.list
 
+import android.app.Application
 import android.os.Bundle
 import android.view.View
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.*
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import de.taskmaster.R
 import de.taskmaster.activity.util.fragment.TopLevelFragment
+import de.taskmaster.auth.LocalAuthHelper
 import de.taskmaster.db.LocalDataBaseConnector
 import de.taskmaster.model.data.impl.ToDoList
 import kotlinx.coroutines.GlobalScope
@@ -27,12 +26,26 @@ class ListOverviewFragment : TopLevelFragment(R.layout.fragment_lists_overview) 
             findNavController().navigate(R.id.action_navigation_list_to_listEditorFragment)
         }
 
-        viewModel = ViewModelProvider(this).get(ListOverviewViewModel::class.java)
+        val application = activity?.application ?: error("Could not retrieve application")
+
+        var userId = context?.getSharedPreferences(
+            LocalAuthHelper.preferencesKey,
+            AppCompatActivity.MODE_PRIVATE
+        )?.getInt(LocalAuthHelper.useridKey, -1)
+
+        if (userId != null) {
+            viewModel = ViewModelProvider(
+                this,
+                ListOverviewViewModelFactory(application, userId)
+            ).get(ListOverviewViewModel::class.java)
+        }
+
 
         val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerview)
         val adapter = ListOverviewAdapter(this)
         recyclerView.adapter = adapter
 
+        viewModel.lists.observe(viewLifecycleOwner){adapter::data}
     }
 
     fun delete(toDoList: ToDoList) {
@@ -42,17 +55,25 @@ class ListOverviewFragment : TopLevelFragment(R.layout.fragment_lists_overview) 
     }
 }
 
-class ListOverviewViewModel : ViewModel() {
+class ListOverviewViewModel(userId: Int) : ViewModel() {
 
     private val _lists = MutableLiveData<List<ToDoList>>()
     val lists: LiveData<List<ToDoList>> = _lists
 
     init {
         viewModelScope.launch {
-            //TODO: fix id loading
-            val id = 1
-            LocalDataBaseConnector.instance.toDoListDAO.getByID(id).observeForever { _lists.postValue(it) }
+            LocalDataBaseConnector.instance.toDoListDAO.getByUserId(userId)
+                .observeForever { _lists.postValue(it) }
         }
     }
+}
+
+class ListOverviewViewModelFactory(application: Application, val userId: Int) :
+    ViewModelProvider.AndroidViewModelFactory(application) {
+
+    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+        return ListOverviewViewModel(userId) as T
+    }
+
 }
 

@@ -42,7 +42,7 @@ class DBConverter {
 
     @TypeConverter
     fun fromDeadline(deadline: Deadline): String {
-        return SimpleDateFormat(dateFormat, Locale.getDefault()).format(deadline.date)
+        return deadline.date.toString()
     }
 
     @TypeConverter

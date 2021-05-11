@@ -44,12 +44,12 @@ class ListEditorFragment : SubFragment<FragmentListEditBinding>(R.layout.fragmen
     }
 
     override fun save(): Boolean {
+        val userId = context?.getSharedPreferences(
+            LocalAuthHelper.preferencesKey,
+            AppCompatActivity.MODE_PRIVATE
+        )?.getInt(LocalAuthHelper.useridKey, -1)
         GlobalScope.launch {
-            val userId = context?.getSharedPreferences(
-                LocalAuthHelper.preferencesKey,
-                AppCompatActivity.MODE_PRIVATE
-            )?.getInt(LocalAuthHelper.useridKey, -1)
-            if(userId != null){
+            if (userId != null) {
                 LocalDataBaseConnector.instance.toDoListDAO.insert(viewModel.build(userId))
             }
         }

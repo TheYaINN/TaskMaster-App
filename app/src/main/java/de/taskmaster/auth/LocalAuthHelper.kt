@@ -24,8 +24,6 @@ class LocalAuthHelper {
                 Toast.makeText(context,
                     "Could not find User, please reenter Username and password",
                     Toast.LENGTH_LONG).show()
-                viewModel.clear()
-                return@runBlocking
             }
             if (SecurityHelper.validatePassword(viewModel.password, user.password, user.salt, user.iterations)) {
                 val sp = context.getSharedPreferences(preferencesKey, MODE_PRIVATE)
@@ -35,8 +33,10 @@ class LocalAuthHelper {
                 if (viewModel.rememberMe) {
                     saveLoginInformation(context, viewModel)
                 }
+                viewModel.clear()
                 return true
             }
+            viewModel.clear()
             return false
         }
 

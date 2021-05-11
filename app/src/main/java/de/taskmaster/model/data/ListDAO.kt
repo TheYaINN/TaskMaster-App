@@ -20,7 +20,7 @@ interface ToDoListDAO {
     @Delete
     suspend fun delete(toDoList: ToDoList)
 
-    @Query("SELECT * FROM todolists t JOIN usr u ON :id == t.listId")
-    fun getByID(id: Int): LiveData<List<ToDoList>>
+    @Query("SELECT * FROM todolists t WHERE t.userId == :userId")
+    fun getByUserId(userId: Int): LiveData<List<ToDoList>>
 
 }
