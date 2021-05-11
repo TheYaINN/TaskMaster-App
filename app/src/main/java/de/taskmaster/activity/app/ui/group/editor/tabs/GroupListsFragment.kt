@@ -47,7 +47,11 @@ class GroupListsViewModel(groupId: Int, viewLifecycleOwner: LifecycleOwner) : Vi
 
     init {
         viewModelScope.launch {
-            LocalDataBaseConnector.instance.groupWithTodDoListDao.getByGroupId(groupId).observe(viewLifecycleOwner, { _lists.postValue(it.list) })
+            LocalDataBaseConnector.instance.groupWithTodDoListDao.getByGroupId(groupId).observe(viewLifecycleOwner, {
+                if (it != null) {
+                    _lists.postValue(it.list)
+                }
+            })
         }
     }
 }
