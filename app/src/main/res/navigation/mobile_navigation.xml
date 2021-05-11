@@ -41,7 +41,7 @@
             android:id="@+id/action_navigation_group_to_groupEditorFragment"
             app:destination="@id/group_editor">
             <argument
-                android:name="id"
+                android:name="groupId"
                 app:argType="integer" />
         </action>
     </fragment>

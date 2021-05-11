@@ -17,7 +17,6 @@ import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.RecyclerView
 import de.taskmaster.R
 import de.taskmaster.activity.util.BasicAdapter
-import de.taskmaster.auth.LocalAuthHelper
 import de.taskmaster.db.LocalDataBaseConnector
 import de.taskmaster.model.data.impl.ToDoList
 import kotlinx.coroutines.launch
@@ -28,33 +27,36 @@ class GroupListsFragment : Fragment(R.layout.fragment_lists_members) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerview)
-        val userId = LocalAuthHelper.getUserId(requireContext())
-        viewModel =
-            ViewModelProvider(this, GroupListsViewModelFactory(requireActivity().application, userId, viewLifecycleOwner)).get(GroupListsViewModel::class.java)
+        //TODO get this from somewhere
+        val groupId = 0
+        viewModel = ViewModelProvider(this, GroupListsViewModelFactory(requireActivity().application, groupId, viewLifecycleOwner))
+            .get(GroupListsViewModel::class.java)
 
         val adapter = GroupListAdapter(this)
         recyclerView.adapter = adapter
         viewModel.lists.observe(viewLifecycleOwner, {
-            if(it != null) adapter.setData(it) })
+            adapter.setData(it)
+        })
     }
 }
 
-class GroupListsViewModel(userId: Int, viewLifecycleOwner: LifecycleOwner) : ViewModel() {
-    private val _lists = MutableLiveData<List<ToDoList>>()
+class GroupListsViewModel(groupId: Int, viewLifecycleOwner: LifecycleOwner) : ViewModel() {
+
+    private val _lists: MutableLiveData<List<ToDoList>> = MutableLiveData()
     val lists: LiveData<List<ToDoList>> = _lists
 
     init {
         viewModelScope.launch {
-            LocalDataBaseConnector.instance.groupWithTodDoListDao.getByGroupId(userId).observe(viewLifecycleOwner, { _lists.postValue(it?.list) })
+            LocalDataBaseConnector.instance.groupWithTodDoListDao.getByGroupId(groupId).observe(viewLifecycleOwner, { _lists.postValue(it.list) })
         }
     }
 }
 
-class GroupListsViewModelFactory(application: Application, private val userId: Int, private val viewLifecycleOwner: LifecycleOwner) :
+class GroupListsViewModelFactory(application: Application, private val groupId: Int, private val viewLifecycleOwner: LifecycleOwner) :
     ViewModelProvider.AndroidViewModelFactory(application) {
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return GroupListsViewModel(userId, viewLifecycleOwner) as T
+        return GroupListsViewModel(groupId, viewLifecycleOwner) as T
     }
 
 }
