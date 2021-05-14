@@ -17,7 +17,12 @@ TODO:
 -(Status der Listen)
 -Listen repeat
 
-
 BENGT:
 - Member und Listen in Gruppen
 - Gruppen und Listen aktualisiern nach dem hinzufügen
+
+
+Sacha alpers Bengt
+daniel stumpf
+
+daniel.stumpf@h120.de
