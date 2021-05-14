@@ -20,8 +20,6 @@ import kotlinx.coroutines.launch
 
 class TaskEditorFragment : SubFragment<FragmentTasksEditorBinding>(R.layout.fragment_tasks_editor) {
 
-    lateinit var viewModel: TaskEditorViewModel
-
     private var isEditMode = false
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -29,21 +27,15 @@ class TaskEditorFragment : SubFragment<FragmentTasksEditorBinding>(R.layout.frag
         val taskId = arguments?.getInt("taskId")
         isEditMode = taskId != null
 
-
-        binder.model = ViewModelProvider(this).get(
-            TaskEditorViewModel::class.java
-        )
+        binder.model = ViewModelProvider(this, TaskEditorViewModelFactory(requireActivity().application, taskId ?: 0, isEditMode))
+            .get(TaskEditorViewModel::class.java)
         binder.presenter = ToggleEditableComponentHandler(requireContext())
         binder.handler = NavigationHandler(this)
-
-        viewModel = ViewModelProvider(this, TaskEditorViewModelFactory(requireActivity().application, taskId ?: 0, isEditMode))
-            .get(TaskEditorViewModel::class.java)
-
     }
 
     override fun save(): Boolean {
         GlobalScope.launch {
-            val task = viewModel.build()
+            val task = binder.model!!.build()
             if (isEditMode) {
                 LocalDataBaseConnector.instance.taskDAO.update(task)
             } else {
