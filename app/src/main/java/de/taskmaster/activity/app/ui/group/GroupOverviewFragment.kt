@@ -53,10 +53,6 @@ class GroupViewModel(private val userId: Int, private val viewLifecycleOwner: Li
     val groups: LiveData<List<Group>> = _groups
 
     init {
-        loadData()
-    }
-
-    fun loadData() {
         viewModelScope.launch {
             LocalDataBaseConnector.instance.groupDAO.getGroupsByUserId(userId).observe(viewLifecycleOwner, { _groups.postValue(it) })
         }
