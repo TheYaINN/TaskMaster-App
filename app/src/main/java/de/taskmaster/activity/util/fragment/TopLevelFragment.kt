@@ -12,9 +12,7 @@ import de.taskmaster.activity.app.AppActivity
 open class TopLevelFragment(private val resourceId: Int, private val menuResourceId: Int? = R.menu.lists_groups_menu) : SavableFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        (activity as AppActivity).supportActionBar?.apply {
-            setDisplayHomeAsUpEnabled(false)
-        }
+        (activity as AppActivity).supportActionBar?.apply { setDisplayHomeAsUpEnabled(false) }
         setHasOptionsMenu(true)
         return inflater.inflate(resourceId, container, false)
     }

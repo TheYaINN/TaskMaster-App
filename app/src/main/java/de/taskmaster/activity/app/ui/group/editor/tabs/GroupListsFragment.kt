@@ -15,14 +15,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import de.taskmaster.R
 import de.taskmaster.activity.util.BasicAdapter
 import de.taskmaster.db.LocalDataBaseConnector
 import de.taskmaster.model.data.impl.ToDoList
 import kotlinx.coroutines.launch
 
-class GroupListsFragment(private val groupId: Int?) : Fragment(R.layout.fragment_lists_members) {
+
+class GroupListsFragment(private val groupId: Int?) : Fragment(R.layout.fragment_group_lists) {
 
     private lateinit var viewModel: GroupListsViewModel
 
@@ -30,16 +30,10 @@ class GroupListsFragment(private val groupId: Int?) : Fragment(R.layout.fragment
         viewModel = ViewModelProvider(this, GroupListsViewModelFactory(requireActivity().application, groupId, viewLifecycleOwner))
             .get(GroupListsViewModel::class.java)
 
-        val addButton = view.findViewById<FloatingActionButton>(R.id.add_action)
-        addButton.setImageResource(R.drawable.list_add)
-
-
         val adapter = GroupListAdapter(this)
         val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerview)
         recyclerView.adapter = adapter
-        viewModel.lists.observe(viewLifecycleOwner, {
-            adapter.setData(it)
-        })
+        viewModel.lists.observe(viewLifecycleOwner, { adapter.setData(it) })
     }
 }
 

@@ -21,7 +21,7 @@ import de.taskmaster.model.data.impl.User
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-class GroupMembersFragment(private val groupId: Int?) : Fragment(R.layout.fragment_lists_members) {
+class GroupMembersFragment(private val groupId: Int?) : Fragment(R.layout.fragment_group_members) {
 
     private lateinit var viewModel: GroupMembersViewModel
 
