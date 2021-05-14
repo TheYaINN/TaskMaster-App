@@ -1,6 +1,5 @@
 package de.taskmaster.model.data
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
@@ -21,7 +20,7 @@ interface UserDAO {
     suspend fun delete(user: User)
 
     @Query("SELECT * FROM USR u WHERE u.userId IS :id")
-    fun getByID(id: Int): LiveData<User>
+    suspend fun getByID(id: Int): User?
 
     @Query("SELECT * FROM USR u WHERE u.userName IS :username")
     fun getByUserName(username: String): User?

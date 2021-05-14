@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.EditText
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import de.taskmaster.R
@@ -32,8 +33,8 @@ class NavigationHandler(val fragment: Fragment) {
         fragment.findNavController().navigate(R.id.action_navigation_profile_to_notificationSettings)
     }
 
-    fun toPublicProfile() {
-        fragment.findNavController().navigate(R.id.action_navigation_profile_to_publicProfileFragment)
+    fun toPublicProfile(userId: Int) {
+        fragment.findNavController().navigate(R.id.action_navigation_profile_to_publicProfileFragment, bundleOf("userId" to userId))
     }
 
     fun login(view: View, model: LoginViewModel) {

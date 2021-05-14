@@ -77,6 +77,14 @@ class AccountSettingsFragment : SubFragment<FragmentProfileEditBinding>(R.layout
         }
     }
 
+    override fun save(): Boolean {
+        val user = viewModel.userWithAssociations.value!!.user
+        GlobalScope.launch {
+            LocalDataBaseConnector.instance.userDAO.update(user)
+        }
+        return super.save()
+    }
+
 }
 
 class AccountSettingsViewModel(userId: Int, viewLifecycleOwner: LifecycleOwner) : Displayable() {
@@ -86,7 +94,7 @@ class AccountSettingsViewModel(userId: Int, viewLifecycleOwner: LifecycleOwner) 
 
     init {
         viewModelScope.launch {
-            LocalDataBaseConnector.instance.userWithAssociationsDAO.getByID(userId).observe(viewLifecycleOwner, { _user.postValue(it) })
+            LocalDataBaseConnector.instance.userWithAssociationsDAO.getByUserId(userId).observe(viewLifecycleOwner, { _user.postValue(it) })
         }
     }
 

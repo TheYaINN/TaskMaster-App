@@ -31,9 +31,12 @@ class GroupEditorFragment : SubFragment<FragmentGroupEditBinding>(R.layout.fragm
     var isEditMode = false
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        val groupId = arguments?.getInt("groupId")
+        isEditMode = groupId != null
+
         val tabLayout = view.findViewById<TabLayout>(R.id.tabLayout)
         val viewPager = view.findViewById<ViewPager>(R.id.viewPager)
-        binder.viewPager.adapter = GroupTabAdapter(requireActivity().supportFragmentManager)
+        binder.viewPager.adapter = GroupTabAdapter(requireActivity().supportFragmentManager, groupId)
         viewPager.addOnPageChangeListener(object : OnPageChangeListener {
             override fun onPageScrolled(
                 position: Int,
@@ -56,21 +59,22 @@ class GroupEditorFragment : SubFragment<FragmentGroupEditBinding>(R.layout.fragm
             override fun onTabReselected(tab: TabLayout.Tab) {}
         })
 
-        val groupId = arguments?.getInt("groupId")
-        isEditMode = groupId != null
 
-        viewModel = ViewModelProvider(this, GroupEditorViewModelFactory(requireActivity().application, isEditMode, groupId ?: 0))
+
+
+        viewModel = ViewModelProvider(this, GroupEditorViewModelFactory(requireActivity().application, isEditMode, groupId ?: -1))
             .get(GroupEditorViewModel::class.java)
         binder.model = viewModel
     }
 
     override fun save(): Boolean {
         GlobalScope.launch {
+            val dao = LocalDataBaseConnector.instance.groupDAO
             if (isEditMode) {
-                LocalDataBaseConnector.instance.groupDAO.update(viewModel.build())
+                dao.update(viewModel.build())
             } else {
                 val group = viewModel.build()
-                LocalDataBaseConnector.instance.groupDAO.insert(group)
+                dao.insert(group)
 
                 val userGroupCrossRef = UserGroupCrossRef(userId, group.groupId)
                 LocalDataBaseConnector.instance.userGroupCrossRefDAO.insert(userGroupCrossRef)
@@ -115,10 +119,10 @@ class GroupEditorViewModelFactory(
 
 }
 
-class GroupTabAdapter(fragmentManager: FragmentManager) :
+class GroupTabAdapter(fragmentManager: FragmentManager, private val groupId: Int?) :
     FragmentPagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
-    private val tabs = listOf(GroupListsFragment(), GroupMembersFragment())
+    private val tabs = listOf(GroupListsFragment(groupId), GroupMembersFragment(groupId))
 
     override fun getCount(): Int {
         return tabs.size

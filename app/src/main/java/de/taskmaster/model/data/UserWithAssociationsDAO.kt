@@ -9,6 +9,6 @@ import de.taskmaster.model.data.impl.UserWithAssociations
 interface UserWithAssociationsDAO {
 
     @Query("SELECT * FROM usr u WHERE u.userId == :id")
-    fun getByID(id: Int): LiveData<UserWithAssociations>
+    fun getByUserId(id: Int): LiveData<UserWithAssociations>
 
 }

@@ -6,9 +6,7 @@ import androidx.room.TypeConverter
 import de.taskmaster.model.data.impl.Deadline
 import de.taskmaster.model.data.impl.Status
 import java.io.ByteArrayOutputStream
-import java.text.SimpleDateFormat
 import java.time.LocalDate
-import java.util.*
 
 
 const val dateFormat = "EEE MMM dd HH:mm:ss z yyyy"
@@ -47,8 +45,10 @@ class DBConverter {
 
     @TypeConverter
     fun toDeadline(deadline: String): Deadline {
+        if (deadline == "null") {
+            return Deadline(null)
+        }
         return Deadline(LocalDate.parse(deadline))
     }
-
 
 }
