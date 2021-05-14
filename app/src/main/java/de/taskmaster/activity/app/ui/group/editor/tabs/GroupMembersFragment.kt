@@ -14,6 +14,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import de.taskmaster.R
 import de.taskmaster.activity.util.BasicAdapter
 import de.taskmaster.model.data.impl.User
@@ -27,6 +28,9 @@ class GroupMembersFragment(private val groupId: Int?) : Fragment(R.layout.fragme
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         viewModel = ViewModelProvider(this, GroupMembersViewModelFactory(requireActivity().application, groupId, viewLifecycleOwner))
             .get(GroupMembersViewModel::class.java)
+
+        val addButton = view.findViewById<FloatingActionButton>(R.id.add_action)
+        addButton.setImageResource(R.drawable.person_add)
 
         val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerview)
         val adapter = GroupMemberAdapter()

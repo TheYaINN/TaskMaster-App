@@ -59,9 +59,6 @@ class GroupEditorFragment : SubFragment<FragmentGroupEditBinding>(R.layout.fragm
             override fun onTabReselected(tab: TabLayout.Tab) {}
         })
 
-
-
-
         viewModel = ViewModelProvider(this, GroupEditorViewModelFactory(requireActivity().application, isEditMode, groupId ?: -1))
             .get(GroupEditorViewModel::class.java)
         binder.model = viewModel
@@ -70,10 +67,10 @@ class GroupEditorFragment : SubFragment<FragmentGroupEditBinding>(R.layout.fragm
     override fun save(): Boolean {
         GlobalScope.launch {
             val dao = LocalDataBaseConnector.instance.groupDAO
+            val group = viewModel.build()
             if (isEditMode) {
-                dao.update(viewModel.build())
+                dao.update(group)
             } else {
-                val group = viewModel.build()
                 dao.insert(group)
 
                 val userGroupCrossRef = UserGroupCrossRef(userId, group.groupId)
@@ -97,11 +94,16 @@ class GroupEditorViewModel(private val groupId: Int, private val isEditMode: Boo
     }
 
     fun build(): Group {
-        return Group(
-            groupId = groupId,
-            title = group.title,
-            description = group.description,
-        )
+        return if (isEditMode)
+            Group(
+                groupId = groupId,
+                title = group.title,
+                description = group.description,
+            ) else
+            Group(
+                title = group.title,
+                description = group.description
+            )
     }
 
 }

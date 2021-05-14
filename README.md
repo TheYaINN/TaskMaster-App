@@ -13,8 +13,11 @@ To build the project properly build the backend-project, because the data model 
 
 TODO:
 -Adressen in Listen
--Member und Listen in Gruppen
 -Status der Tasks
 -(Status der Listen)
 -Listen repeat
--Gruppen und Listen aktualisiern nach dem hinzufügen
+
+
+BENGT:
+- Member und Listen in Gruppen
+- Gruppen und Listen aktualisiern nach dem hinzufügen
