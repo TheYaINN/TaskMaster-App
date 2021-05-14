@@ -23,8 +23,7 @@ import de.taskmaster.model.data.impl.Status
 import de.taskmaster.model.data.impl.Task
 import kotlinx.coroutines.launch
 
-class TaskOverview :
-    SubFragment<FragmentTasksOverviewBinding>(R.layout.fragment_tasks_overview, null) {
+class TaskOverview : SubFragment<FragmentTasksOverviewBinding>(R.layout.fragment_tasks_overview, null) {
 
     private lateinit var viewModel: TaskViewModel
 

@@ -29,6 +29,8 @@ import kotlinx.coroutines.launch
 
 class GroupOverviewFragment : TopLevelFragment(R.layout.fragment_group, R.menu.lists_groups_menu) {
 
+    lateinit var viewModel: GroupViewModel
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         view.findViewById<FloatingActionButton>(R.id.add_item).setOnClickListener {
             findNavController().navigate(R.id.action_navigation_group_to_groupEditorFragment)
@@ -45,12 +47,16 @@ class GroupOverviewFragment : TopLevelFragment(R.layout.fragment_group, R.menu.l
 
 }
 
-class GroupViewModel(userId: Int, viewLifecycleOwner: LifecycleOwner) : ViewModel() {
+class GroupViewModel(private val userId: Int, private val viewLifecycleOwner: LifecycleOwner) : ViewModel() {
 
     private val _groups = MutableLiveData<List<Group>>()
     val groups: LiveData<List<Group>> = _groups
 
     init {
+        loadData()
+    }
+
+    fun loadData() {
         viewModelScope.launch {
             LocalDataBaseConnector.instance.groupDAO.getGroupsByUserId(userId).observe(viewLifecycleOwner, { _groups.postValue(it) })
         }
@@ -86,11 +92,9 @@ class BigGroupAdapter(private val fragment: GroupOverviewFragment) : BasicAdapte
     class GroupViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         fun bind(group: Group, fragment: GroupOverviewFragment) {
-            val icon = itemView.findViewById<ImageView>(R.id.item_icon)
             val name = itemView.findViewById<TextView>(R.id.item_name)
             val description = itemView.findViewById<TextView>(R.id.item_description)
 
-            //TODO: icon.setImageDrawable()
             name.text = group.title
             description.text = group.description
             addListeners(group, fragment)

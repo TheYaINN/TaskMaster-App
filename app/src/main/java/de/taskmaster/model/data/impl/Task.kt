@@ -9,7 +9,7 @@ import androidx.room.PrimaryKey
 data class Task(
 
     @PrimaryKey(autoGenerate = true)
-    val taskId: Int,
+    var taskId: Int = -1,
 
     var listId: Int = -1,
 

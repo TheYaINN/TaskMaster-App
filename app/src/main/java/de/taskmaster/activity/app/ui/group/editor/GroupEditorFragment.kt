@@ -20,7 +20,6 @@ import de.taskmaster.databinding.FragmentGroupEditBinding
 import de.taskmaster.db.LocalDataBaseConnector
 import de.taskmaster.model.data.impl.Group
 import de.taskmaster.model.data.impl.ObservableViewModel
-import de.taskmaster.model.data.impl.UserGroupCrossRef
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
@@ -59,7 +58,7 @@ class GroupEditorFragment : SubFragment<FragmentGroupEditBinding>(R.layout.fragm
             override fun onTabReselected(tab: TabLayout.Tab) {}
         })
 
-        viewModel = ViewModelProvider(this, GroupEditorViewModelFactory(requireActivity().application, isEditMode, groupId ?: -1))
+        viewModel = ViewModelProvider(this, GroupEditorViewModelFactory(requireActivity().application, isEditMode, groupId ?: 0))
             .get(GroupEditorViewModel::class.java)
         binder.model = viewModel
     }
@@ -73,8 +72,9 @@ class GroupEditorFragment : SubFragment<FragmentGroupEditBinding>(R.layout.fragm
             } else {
                 dao.insert(group)
 
-                val userGroupCrossRef = UserGroupCrossRef(userId, group.groupId)
-                LocalDataBaseConnector.instance.userGroupCrossRefDAO.insert(userGroupCrossRef)
+                /*TODO
+                    val userGroupCrossRef = UserGroupCrossRef(userId, group.groupId)
+                 LocalDataBaseConnector.instance.userGroupCrossRefDAO.insert(userGroupCrossRef)*/
             }
         }
         return super.save()
@@ -83,27 +83,19 @@ class GroupEditorFragment : SubFragment<FragmentGroupEditBinding>(R.layout.fragm
 
 class GroupEditorViewModel(private val groupId: Int, private val isEditMode: Boolean) : ObservableViewModel() {
 
-    var group = Group(title = "", description = "")
+    var group = Group.EMPTY
 
     init {
         if (isEditMode) {
             GlobalScope.launch {
-                group = LocalDataBaseConnector.instance.groupDAO.getGroupByGroupId(groupId) ?: Group(title = "", description = "")
+                group = LocalDataBaseConnector.instance.groupDAO.getGroupByGroupId(groupId) ?: Group.EMPTY
             }
         }
     }
 
     fun build(): Group {
-        return if (isEditMode)
-            Group(
-                groupId = groupId,
-                title = group.title,
-                description = group.description,
-            ) else
-            Group(
-                title = group.title,
-                description = group.description
-            )
+        val group = Group(groupId = groupId, title = group.title, description = group.description)
+        return if (isEditMode) group.apply { group.groupId = this@GroupEditorViewModel.groupId } else group
     }
 
 }

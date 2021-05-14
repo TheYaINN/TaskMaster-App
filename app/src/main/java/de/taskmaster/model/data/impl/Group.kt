@@ -9,12 +9,16 @@ import androidx.room.Relation
 data class Group(
 
     @PrimaryKey(autoGenerate = true)
-    var groupId: Int = -1,
+    var groupId: Int = 0,
 
     var title: String,
 
     var description: String,
-)
+) {
+    companion object {
+        val EMPTY = Group(title = "", description = "")
+    }
+}
 
 
 data class GroupWithToDoLists(
