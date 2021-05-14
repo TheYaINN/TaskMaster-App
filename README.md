@@ -18,3 +18,8 @@ TODO:
 -(Status der Listen)
 -Listen repeat
 -Gruppen und Listen aktualisiern nach dem hinzufügen
+
+Sacha alpers Bengt
+daniel stumpf
+
+daniel.stumpf@h120.de

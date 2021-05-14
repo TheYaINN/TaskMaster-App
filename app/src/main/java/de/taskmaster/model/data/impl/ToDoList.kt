@@ -7,17 +7,17 @@ import androidx.room.ForeignKey.CASCADE
 data class ToDoList(
 
     @PrimaryKey(autoGenerate = true)
-    var listId: Int = -1,
+    var listId: Int = 0,
 
-    var userId: Int = -1,
+    var userId: Int = 0,
 
-    var groupId: Int = -1,
+    var groupId: Int = 0,
 
     var title: String = "",
 
     var description: String = "",
 
-    var addressId: Int = -1,
+    var addressId: Int = 0,
 
     var deadline: Deadline = Deadline(null),
 )

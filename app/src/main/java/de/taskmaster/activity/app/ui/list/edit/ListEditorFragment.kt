@@ -8,7 +8,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import de.taskmaster.BR
 import de.taskmaster.R
-import de.taskmaster.activity.app.ui.profile.settings.PlaceAdapter
 import de.taskmaster.activity.util.fragment.SubFragment
 import de.taskmaster.auth.LocalAuthHelper
 import de.taskmaster.databinding.FragmentListEditBinding
@@ -18,6 +17,7 @@ import de.taskmaster.model.handler.GroupSelector
 import de.taskmaster.model.handler.ToggleEditableComponentHandler
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import java.time.LocalDate
 
 class ListEditorFragment : SubFragment<FragmentListEditBinding>(R.layout.fragment_list_edit),
@@ -35,7 +35,10 @@ class ListEditorFragment : SubFragment<FragmentListEditBinding>(R.layout.fragmen
         if (listId != null) {
             isEdit = true
             GlobalScope.launch {
-                val todoList = LocalDataBaseConnector.instance.toDoListDAO.getByListId(listId)
+                val todoList: ToDoList?
+                runBlocking {
+                    todoList = LocalDataBaseConnector.instance.toDoListDAO.getByListId(listId)
+                }
                 if (todoList != null) {
                     val group =
                         LocalDataBaseConnector.instance.groupDAO.getGroupByGroupId(todoList.groupId)
@@ -97,14 +100,28 @@ class ListEditorViewModel : ObservableViewModel() {
 
     fun build(userId: Int): ToDoList {
 
-        val result = ToDoList(
-            listId = listId,
-            userId = userId,
-            groupId = group?.groupId ?: -1,
-            title = title,
-            description = description,
-            deadline = deadline
-        )
+        val result: ToDoList
+
+        if (listId != null) {
+
+            result = ToDoList(
+                listId = listId!!,
+                userId = userId,
+                groupId = group?.groupId ?: 0,
+                title = title,
+                description = description,
+                deadline = deadline
+            )
+        } else {
+            result = ToDoList(
+                userId = userId,
+                groupId = group?.groupId ?: 0,
+                title = title,
+                description = description,
+                deadline = deadline
+            )
+        }
+
         reset()
         return result
 
@@ -114,7 +131,6 @@ class ListEditorViewModel : ObservableViewModel() {
         title = ""
         description = ""
         deadline = Deadline(null)
-        listId = -1
         group = null
         status = Status.OPEN
         repeat = Repeat.NEVER
@@ -148,6 +164,6 @@ class ListEditorViewModel : ObservableViewModel() {
 
     var status: Status = Status.OPEN
 
-    var listId: Int = -1
+    var listId: Int? = null
 
 }
