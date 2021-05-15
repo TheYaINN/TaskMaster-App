@@ -17,11 +17,14 @@ import kotlinx.coroutines.launch
 class GroupListsSelectFragment : SubFragment<FragmentListsSelectorBinding>(R.layout.fragment_lists_selector) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
         binder.model = ViewModelProvider(this).get(GroupListsSelectViewModel::class.java)
     }
 
 }
 
+// TODO es macht kein Sinn zwei models hier zu haben die das gleiche machen
+//TODO: es sollte das aus den GroupLists verwendet werden
 class GroupListsSelectViewModel(groupId: Int, viewLifecycleOwner: LifecycleOwner) : ViewModel() {
 
     private val _lists = MutableLiveData<List<TodoListWithAssociations>>()
