@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="model"
+            type="de.taskmaster.model.data.impl.Displayable" />
+
+        <variable
+            name="handler"
+            type="de.taskmaster.model.handler.NavigationHandler" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:backgroundTint="@color/Primary">
+
+        <ImageView
+            android:id="@+id/profile_picture"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="200dp"
+            android:minHeight="200dp"
+            android:src="@{model.image}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/background_60p"
+            app:layout_constraintBottom_toBottomOf="@id/profile_picture"
+            app:layout_constraintEnd_toEndOf="@id/profile_picture"
+            app:layout_constraintStart_toStartOf="@+id/profile_picture">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawablePadding="8dp"
+                android:gravity="center"
+                android:onClick="@{() -> handler.takePicture()}"
+                android:padding="16dp"
+                android:text="@string/add_edit"
+                android:textColor="@color/link"
+                app:drawableStartCompat="@drawable/image_add" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:onClick="@{() -> model.rotate()}"
+                android:text="@string/rotate"
+                android:textColor="@color/link"
+                app:drawableStartCompat="@drawable/rotate_right"
+                tools:ignore="ContentDescription" />
+
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

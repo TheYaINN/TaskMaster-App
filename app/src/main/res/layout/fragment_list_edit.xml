@@ -6,11 +6,11 @@
 
         <variable
             name="model"
-            type="de.taskmaster.model.data.MyList" />
+            type="de.taskmaster.activity.app.ui.list.edit.ListEditorViewModel" />
 
         <variable
             name="presenter"
-            type="de.taskmaster.model.binding.ListEditorPresenter" />
+            type="de.taskmaster.model.handler.ToggleEditableComponentHandler" />
     </data>
 
     <ScrollView
@@ -34,7 +34,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_margin="12dp"
-                    android:divider="@drawable/divider"
+                    android:divider="@drawable/divider_vertical"
                     android:orientation="vertical"
                     android:showDividers="middle">
 
@@ -46,10 +46,11 @@
                         android:hint="@string/title"
                         android:importantForAutofill="no"
                         android:inputType="textPersonName"
-                        android:text="@{model.title}" />
+                        android:text="@={model.title}" />
 
                     <include
-                        layout="@layout/component_deadline"
+                        android:id="@+id/component_deadline"
+                        layout="@layout/component_deadline_editor"
                         app:model="@{model}"
                         app:presenter="@{presenter}" />
 
@@ -68,28 +69,36 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_margin="12dp"
-                    android:divider="@drawable/divider"
+                    android:divider="@drawable/divider_vertical"
                     android:orientation="vertical"
                     android:showDividers="middle">
 
                     <EditText
-                        android:id="@+id/description"
+                        android:id="@+id/item_description"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/description"
-                        android:inputType="textMultiLine" />
+                        android:importantForAutofill="no"
+                        android:inputType="textMultiLine"
+                        android:text="@{model.description}" />
 
                     <include
                         android:id="@+id/component_place"
-                        layout="@layout/component_place" />
+                        layout="@layout/component_place_editor"
+                        app:model="@{model}"
+                        app:presenter="@{presenter}" />
 
                     <include
                         android:id="@+id/component_repeating"
-                        layout="@layout/component_repeating" />
+                        layout="@layout/component_repeating_editor"
+                        app:model="@{model}"
+                        app:presenter="@{presenter}" />
 
                     <include
                         android:id="@+id/component_group"
-                        layout="@layout/component_group" />
+                        layout="@layout/component_group_editor"
+                        app:model="@{model}"
+                        app:presenter="@{presenter}" />
 
                     <EditText
                         android:id="@+id/tags"
@@ -98,7 +107,9 @@
                         android:layout_marginTop="12dp"
                         android:ems="10"
                         android:hint="@string/tags"
-                        android:inputType="text" />
+                        android:importantForAutofill="no"
+                        android:inputType="text"
+                        android:text="@{model.tags}" />
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>

@@ -4,6 +4,7 @@
     <color name="PrimaryDark">#5E5E5E</color>
     <color name="Secondary">#7B1FA2</color>
     <color name="background">#FDFDFD</color>
+    <color name="background_60p">#99FDFDFD</color>
     <color name="backgroundDark">#EFEFEF</color>
 
     <!-- Icon colors -->
@@ -13,6 +14,6 @@
     <color name="warning">#F44336</color>
     <color name="error">#FDD835</color>
     <color name="success">#43A047</color>
-    <color name="link">#64B5F6</color>
+    <color name="link">#1976D2</color>
 
 </resources>

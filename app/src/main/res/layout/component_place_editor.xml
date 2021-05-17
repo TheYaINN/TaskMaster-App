@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="model"
+            type="de.taskmaster.activity.app.ui.list.edit.ListEditorViewModel" />
+
+        <variable
+            name="presenter"
+            type="de.taskmaster.model.handler.ToggleEditableComponentHandler" />
+    </data>
+
+    <RelativeLayout
+        android:id="@+id/component_place"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/top"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:drawablePadding="16dp"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:text="@{model.place.name ?? @string/no_place}"
+                app:drawableStartCompat="@drawable/place" />
+
+            <TextView
+                android:id="@+id/edit_place"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:onClick="@{presenter::toggleView}"
+                android:text="@string/edit"
+                android:textColor="@color/link" />
+
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/editable_component_lower"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/top"
+            android:orientation="horizontal"
+            android:visibility="gone"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+    </RelativeLayout>
+</layout>

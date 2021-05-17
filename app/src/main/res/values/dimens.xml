@@ -1,11 +1,7 @@
 <resources>
-    <!-- Default screen margins, per the Android Design guidelines. -->
-    <!-- TODO: rework when the design has come closer to a finish -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="gap_small">10dp</dimen>
-    <dimen name="title">38sp</dimen>
-    <dimen name="subTitle">26sp</dimen>
-    <dimen name="text">22sp</dimen>
-    <dimen name="profile_start_padding">4sp</dimen>
+    <dimen name="title">26sp</dimen>
+    <dimen name="subtitle">18sp</dimen>
 </resources>

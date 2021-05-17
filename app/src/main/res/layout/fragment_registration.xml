@@ -1,78 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout
+    <data>
+
+        <variable
+            name="model"
+            type="de.taskmaster.activity.login.RegisterViewModel" />
+
+        <variable
+            name="handler"
+            type="de.taskmaster.model.handler.RegistrationHandler" />
+
+
+        <variable
+            name="addHandler"
+            type="de.taskmaster.model.handler.AddressEditorHandler" />
+    </data>
+
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="match_parent">
 
-        <EditText
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:hint="Firstname"
-            android:inputType="textPersonName"
-            android:maxLines="1" />
+            android:layout_height="wrap_content">
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:hint="Lastname"
-            android:inputType="textPersonName"
-            android:maxLines="1" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintTop_toTopOf="parent">
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:hint="Username"
-            android:inputType="text"
-            android:maxLines="1" />
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:hint="@string/firstname"
+                    android:importantForAutofill="no"
+                    android:inputType="textPersonName"
+                    android:maxLines="1"
+                    android:text="@={model.firstName}" />
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:hint="Password"
-            android:inputType="textPassword"
-            android:maxLines="1" />
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:hint="@string/lastname"
+                    android:inputType="textPersonName"
+                    android:maxLines="1"
+                    android:text="@={model.lastName}" />
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:hint="E-Mail"
-            android:inputType="textEmailAddress"
-            android:maxLines="1" />
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:hint="@string/username"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:text="@={model.userName}" />
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:hint="Home Address"
-            android:inputType="textPostalAddress"
-            android:maxLines="1" />
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:hint="@string/password"
+                    android:inputType="textPassword"
+                    android:maxLines="1"
+                    android:text="@={model.password}" />
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:hint="Work Address"
-            android:inputType="textPostalAddress"
-            android:maxLines="1" />
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:hint="@string/e_mail"
+                    android:inputType="textEmailAddress"
+                    android:maxLines="1"
+                    android:text="@={model.email}" />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginBottom="8dp"
-            android:backgroundTint="@color/Secondary"
-            android:text="@string/login_register" />
+                <include
+                    layout="@layout/component_address_editor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    app:addHandler="@{addHandler}" />
 
-    </LinearLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="8dp"
+                    android:backgroundTint="@color/Secondary"
+                    android:onClick="@{(v) -> handler.register(v, model)}"
+                    android:text="@string/register" />
+
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</layout>

@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="addHandler"
+            type="de.taskmaster.model.handler.AddressEditorHandler" />
+
+    </data>
+
+    <RelativeLayout
+        android:id="@+id/component_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/top"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="6dp"
+                android:src="@drawable/place_filled"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/address_title"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="Places" />
+
+            <TextView
+                android:id="@+id/edit_address"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:onClick="@{addHandler::toggleView}"
+                android:text="@string/show"
+                android:textColor="@color/link" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/editable_component_lower"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/top"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/items"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="8dp"
+                android:fitsSystemWindows="true"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_place">
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end">
+
+                    <TextView
+                        android:id="@+id/item_add"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:onClick="@{() -> addHandler.toggleAdd()}"
+                        android:text="Add place"
+                        android:textColor="@color/link"
+                        app:drawableEndCompat="@drawable/location_add" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/item_editor"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <EditText
+                        android:id="@+id/item_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Name"
+                        android:inputType="text" />
+
+                    <EditText
+                        android:id="@+id/item_place_street"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Street"
+                        android:inputType="textPostalAddress" />
+
+                    <EditText
+                        android:id="@+id/item_place_number"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Number"
+                        android:inputType="number" />
+
+                    <EditText
+                        android:id="@+id/item_place_zip"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Zip code"
+                        android:inputType="number" />
+
+
+                    <EditText
+                        android:id="@+id/item_place_city"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="City"
+                        android:inputType="text" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:layout_margin="8dp"
+                        android:onClick="@{() -> addHandler.save()}"
+                        android:text="Save"
+                        android:textColor="@color/link" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+    </RelativeLayout>
+</layout>

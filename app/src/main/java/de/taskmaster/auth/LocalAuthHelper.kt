@@ -2,43 +2,68 @@ package de.taskmaster.auth
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity.MODE_PRIVATE
+import de.taskmaster.activity.login.LoginViewModel
+import de.taskmaster.db.LocalDataBaseConnector
+import kotlinx.coroutines.runBlocking
 
 class LocalAuthHelper {
 
     companion object {
-        private const val preferencesKey = "Taskmaster-Login"
-        private const val usernameKey = "username"
-        private const val passwordKey = "password"
+        const val preferencesKey = "de.taskmaster"
+        const val usernameKey = "username"
+        const val useridKey = "userid"
+        const val passwordKey = "password"
 
-        fun login(userData: Pair<String, String>, rememberUser: Boolean, context: Context): Boolean {
-            //FIXME
-            //val response = ServerConnector.INSTANCE.postRequest("login", userData.first, userData.second)
-            if (true) {
-                if (rememberUser) {
-                    saveLoginInformation(context, userData.first, userData.second)
+        fun getUserId(context: Context): Int {
+            return context.getSharedPreferences(preferencesKey, MODE_PRIVATE).getInt(useridKey, -1)
+        }
+
+        fun login(viewModel: LoginViewModel, context: Context): Boolean {
+            var success = false
+            runBlocking {
+                val user = LocalDataBaseConnector.instance.userDAO.getByUserName(viewModel.userName)
+                if (user != null) {
+                    if (SecurityHelper.validatePassword(viewModel.password, user.password, user.salt, user.iterations)) {
+                        val sp = context.getSharedPreferences(preferencesKey, MODE_PRIVATE)
+                        val editor: SharedPreferences.Editor = sp.edit()
+                        editor.putInt(useridKey, user.userId)
+                        editor.apply()
+                        if (viewModel.rememberMe) {
+                            saveLoginInformation(context, viewModel)
+                        }
+                        success = true
+                    }
+                } else {
+                    Toast.makeText(context,
+                        "Could not find User, please re-enter Username and password",
+                        Toast.LENGTH_LONG).show()
                 }
-                return true
             }
-            return false
+            viewModel.clear()
+            return success
         }
 
 
-        fun saveLoginInformation(context: Context, username: String, password: String) {
+        private fun saveLoginInformation(context: Context, viewModel: LoginViewModel) {
             val sp = context.getSharedPreferences(preferencesKey, MODE_PRIVATE)
             val editor: SharedPreferences.Editor = sp.edit()
-            editor.putString("username", username)
-            editor.putString("password", password)
+            editor.putString(usernameKey, viewModel.userName)
+            editor.putString(passwordKey, viewModel.password)
             editor.apply()
         }
 
-        fun getLoginInformation(context: Context): Pair<String, String> {
+        private fun getLoginInformation(context: Context): LoginViewModel {
             val loginInformation = context.getSharedPreferences(preferencesKey, MODE_PRIVATE)
-            val username = loginInformation.getString(usernameKey, "")
-            val password = loginInformation.getString(passwordKey, "")
-            requireNotNull(username)
-            requireNotNull(password)
-            return Pair(username, password)
+            val viewModel = LoginViewModel()
+            viewModel.userName = loginInformation.getString(usernameKey, null) ?: ""
+            viewModel.password = loginInformation.getString(passwordKey, null) ?: ""
+            return viewModel
+        }
+
+        fun onStartUp(context: Context): Boolean {
+            return login(getLoginInformation(context), context)
         }
 
         fun removeLoginInformation(context: Context) {

@@ -1,69 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:backgroundTint="@color/PrimaryDark">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <EditText
-        android:id="@+id/username_email"
+    <data>
+
+        <variable
+            name="model"
+            type="de.taskmaster.activity.login.LoginViewModel" />
+
+        <variable
+            name="handler"
+            type="de.taskmaster.model.handler.NavigationHandler" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:drawableStart="@drawable/person"
-        android:gravity="start"
-        android:hint="@string/hint_username_email"
-        android:inputType="text"
-        android:maxLines="1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="match_parent"
+        android:backgroundTint="@color/PrimaryDark">
 
-    <EditText
-        android:id="@+id/password"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:drawableStart="@drawable/lock"
-        android:gravity="start"
-        android:hint="@string/hint_password"
-        android:imeOptions="actionSend"
-        android:inputType="textPassword"
-        android:maxLines="1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/username_email" />
+        <EditText
+            android:id="@+id/username_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/person_outlined"
+            android:gravity="start"
+            android:hint="@string/hint_username"
+            android:importantForAutofill="no"
+            android:inputType="text|textEmailAddress"
+            android:maxLines="1"
+            android:text="@={model.userName}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/login"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="8dp"
-        android:backgroundTint="@color/Secondary"
-        android:onClick="tryLogin"
-        android:text="@string/login_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/remember_password" />
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:autofillHints="no"
+            android:drawableStart="@drawable/lock"
+            android:gravity="start"
+            android:hint="@string/hint_password"
+            android:imeOptions="actionSend"
+            android:inputType="textPassword"
+            android:maxLines="1"
+            android:text="@={model.password}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/username_email" />
 
-    <TextView
-        android:id="@+id/forgot_password"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="8dp"
-        android:clickable="true"
-        android:text="@string/login_forgotPassword"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login" />
+        <CheckBox
+            android:id="@+id/remember_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="@={model.rememberMe}"
+            android:text="@string/remember_me"
+            app:layout_constraintStart_toStartOf="@id/password"
+            app:layout_constraintTop_toBottomOf="@id/password" />
 
-    <CheckBox
-        android:id="@+id/remember_password"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Remember me"
-        app:layout_constraintStart_toStartOf="@id/password"
-        app:layout_constraintTop_toBottomOf="@id/password" />
+        <Button
+            android:id="@+id/login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="8dp"
+            android:backgroundTint="@color/Secondary"
+            android:onClick="@{(v)-> handler.login(v,model)}"
+            android:text="@string/login"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/remember_password" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/forgot_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="8dp"
+            android:clickable="true"
+            android:text="@string/login_forgotPassword"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/login" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

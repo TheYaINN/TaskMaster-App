@@ -1,75 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.app.group.GroupsFragment">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="160dp"
-        android:layout_height="192dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:src="@tools:sample/avatars" />
+    <data>
 
-    <TextView
-        android:id="@+id/text_notifications"
-        android:layout_width="0dp"
-        android:layout_height="33dp"
-        android:layout_marginStart="@dimen/gap_small"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="24dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toTopOf="parent" />
+        <variable
+            name="model"
+            type="de.taskmaster.activity.app.ui.profile.ProfilePrivateViewModel" />
 
-    <TextView
-        android:id="@+id/text_notifications2"
-        android:layout_width="0dp"
-        android:layout_height="33dp"
-        android:layout_marginStart="@dimen/gap_small"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="24dp"
-        android:textAlignment="center"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toBottomOf="@+id/text_notifications" />
+    </data>
 
-    <TextView
-        android:id="@+id/text_notifications3"
-        android:layout_width="192dp"
-        android:layout_height="21dp"
-        android:layout_marginStart="@dimen/gap_small"
-        android:layout_marginTop="@dimen/gap_small"
-        android:layout_marginEnd="24dp"
-        android:autoLink="email"
-        android:textAlignment="center"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toBottomOf="@+id/text_notifications2" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".activity.app.ui.group.GroupOverviewFragment">
 
-    <TextView
-        android:id="@+id/text_notifications4"
-        android:layout_width="0dp"
-        android:layout_height="75dp"
-        android:layout_marginStart="@dimen/gap_small"
-        android:layout_marginTop="@dimen/gap_small"
-        android:layout_marginEnd="24dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toBottomOf="@+id/text_notifications3" />
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="160dp"
+            android:layout_height="192dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription"
+            tools:src="@tools:sample/avatars" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/username"
+            android:layout_width="0dp"
+            android:layout_height="33dp"
+            android:layout_marginStart="@dimen/gap_small"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="24dp"
+            android:text="@{model.user.username}"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageView"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="0dp"
+            android:layout_height="33dp"
+            android:layout_marginStart="@dimen/gap_small"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="24dp"
+            android:text="@{model.getDisplayableName()}"
+            android:textAlignment="center"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/imageView"
+            app:layout_constraintTop_toBottomOf="@+id/username" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

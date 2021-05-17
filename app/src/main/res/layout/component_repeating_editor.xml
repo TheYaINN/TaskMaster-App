@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="repeat"
+            type="de.taskmaster.model.data.impl.Repeat" />
+
+        <variable
+            name="model"
+            type="de.taskmaster.activity.app.ui.list.edit.ListEditorViewModel" />
+
+        <variable
+            name="presenter"
+            type="de.taskmaster.model.handler.ToggleEditableComponentHandler" />
+    </data>
+
+    <RelativeLayout
+        android:id="@+id/component_repeating"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/top"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:drawablePadding="16dp"
+                android:gravity="center_vertical"
+                android:text="@{model.repeat.text}"
+                app:drawableStartCompat="@drawable/repeat" />
+
+            <TextView
+                android:id="@+id/edit_repeating"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:onClick="@{presenter::toggleView}"
+                android:text="@string/edit"
+                android:textColor="@color/link" />
+
+        </LinearLayout>
+
+        <RadioGroup
+            android:id="@+id/editable_component_lower"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/top"
+            android:layout_margin="24dp"
+            android:checkedButton="@id/never"
+            android:visibility="gone">
+
+            <RadioButton
+                android:id="@+id/never"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="@{() -> model.setRepeat(repeat.NEVER)}"
+                android:text="@string/never"
+                android:textAlignment="center" />
+
+            <RadioButton
+                android:id="@+id/daily"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="@{() -> model.setRepeat(repeat.DAILY)}"
+                android:text="@string/daily"
+                android:textAlignment="center" />
+
+            <RadioButton
+                android:id="@+id/weekly"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="@{() -> model.setRepeat(repeat.WEEKLY)}"
+                android:text="@string/weekly"
+                android:textAlignment="center" />
+
+            <RadioButton
+                android:id="@+id/monthly"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="@{() -> model.setRepeat(repeat.MONTHLY)}"
+                android:text="@string/monthly"
+                android:textAlignment="center" />
+
+            <RadioButton
+                android:id="@+id/yearly"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="@{() -> model.setRepeat(repeat.YEARLY)}"
+                android:text="@string/yearly"
+                android:textAlignment="center" />
+
+        </RadioGroup>
+    </RelativeLayout>
+</layout>

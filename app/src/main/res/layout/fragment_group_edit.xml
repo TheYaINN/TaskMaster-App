@@ -2,16 +2,25 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+
+        <variable
+            name="model"
+            type="de.taskmaster.activity.app.ui.group.editor.GroupEditorViewModel" />
+
+    </data>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
+        android:layout_marginVertical="@dimen/activity_vertical_margin"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="12dp"
-            android:divider="@drawable/divider"
+            android:divider="@drawable/divider_vertical"
             android:orientation="vertical"
             android:showDividers="middle">
 
@@ -20,49 +29,47 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/name"
-                android:inputType="textPersonName" />
+                android:importantForAutofill="no"
+                android:inputType="textPersonName"
+                android:text="@={model.group.title}" />
 
             <EditText
-                android:id="@+id/description"
+                android:id="@+id/item_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/description"
-                android:inputType="text" />
+                android:importantForAutofill="no"
+                android:inputType="text"
+                android:text="@={model.group.description}" />
         </LinearLayout>
 
-        <FrameLayout
-            android:id="@+id/indicator_layout"
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:clipToPadding="false">
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            app:tabGravity="fill"
+            app:tabMode="fixed">
 
-            <androidx.viewpager.widget.ViewPager
-                android:id="@+id/viewPager"
+            <com.google.android.material.tabs.TabItem
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent"
+                android:icon="@drawable/list_filled"
+                android:text="@string/title_list">
 
-                <com.google.android.material.tabs.TabLayout
-                    android:id="@+id/tabLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="top"
-                    app:tabGravity="fill"
-                    app:tabMode="fixed">
+            </com.google.android.material.tabs.TabItem>
 
-                    <com.google.android.material.tabs.TabItem
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:icon="@drawable/list_filled"
-                        android:text="@string/title_list" />
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:icon="@drawable/person_filled"
+                android:text="@string/members" />
 
-                    <com.google.android.material.tabs.TabItem
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:icon="@drawable/person_filled"
-                        android:text="@string/members" />
-                </com.google.android.material.tabs.TabLayout>
+        </com.google.android.material.tabs.TabLayout>
 
-            </androidx.viewpager.widget.ViewPager>
-        </FrameLayout>
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
     </LinearLayout>
 </layout>
