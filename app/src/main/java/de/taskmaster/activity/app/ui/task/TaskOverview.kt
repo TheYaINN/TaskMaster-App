@@ -32,7 +32,6 @@ class TaskOverview : SubFragment<FragmentTasksOverviewBinding>(R.layout.fragment
         viewModel = ViewModelProvider(this, TaskViewModelFactory(requireActivity().application, listId, viewLifecycleOwner))
             .get(TaskViewModel::class.java)
 
-
         val addButton = view.findViewById<FloatingActionButton>(R.id.add_item)
         addButton.setOnClickListener {
             val bundle = bundleOf("listId" to listId)

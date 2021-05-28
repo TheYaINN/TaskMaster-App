@@ -17,8 +17,7 @@ class ConverterUnitTests {
     fun to_status() {
         val converter = DBConverter()
         val status = Status.OPEN
-        assert(converter.fromStatus(status) == "OPEN")
+        assert(converter.toStatus("OPEN") == status)
     }
-
 
 }
