@@ -1,7 +1,11 @@
 package de.taskmaster
 
+import android.content.Intent
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
+import de.taskmaster.activity.login.LoginActivity
+import de.taskmaster.activity.util.ActivityHelper
+import de.taskmaster.model.handler.NavigationHandler
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -15,8 +19,8 @@ import org.junit.runner.RunWith
 class ExampleInstrumentedTest {
     @Test
     fun useAppContext() {
-        // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("de.joachimsohn", appContext.packageName)
+
+        appContext.startActivity(Intent())
     }
 }
