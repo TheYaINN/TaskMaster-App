@@ -45,8 +45,13 @@ class GroupEditorFragment : SubFragment<FragmentGroupEditBinding>(R.layout.fragm
                 tabLayout.setScrollPosition(position, positionOffset, false)
             }
 
-            override fun onPageSelected(position: Int) {}
-            override fun onPageScrollStateChanged(state: Int) {}
+            override fun onPageSelected(position: Int) {
+                //wird nicht unterstützt
+            }
+
+            override fun onPageScrollStateChanged(state: Int) {
+                //wird nicht unterstützt
+            }
         })
         tabLayout.addOnTabSelectedListener(object : OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
@@ -54,8 +59,13 @@ class GroupEditorFragment : SubFragment<FragmentGroupEditBinding>(R.layout.fragm
                 tabLayout.setScrollPosition(tab.position, 0f, false)
             }
 
-            override fun onTabUnselected(tab: TabLayout.Tab) {}
-            override fun onTabReselected(tab: TabLayout.Tab) {}
+            override fun onTabUnselected(tab: TabLayout.Tab) {
+                //wird nicht unterstützt
+            }
+
+            override fun onTabReselected(tab: TabLayout.Tab) {
+                //wird nicht unterstützt
+            }
         })
 
         viewModel = ViewModelProvider(this, GroupEditorViewModelFactory(requireActivity().application, isEditMode, groupId ?: 0))
@@ -71,10 +81,6 @@ class GroupEditorFragment : SubFragment<FragmentGroupEditBinding>(R.layout.fragm
                 dao.update(group)
             } else {
                 dao.insert(group)
-
-                /*TODO
-                    val userGroupCrossRef = UserGroupCrossRef(userId, group.groupId)
-                 LocalDataBaseConnector.instance.userGroupCrossRefDAO.insert(userGroupCrossRef)*/
             }
         }
         return super.save()

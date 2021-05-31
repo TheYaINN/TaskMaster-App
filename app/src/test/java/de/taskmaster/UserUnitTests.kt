@@ -5,24 +5,21 @@ import de.taskmaster.model.data.UserDAO
 import de.taskmaster.model.data.impl.User
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
-import org.junit.After
 import org.junit.Before
-import org.junit.BeforeClass
 import org.junit.Test
 
 /**
  * Ziel dieser Klasse ist es zufällig gewählte Funktionen der Datenbank zu testen mit Mockobjekten.
- * Bei der "echten" Anwendung wird dieser Code nicht vom Programmierer geschrieben sondern die Kommunikation wird von einem Framework übernommen.
+ * Bei der "echten" Anwendung wird dieser Code nicht vom Programmierer geschrieben,
+ * sondern die Kommunikation wird von einem Framework übernommen.
  */
 
 class UserUnitTests {
-
 
     private lateinit var user: User
     private lateinit var userImpl: UserImpl
 
     private val defaultUsername = "TheYaINN"
-
 
     @Before
     fun init() {
@@ -46,11 +43,6 @@ class UserUnitTests {
             userImpl.insert(user)
             assert(userImpl.getByUserName(defaultUsername) == user)
         }
-    }
-
-    @After
-    fun clear() {
-        userImpl.clear()
     }
 
     @Test
@@ -108,10 +100,4 @@ class UserImpl : UserDAO {
         println("Getting user by UserName")
         return users.find { it.username == username }
     }
-
-    fun clear() {
-        println("Clearing list of users")
-        users.clear()
-    }
-
 }

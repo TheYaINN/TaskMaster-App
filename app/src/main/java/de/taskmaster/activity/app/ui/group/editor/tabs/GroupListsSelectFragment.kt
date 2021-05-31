@@ -23,8 +23,6 @@ class GroupListsSelectFragment : SubFragment<FragmentListsSelectorBinding>(R.lay
 
 }
 
-// TODO es macht kein Sinn zwei models hier zu haben die das gleiche machen
-//TODO: es sollte das aus den GroupLists verwendet werden
 class GroupListsSelectViewModel(groupId: Int, viewLifecycleOwner: LifecycleOwner) : ViewModel() {
 
     private val _lists = MutableLiveData<List<TodoListWithAssociations>>()

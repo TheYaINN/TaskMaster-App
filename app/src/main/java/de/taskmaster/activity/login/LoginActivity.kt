@@ -42,8 +42,13 @@ class LoginActivity : AppCompatActivity() {
                 viewPager.currentItem = tab.position
             }
 
-            override fun onTabUnselected(tab: Tab) {}
-            override fun onTabReselected(tab: Tab) {}
+            override fun onTabUnselected(tab: Tab) {
+                //wird nicht unterstützt
+            }
+
+            override fun onTabReselected(tab: Tab) {
+                //wird nicht unterstützt
+            }
         })
 
         tabLayout.post {
@@ -61,8 +66,13 @@ class LoginActivity : AppCompatActivity() {
                 indicator.layoutParams = params
             }
 
-            override fun onPageSelected(position: Int) {}
-            override fun onPageScrollStateChanged(state: Int) {}
+            override fun onPageSelected(position: Int) {
+                //wird nicht unterstützt
+            }
+
+            override fun onPageScrollStateChanged(state: Int) {
+                //wird nicht unterstützt
+            }
 
         })
     }

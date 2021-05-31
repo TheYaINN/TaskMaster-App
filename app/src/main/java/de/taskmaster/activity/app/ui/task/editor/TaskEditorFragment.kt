@@ -23,7 +23,6 @@ class TaskEditorFragment : SubFragment<FragmentTasksEditorBinding>(R.layout.frag
     private var isEditMode = false
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val listId = arguments?.getInt("listId")!!
         val taskId = arguments?.getInt("taskId")
         isEditMode = taskId != null
 

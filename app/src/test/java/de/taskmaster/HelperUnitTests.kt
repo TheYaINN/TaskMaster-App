@@ -4,7 +4,8 @@ import de.taskmaster.auth.SecurityHelper
 import org.junit.Test
 
 /**
- * Diese Klasse sammelt alle Unit Tests der Helfer-Klassen, bei denen kein Android Context oder Application benötigt werden,
+ * Diese Klasse sammelt alle Unit Tests der Helfer-Klassen,
+ * bei denen kein Android Context oder Application benötigt werden,
  * da diese aufzubauen ein riesden Overhead haben.
  */
 class HelperUnitTests {

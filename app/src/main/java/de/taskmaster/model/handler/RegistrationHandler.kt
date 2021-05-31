@@ -11,27 +11,25 @@ import kotlinx.coroutines.runBlocking
 class RegistrationHandler {
 
     fun register(view: View, model: RegisterViewModel) {
-        if (model.isValid()) {
-            if (!isExisting(model.userName)) {
-                val hashedPassword = SecurityHelper.generateHashedPassword(model.password).split(":")
-                val user = User(
-                    0,
-                    null,
-                    model.userName,
-                    hashedPassword[2],
-                    hashedPassword[1],
-                    hashedPassword[0].toInt(),
-                    model.firstName,
-                    model.lastName,
-                    model.email
-                )
-                runBlocking {
-                    LocalDataBaseConnector.instance.userDAO.insert(user)
-                }
-                Toast.makeText(view.context, "Registration sucessful", Toast.LENGTH_LONG).show()
-                model.clear()
-                return
+        if (model.isValid() && !isExisting(model.userName)) {
+            val hashedPassword = SecurityHelper.generateHashedPassword(model.password).split(":")
+            val user = User(
+                0,
+                null,
+                model.userName,
+                hashedPassword[2],
+                hashedPassword[1],
+                hashedPassword[0].toInt(),
+                model.firstName,
+                model.lastName,
+                model.email
+            )
+            runBlocking {
+                LocalDataBaseConnector.instance.userDAO.insert(user)
             }
+            Toast.makeText(view.context, "Registration sucessful", Toast.LENGTH_LONG).show()
+            model.clear()
+            return
         }
         Toast.makeText(view.context, "Registration unsucessful", Toast.LENGTH_LONG).show()
     }

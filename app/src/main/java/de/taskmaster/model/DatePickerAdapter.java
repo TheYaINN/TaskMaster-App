@@ -6,6 +6,10 @@ import androidx.databinding.BindingAdapter;
 
 public class DatePickerAdapter {
 
+    private DatePickerAdapter() {
+
+    }
+
     @BindingAdapter({"android:year", "android:month", "android:day", "android:onDateChanged"})
     public static void setDate(DatePicker view, int year, int month, int day,
                                DatePicker.OnDateChangedListener listener) {
