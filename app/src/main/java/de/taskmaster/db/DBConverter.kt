@@ -8,9 +8,6 @@ import de.taskmaster.model.data.impl.Status
 import java.io.ByteArrayOutputStream
 import java.time.LocalDate
 
-
-const val dateFormat = "EEE MMM dd HH:mm:ss z yyyy"
-
 class DBConverter {
 
     @TypeConverter

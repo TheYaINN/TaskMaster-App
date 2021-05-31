@@ -11,10 +11,10 @@ import kotlinx.coroutines.runBlocking
 class LocalAuthHelper {
 
     companion object {
-        const val preferencesKey = "de.taskmaster"
-        const val usernameKey = "username"
-        const val useridKey = "userid"
-        const val passwordKey = "password"
+        private const val preferencesKey = "de.taskmaster"
+        private const val usernameKey = "username"
+        private const val useridKey = "userid"
+        private const val passwordKey = "password"
 
         fun getUserId(context: Context): Int {
             return context.getSharedPreferences(preferencesKey, MODE_PRIVATE).getInt(useridKey, -1)
